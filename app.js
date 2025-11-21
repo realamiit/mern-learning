@@ -22,14 +22,14 @@
 
 // function createElement(tag,attributes,children){
 
-//     const element = document.createElement(tag);
-//     element.textContent = children;
+// //     const element = document.createElement(tag);
+// //     element.textContent = children;
 
-//     for(const key in attributes){
-//         if (key=='style'){
-//             Object.assignO(element.style,attributes.style);
-//         }
-//     }
+// //     for(const key in attributes){
+// //         if (key=='style'){
+// //             Object.assignO(element.style,attributes.style);
+// //         }
+// //     }
 // }
 
 //    const element1= document.createElement("h1",{className:"element",id:"first",style:{fontSize:"30px",backgroundColor:"green"}},"Streack is lounched");
@@ -56,28 +56,30 @@
            // costom react code
 // const React = {
     
-//  createElement: (tag,attributes,children) => {
+// //  createElement: (tag,attributes,children) => {
 
-//     const element = document.createElement(tag);
-//     element.textContent = children;
+// //     const element = document.createElement(tag);
+// //     element.textContent = children;
 
-//     for(const key in attributes){
-//         if (key=='style'){
-//             Object.assign(element.style,attributes.style);
-//           }
-//           else{
-//             element[key] = attributes[key];
-//           }
-//     }
+// //     for(const key in attributes){
+// //         if (key=='style'){
+// //             Object.assign(element.style,attributes.style);
+// //           }
+// //           else{
+// //             element[key] = attributes[key];
+// //           }
+// //     }
    
-//     return element;
-//  }
+// //     return element;
+// //  }
 // }
 
-//    const element1=  React.creatElement("h1",{className:"element",id:"first",style:{fontSize:"30px",backgroundColor:"green"}},"Streack is lounched");
-//    const element2= React.createElement("h2",{className:"element",id:"second",style:{fontSize:"30px",backgroundColor:"green"}},"Streack is lounched");
+//    const element1=  React.createElement("h1",{className:"element",id:"first",style:{fontSize:"30px",backgroundColor:"green"}},"Streack is lounched");
+//    const element2= React.createElement("h2",{className:"element",id:"second",style:{fontSize:"20px",backgroundColor:"green"}},"Streack is lounched");
 
+//    console.log(element1);
 //  const root = document.getElementById('root');
-//  root.append(element1);
+//  ReactDOM.render(element1.root);
+//   ReactDOM.render(element2.root);
 
 
