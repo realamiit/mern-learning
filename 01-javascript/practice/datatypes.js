@@ -32,3 +32,13 @@ console.log(typeof isBookMarked);
 console.log(typeof assignedData);
 console.log(typeof lastRevisionDate)
 
+
+// ===== NULL vs UNDEFINED PRACTICAL =====
+
+// null cheak krne ka shi tarikaa
+console.log(assignedData === null); // true
+console.log(typeof assignedData);  // object - js bug 1995 ka hai abhi tak solve nhi huva
+
+// indefiend cheak
+console.log(lastRevisionDate === undefined); // true
+console.log( typeof lastRevisionDate);   // undefiend
