@@ -18,7 +18,7 @@
 
 ## 💻 Syntax Reference Card
 
-\`\`\`javascript
+```javascript
 // 6 Main Data Types
 const name = "Amit";          // String  — text
 const age = 20;                // Number  — integer
@@ -37,7 +37,7 @@ typeof undefined        // "undefined"
 // Correct way to check for null/undefined
 variable === null        // ✅ use this, not typeof
 variable === undefined   // ✅ correct
-\`\`\`
+```
 
 ---
 

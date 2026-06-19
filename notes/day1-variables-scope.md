@@ -21,7 +21,7 @@
 
 ## 💻 Syntax Reference Card
 
-\`\`\`javascript
+```javascript
 // Variable Declaration
 let variableName = value;      // reassignable
 const FIXED_VALUE = value;     // non-reassignable
@@ -47,7 +47,7 @@ console.log(variableName);
 
 // Run a file
 node filename.js
-\`\`\`
+```
 
 \`\`\`bash
 # Git Commands — Daily Use
