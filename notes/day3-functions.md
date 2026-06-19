@@ -16,7 +16,7 @@
 
 ## 💻 Syntax Reference Card
 
-\```javascript
+```javascript
 // Function Declaration
 function functionName(parameter1, parameter2) {
     return parameter1 + parameter2;
@@ -38,7 +38,7 @@ function test() {
     let x = 5;       // only accessible inside this function
 }
 console.log(x);       // ReferenceError: x is not defined
-\```
+```
 
 ---
 
@@ -72,20 +72,20 @@ console.log(x);       // ReferenceError: x is not defined
 > A: `return` sends a value out of the function so it can be used elsewhere, and stops further execution inside that function. `console.log()` only prints to the terminal — it doesn't send any value back.
 
 **Q3: Convert to arrow function:**
-\```javascript
+```javascript
 function multiply(a, b) {
     return a * b;
 }
-\```
+```
 > A: `const multiply = (a, b) => a * b;`
 
 **Q4: Output of this code?**
-\```javascript
+```javascript
 function test() {
     let x = 5;
 }
 console.log(x);
-\```
+```
 > A: ReferenceError — `x` is scoped inside the function and not accessible outside.
 
 **Q5: Function Declaration vs Arrow Function — basic difference?**
