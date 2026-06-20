@@ -71,3 +71,15 @@ console.log("Result is : " + result3);
 const addShort = (a, b) => a + b;
 
 console.log("Short form Result is : " + addShort(5, 10));
+
+
+//   ======REVISION Cheack=====
+
+function myName(name){
+    return name;
+}
+console.log(myName("Amit"));
+
+// Arrow Function 
+const myNameArrow = (name) => name;
+console.log(myNameArrow("Amit Gupta"));
