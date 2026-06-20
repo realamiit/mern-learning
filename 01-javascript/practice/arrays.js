@@ -32,3 +32,9 @@ const arr = ["A" , "B" , "C"];
 console.log("Array with comma : " , arr);  // COMMA(,) — pura array as-is dikhaya, brackets ke saath
 console.log("Array with Plus (+) : "+arr);   // PLUS(+) — array ko STRING mein convert kar diya, brackets gaye!
 
+// ======= forEach LOOP======
+
+ const myQuestions = ["Two Sum", "Reverse Linked List", "Binary Search"];
+ myQuestions.forEach(function(questions){
+    console.log(questions)
+ });
