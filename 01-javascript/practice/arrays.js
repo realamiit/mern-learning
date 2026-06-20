@@ -34,7 +34,12 @@ console.log("Array with Plus (+) : "+arr);   // PLUS(+) — array ko STRING mein
 
 // ======= forEach LOOP======
 
- const myQuestions = ["Two Sum", "Reverse Linked List", "Binary Search"];
+ const myQuestions = ["Two Sum", "Reverse Linked List", "Binary Search","Dynamic Programming","Hashing"];
  myQuestions.forEach(function(questions){
     console.log(questions)
  });
+
+//  =======forEach WITH INDEX=======
+  myQuestions.forEach(function(questions,index){
+    console.log("Index : "+index+": "+questions);
+  })
