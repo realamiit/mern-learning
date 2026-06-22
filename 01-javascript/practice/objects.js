@@ -93,3 +93,36 @@ console.log("Day 15 Revisie Today" , day15Revision);
 const day30Revision = new Date();
 day30Revision.setDate(today.getDate()+30);
 console.log("Day 30 Revisie Today" , day30Revision);
+
+// ===========FUNCTION VERSION — SAME RESULT, CLEAN CODE=====
+
+function getRevisionDate (daysToAdd){
+  const revisionDate = new Date();
+  revisionDate.setDate(revisionDate.getDate() + daysToAdd);
+  return revisionDate;
+}
+
+console.log("Day 3: ",getRevisionDate(3));
+console.log("Day 7: ",getRevisionDate(7));
+console.log("Day 15: ",getRevisionDate(15));
+console.log("Day 30: ",getRevisionDate(30));
+
+// from mock 
+
+function addDays(date, days) {
+    date.setDate(date.getDate() + days);
+    return date;
+}
+const today = new Date();
+const future = addDays(today, 5);
+console.log(future);
+console.log(today);  // yeh bhi add karo dekhne ke liye
+
+
+const today = new Date();        // "today" ek OBJECT ki memory location point karta hai
+const future = addDays(today, 5); // function ko "today" PASS kiya
+
+function addDays(date, days) {
+    date.setDate(...)   // yeh "date" parameter SAME memory location hai jo "today" point karta hai!
+    return date;         // isliye yeh SAME object hai, naya nahi
+}
