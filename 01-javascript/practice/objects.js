@@ -117,12 +117,3 @@ const today = new Date();
 const future = addDays(today, 5);
 console.log(future);
 console.log(today);  // yeh bhi add karo dekhne ke liye
-
-
-const today = new Date();        // "today" ek OBJECT ki memory location point karta hai
-const future = addDays(today, 5); // function ko "today" PASS kiya
-
-function addDays(date, days) {
-    date.setDate(...)   // yeh "date" parameter SAME memory location hai jo "today" point karta hai!
-    return date;         // isliye yeh SAME object hai, naya nahi
-}
