@@ -45,3 +45,51 @@ allQuestions.forEach(function (question) {
     question.name + " - " + question.topic + " - " + question.difficulty,
   );
 });
+
+
+
+
+// ===== == vs === COMPARISON =====
+
+console.log(5 == "5");    // loose equality
+console.log(5 === "5");   // strict equality
+
+
+//======Filtring the Array of element with forEach + if condation =====
+
+console.log("----- Easy Questions Only------");
+
+allQuestions.forEach(function(question1){
+if(question1.difficulty === "Easy"){
+  console.log(question1.name)
+}
+});
+
+
+// ======Date Basics=========
+
+const today = new Date();
+
+// 3 din add karna
+const day3Revision = new Date();
+day3Revision.setDate(today.getDate()+3);
+  console.log("Today: ",today)  //  2026-06-22T10:32:00.845Z
+                                //  ↑          ↑      ↑  ↑
+                               // Date      Time(HH:MM:SS) ms  "Z" = UTC timezone (Zulu time)
+console.log("Day 3 Revision:", day3Revision);  // Day 3 Revision: 2026-06-25T10:44:12.278Z
+
+// 7 din add krna 
+const day7Revision = new Date();
+day7Revision.setDate(today.getDate()+7);
+console.log("Day 7 Revisie Today" , day7Revision);
+
+
+// 15 din add krna 
+const day15Revision = new Date();
+day15Revision.setDate(today.getDate()+15);
+console.log("Day 15 Revisie Today" , day15Revision);
+
+// 30 din add krna 
+const day30Revision = new Date();
+day30Revision.setDate(today.getDate()+30);
+console.log("Day 30 Revisie Today" , day30Revision);
