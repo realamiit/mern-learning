@@ -18,15 +18,15 @@ const server = http.createServer((req, res) => {
   // req.url mein wo EXACT PATH hota hai jo browser ne request kiya
    console.log("Request aayi is Url par: ",req.url);   
 
-   if(req.url === "/dashboard"){
-    //console.log(" ")
+   if (req.url = "/dashboard"){
+    res.end("Yeh dashboard page hai!");
    }else{
-    //
+    res.end("Yeh home page hai");
    }
    
   // res.end() response ko complete karta hai aur data bhej deta hai
  // jab tak end() nahi bolte, browser wait karta rahega response ke liye
-  res.end("Hello i am Amit from DSA Tracker Backend!");
+  // res.end("Hello i am Amit from DSA Tracker Backend!");
 });
 
 // ========task=========
@@ -35,7 +35,8 @@ const server = http.createServer((req, res) => {
 // })
 
 // const server = http.createServer/questions((req,res) => {
-//   res.end("Yeh home page hai!");
+//   res.end(");
+//   res.end(v");
 // })
 
 
