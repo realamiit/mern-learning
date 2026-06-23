@@ -135,5 +135,50 @@ node 02-nodejs/practice/server.js   # server start karna (root se path ke saath)
 - DSA Tracker mein alag URLs alag kaam karenge: `/questions` (saare questions), `/dashboard` (aaj due questions)
 - Abhi humara server sabko same response deta hai — ye gap **Express.js routing** se solve hoga (next topic)
 
-## 8. Download link: [DSA Tracker Repo]
-(https://docs.google.com/document/d/12A4zdKBywCHjLkvcAyCbLUDqG-3BN0We5tZmZ39BfiY/edit?tab=t.0#heading=h.sxuzko5vn8ik)
+---
+
+## 8. Daily Task (Self-Coded) — `req.url` based conditional response
+
+**Task:** Server ka response `req.url` ke hisaab se different banao — `/dashboard` pe alag message, baaki sab URLs pe doosra message.
+
+**Amit ne khud likha (successfully working):**
+```javascript
+if (req.url === "/dashboard"){
+  res.end("Yeh dashboard page hai!");
+}else{
+  res.end("Yeh home page hai");
+}
+```
+
+**Result:** ✅ `/dashboard` → "Yeh dashboard page hai!" | `/questions` (ya koi bhi aur URL) → "Yeh home page hai"
+
+**Pehla attempt (galat tha, fix kiya):** Pehle naya `createServer()` URL ke liye dobara call kiya tha (`http.createServer/dashboard(...)`) — ye galat tha, kyunki:
+1. `const server` naam dobara use kiya — JS error (`const` redeclare nahi ho sakta)
+2. `createServer/dashboard` — invalid syntax, `createServer()` sirf ek baar call hota hai total; URL-based logic same callback ke andar `if/else` se hoti hai
+
+**New concept introduced for this task:** `if/else` statement
+```javascript
+if (condition) {
+  // condition true ho to ye chale
+} else {
+  // condition false ho to ye chale
+}
+```
+- `condition` hamesha kuch aisa hona chahiye jo `true`/`false` return kare (e.g. `req.url === "/dashboard"`)
+
+---
+
+## 9. Mock Interview Record — Task Follow-up
+
+**Q: Agar `req.url === "/dashboard"` ki jagah `req.url = "/dashboard"` (sirf ek `=`) likh dete, to kya hota?**
+
+- *Amit's answer:* "Yeh dashboard page hai!" bs yehi output aayega (sahi answer, lekin reasoning nahi di)
+- *Polished answer:* "Hamesha 'Yeh dashboard page hai!' print hoga, chahe URL kuch bhi ho — kyunki `=` comparison nahi karta, balki `req.url` ki value ko `/dashboard` se **overwrite/assign** kar deta hai. Assignment operation khud ek value return karta hai (jo string assign hui), aur non-empty string `if()` mein hamesha truthy hoti hai. Isliye condition hamesha true ban jata hai."
+
+**Mistake Box Addition:**
+| Mistake | Correction |
+|---|---|
+| `=` vs `===` ka effect bataya sahi (output correct) lekin WHY explain nahi kiya pehli baar | `=` assignment hai (value set karta hai), `===` comparison hai (equality check, true/false return). Ek `=` chhootne se bug aata hai jo crash nahi karta, isliye dhoondhna mushkil hota hai — common real-world bug |
+
+## 10. Download link: [DSA Tracker Repo]
+(https://docs.google.com/document/d/1ux7KwqW4IROPEE6lXxiN-iNIw2BAcGqYU0t36rzozUY/edit?tab=t.0)

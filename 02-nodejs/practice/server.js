@@ -18,7 +18,7 @@ const server = http.createServer((req, res) => {
   // req.url mein wo EXACT PATH hota hai jo browser ne request kiya
    console.log("Request aayi is Url par: ",req.url);   
 
-   if (req.url = "/dashboard"){
+   if (req.url === "/dashboard"){
     res.end("Yeh dashboard page hai!");
    }else{
     res.end("Yeh home page hai");
