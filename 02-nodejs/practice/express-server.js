@@ -19,7 +19,11 @@ app.get("/" , (req , res) => {
 // sahi callback chalata hai, humein manually check nahi karna
 app.get("/dashboard",(req , res) => {
     res.send("Ye Dashboard Page hai!!");
-})
+});
+
+app.get("/questions",(req,res) => {
+    res.send("Ye Sare Question hai !!! solve it");
+});
 
 // app.listen() - http module ke server.listen() jaisa
 // port 3000 par server activate karta hai
