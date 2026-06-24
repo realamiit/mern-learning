@@ -21,6 +21,8 @@ app.get("/dashboard",(req , res) => {
     res.send("Ye Dashboard Page hai!!");
 });
 
+
+//  ===task====
 app.get("/questions",(req,res) => {
     res.send("Ye Sare Question hai !!! solve it");
 });
