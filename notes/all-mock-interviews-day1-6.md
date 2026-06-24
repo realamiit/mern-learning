@@ -128,3 +128,71 @@ console.log(user.username);  // lowercase 'n'
 
 **Q4: What happens to `today` after passing it into a function that modifies a Date object?**
 > A: Date objects are passed by reference in JavaScript. The function parameter and the outer variable point to the same memory location, so modifying the date inside the function also modifies the original variable outside.
+
+
+# Mock Interview Revision — Day 7 & Day 8 (Node.js + Express.js)
+
+## Day 7 — http Module & Request-Response Cycle
+
+**Q1: Node.js mein `http` module use karne ke liye kya `npm install http` chalana padta hai? Reason bhi do.**
+
+> Nahi, `http` module ke liye `npm install` ki zaroorat nahi hai, kyunki ye Node.js ka built-in module hai — Node.js install karte hi automatically available ho jata hai. Hum sirf `require('http')` likh kar import karte hain. `npm install` sirf external/third-party modules (jaise Express) ke liye chahiye, jo Node.js ke saath nahi aate.
+
+---
+
+**Q2: `createServer()` ke callback function mein `req` aur `res` — ye exactly kya represent karte hain, aur inka role kya hai?**
+
+> `req` (request object) mein wo saari information hoti hai jo client ne server ko bheji hai — URL, method, headers. `res` (response object) ka use hum client ko data wapas bhejne ke liye karte hain, jaise `res.end()` se. Dono callback function ke parameters hain jo har incoming request par automatically trigger hota hai.
+
+---
+
+**Q3: Agar `server.listen(3000, ...)` ki jagah `server.listen(5000, ...)` likh do, to browser mein `http://localhost:3000` access karne par kya hoga?**
+
+> Server crash nahi hoga — wo normally chalega, bas port 5000 par listen karega. Browser mein `http://localhost:3000` try karne par connection fail hoga (port 3000 par koi sun nahi raha), error jaisa "ERR_CONNECTION_REFUSED" dikhega.
+
+---
+
+**Q4: Agar `req.url === "/dashboard"` ki jagah `req.url = "/dashboard"` (sirf ek `=`) likh dete, to kya hota?**
+
+> Hamesha "Yeh dashboard page hai!" print hoga, chahe URL kuch bhi ho — kyunki `=` comparison nahi karta, balki `req.url` ki value ko `/dashboard` se overwrite/assign kar deta hai. Assignment operation khud ek value return karta hai (jo string assign hui), aur non-empty string `if()` mein hamesha truthy hoti hai. Isliye condition hamesha true ban jata hai.
+
+---
+
+## Day 8 — Express.js Setup & Routing
+
+**Q1: `express()` function kya return karta hai, aur uska kya use hai?**
+
+> `express()` ek function hai jo call hone par ek `app` object return karta hai. Ye `app` object server ka control center hai — isi se routes define karte hain (`app.get()`, `app.post()`) aur server ko port par activate karte hain (`app.listen()`). `app.get()` `express()` ka part nahi hai — wo `app` object banne ke baad ek alag method call hai.
+
+---
+
+**Q2: `http` module ke `res.end()` aur Express ke `res.send()` mein basic difference kya hai?**
+
+> Dono response complete karke client ko bhejte hain — is mamle mein similar hain. Lekin `res.send()` zyada flexible/smart hai kyunki automatically detect karta hai data kis type ka hai — string ho to text, object/array ho to automatically JSON format mein convert karke bhejta hai. `res.end()` raw string/buffer hi handle karta hai, automatic conversion nahi karta.
+
+---
+
+**Q3: Agar `/randomurl` jaisa route request ho jo kahi match nahi karta, to kya hoga?**
+
+> Express automatically "Cannot GET /path" response bhej deta hai jab koi defined route match nahi hota — saath mein HTTP status code 404 (Not Found) jata hai. Server crash nahi hota, ye Express ka built-in fallback mechanism hai, manually code likhne ki zaroorat nahi.
+
+---
+
+**Q4: Jab tum server file mein code change karte ho, kya wo change automatically running server mein reflect ho jata hai? Reason do.**
+
+> Nahi, automatically reflect nahi hota. Node.js file ko ek baar read karke memory mein load kar leta hai jab server start hota hai. Baad mein file change karne se running process ko pata nahi chalta. Naya code lagu karne ke liye server ko manually band karke (Ctrl+C) dobara start karna padta hai.
+
+---
+
+## Quick Recap — Key Terms
+
+| Term | One-line |
+|---|---|
+| `http` module | Built-in, server banane ke liye |
+| `req` / `res` | Request object / Response object |
+| `server.listen(PORT)` | Server ko port par activate karta hai |
+| `express()` | Returns `app` object |
+| `app.get(path, callback)` | Route define karta hai |
+| `res.send()` | Smart response — auto JSON conversion |
+| 404 / "Cannot GET" | Unmatched route ka default Express response |
+| Server restart | Code change ke baad zaroori — Node.js live-reload nahi karta |
