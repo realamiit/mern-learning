@@ -21,14 +21,19 @@ app.get("/dashboard",(req , res) => {
     res.send("Ye Dashboard Page hai!!");
 });
 
-
 //  ===task====
 app.get("/questions",(req,res) => {
     res.send("Ye Sare Question hai !!! solve it");
+});
+
+// app.post() un routes ke liye use hota hai jaha client server ko data bhejta hai, 
+// jaise koi naya record create/save karna. 
+app.post("/add-question", (req, res) => {
+    res.send("Nya Question Add ho Gya!!");
 });
 
 // app.listen() - http module ke server.listen() jaisa
 // port 3000 par server activate karta hai
 app.listen(3000, () => {
     console.log("Express Server Chal Raha Hai: http://localhost:3000");
-})
+});
