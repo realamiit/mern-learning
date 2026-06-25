@@ -46,25 +46,20 @@ allQuestions.forEach(function (question) {
   );
 });
 
-
-
-
 // ===== == vs === COMPARISON =====
 
-console.log(5 == "5");    // loose equality
-console.log(5 === "5");   // strict equality
-
+console.log(5 == "5"); // loose equality  // true
+console.log(5 === "5"); // strict equality  // false
 
 //======Filtring the Array of element with forEach + if condation =====
 
 console.log("----- Easy Questions Only------");
 
-allQuestions.forEach(function(question1){
-if(question1.difficulty === "Easy"){
-  console.log(question1.name)
-}
+allQuestions.forEach(function (question1) {
+  if (question1.difficulty === "Easy") {
+    console.log(question1.name);
+  }
 });
-
 
 // ======Date Basics=========
 
@@ -72,48 +67,47 @@ const today = new Date();
 
 // 3 din add karna
 const day3Revision = new Date();
-day3Revision.setDate(today.getDate()+3);
-  console.log("Today: ",today)  //  2026-06-22T10:32:00.845Z
-                                //  ↑          ↑      ↑  ↑
-                               // Date      Time(HH:MM:SS) ms  "Z" = UTC timezone (Zulu time)
-console.log("Day 3 Revision:", day3Revision);  // Day 3 Revision: 2026-06-25T10:44:12.278Z
+day3Revision.setDate(today.getDate() + 3);
+console.log("Today: ", today); //  2026-06-22T10:32:00.845Z
+//  ↑          ↑      ↑  ↑
+// Date      Time(HH:MM:SS) ms  "Z" = UTC timezone (Zulu time)
+console.log("Day 3 Revision:", day3Revision); // Day 3 Revision: 2026-06-25T10:44:12.278Z
 
-// 7 din add krna 
+// 7 din add krna
 const day7Revision = new Date();
-day7Revision.setDate(today.getDate()+7);
-console.log("Day 7 Revisie Today" , day7Revision);
+day7Revision.setDate(today.getDate() + 7);
+console.log("Day 7 Revisie Today", day7Revision);
 
-
-// 15 din add krna 
+// 15 din add krna
 const day15Revision = new Date();
-day15Revision.setDate(today.getDate()+15);
-console.log("Day 15 Revisie Today" , day15Revision);
+day15Revision.setDate(today.getDate() + 15);
+console.log("Day 15 Revisie Today", day15Revision);
 
-// 30 din add krna 
+// 30 din add krna
 const day30Revision = new Date();
-day30Revision.setDate(today.getDate()+30);
-console.log("Day 30 Revisie Today" , day30Revision);
+day30Revision.setDate(today.getDate() + 30);
+console.log("Day 30 Revisie Today", day30Revision);
 
 // ===========FUNCTION VERSION — SAME RESULT, CLEAN CODE=====
 
-function getRevisionDate (daysToAdd){
+function getRevisionDate(daysToAdd) {
   const revisionDate = new Date();
   revisionDate.setDate(revisionDate.getDate() + daysToAdd);
   return revisionDate;
 }
 
-console.log("Day 3: ",getRevisionDate(3));
-console.log("Day 7: ",getRevisionDate(7));
-console.log("Day 15: ",getRevisionDate(15));
-console.log("Day 30: ",getRevisionDate(30));
+console.log("Day 3: ", getRevisionDate(3));
+console.log("Day 7: ", getRevisionDate(7));
+console.log("Day 15: ", getRevisionDate(15));
+console.log("Day 30: ", getRevisionDate(30));
 
-// from mock 
+// from mock
 
 function addDays(date, days) {
-    date.setDate(date.getDate() + days);
-    return date;
+  date.setDate(date.getDate() + days);
+  return date;
 }
-const today = new Date();
-const future = addDays(today, 5);
+const Today = new Date();
+const future = addDays(Today, 5);
 console.log(future);
-console.log(today);  // yeh bhi add karo dekhne ke liye
+console.log(Today); // yeh bhi add karo dekhne ke liye
