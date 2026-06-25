@@ -75,14 +75,14 @@ variable === undefined   // ✅ correct
 > A: It returns `"object"` — this is a well-known JavaScript bug that has existed since 1995. `null` is actually a primitive value, not an object. The correct way to check is `variable === null`.
 
 **Q4: Output of this code?**
-\`\`\`javascript
+``` javascript
 let x;
 const y = null;
 console.log(typeof x);         // undefined
 console.log(typeof y);         // object
 console.log(x === undefined);  // true
 console.log(y === null);       // true
-\`\`\`
+```
 > A: `undefined`, `object`, `true`, `true`
 
 ---
