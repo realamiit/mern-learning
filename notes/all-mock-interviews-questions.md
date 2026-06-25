@@ -196,3 +196,28 @@ console.log(user.username);  // lowercase 'n'
 | `res.send()` | Smart response — auto JSON conversion |
 | 404 / "Cannot GET" | Unmatched route ka default Express response |
 | Server restart | Code change ke baad zaroori — Node.js live-reload nahi karta |
+
+---
+
+## Day 9 — POST Method, Postman, Route Matching
+
+**Q1: app.get() aur app.post() mein basic difference kya hai?**
+
+> app.get() un routes ke liye use hota hai jaha client data fetch/retrieve karna chahta hai server se. app.post() un routes ke liye use hota hai jaha client server ko data bhejta hai, jaise koi naya record create/save karna. Dono Express ke methods hain jo HTTP method-specific routing karte hain - path same ho sakta hai, lekin method (GET vs POST) alag hone se alag callback trigger hoga.
+
+---
+
+**Q2: Agar /add-question route sirf app.post() se defined ho, aur koi GET request se usi path ko hit kare, to kya hoga?**
+
+> 404 Not Found aayega, kyunki path match hua (/add-question) lekin method match nahi hua (GET vs defined POST). Express route ko match karne ke liye path aur method dono check karta hai. Response hoga "Cannot GET /add-question".
+
+---
+
+## Quick Recap Addition
+
+| Term | One-line |
+|---|---|
+| app.post(path, callback) | POST requests ke liye route define karta hai |
+| Postman | GET ke alawa POST/PUT/DELETE test karne ka tool (browser sirf GET bhej sakta hai) |
+| Route matching | Path AUR method dono match hone chahiye, sirf path kaafi nahi |
+| req.body | POST data access karne ke liye - express.json() middleware chahiye (upcoming topic) |
