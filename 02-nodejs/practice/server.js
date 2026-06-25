@@ -1,8 +1,11 @@
 // http module ko import kar rahe hain - ye Node.js ka BUILT-IN module hai
 // isliye npm install nahi karna pada, seedha require() kar liya
-// Very important note: http module ke liye npm install ki zaroorat nahi hai, kyunki ye Node.js ka built-in module hai — Node.js install karte hi
-//  ye automatically available ho jata hai. Hum sirf require('http') likh kar isko import karte hain.
-//  npm install sirf external/third-party modules (jaise Express) ke liye chahiye hota hai, jo Node.js ke saath nahi aate
+// Very important note: http module ke liye npm install ki zaroorat nahi hai, 
+// kyunki ye Node.js ka built-in module hai — Node.js install karte hi
+//  ye automatically available ho jata hai. Hum sirf require('http') 
+// likh kar isko import karte hain.
+//  npm install sirf external/third-party modules (jaise Express) ke 
+// liye chahiye hota hai, jo Node.js ke saath nahi aate
 
 // Key difference jo interview mein bolna hai:
 // 1. Built-in module → require() se directly use, install nahi karna
