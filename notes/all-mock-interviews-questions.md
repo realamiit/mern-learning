@@ -221,3 +221,26 @@ console.log(user.username);  // lowercase 'n'
 | Postman | GET ke alawa POST/PUT/DELETE test karne ka tool (browser sirf GET bhej sakta hai) |
 | Route matching | Path AUR method dono match hone chahiye, sirf path kaafi nahi |
 | req.body | POST data access karne ke liye - express.json() middleware chahiye (upcoming topic) |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
