@@ -32,7 +32,7 @@ console.log(question1.difficulty);    // "Easy"
 question1.difficulty = "Medium";
 
 // Reassigning the whole variable — NOT ALLOWED with const
-// question1 = { name: "New Question" };  // ❌ TypeError
+// question1 = { name: "New Question" };  //  TypeError
 
 // Array of Objects — real DSA Tracker structure
 const allQuestions = [
