@@ -350,3 +350,117 @@ app.listen(3000, ...);
 | Mistake | Correction |
 |---|---|
 | Q1 mein general middleware definition repeat ki, specific tool (express.json()) ka exact behavior nahi bataya | Jab specific method/tool pucha jaye, uska EXACT effect/consequence batana zaroori hai, generic definition kaafi nahi |
+
+---
+
+## Daily Task #3 (Day 10) - Dynamic response using req.body
+
+**Task:** /add-question route ka response dynamic banao - questionName ko response mein include karo.
+
+**Amit ka pehla attempt (galat):**
+```javascript
+console.log(req.body[0].questionName+" Name ka ","Nya Question add ho gya");
+```
+Mistake: req.body[0] - array index syntax use kiya, lekin req.body ek OBJECT hai (Postman se {} format mein bheja), array nahi. Object property access ke liye dot notation (.questionName) chahiye, [0] nahi.
+
+**Final working code (self-corrected after feedback, order bhi improve kiya):**
+```javascript
+app.post("/add-question", (req, res) => {
+    console.log(req.body.questionName+" Name ka ","Nya Question add ho gya");
+    res.send("Nya Question Add ho gya "+req.body.questionName+" Name ka");
+});
+```
+
+**Result:** Postman se "Two Sum" aur "Factorial" dono test kiye successfully.
+- Response: "Nya Question Add ho gya Two Sum Name ka"
+- Terminal: "Two Sum Name ka  Nya Question add ho gya"
+
+**Mistake Box Addition:**
+
+| Mistake | Correction |
+|---|---|
+| req.body[0].questionName likha (array index syntax) jabki req.body ek plain OBJECT hai | Object property access ke liye dot notation use karo: req.body.questionName. Array index [0] sirf arrays ke liye hai |
+
+---
+
+# Day 11 Addition - express.Router(), Organizing Routes into Separate Files
+
+## Definitions (Day 11)
+
+| Term | One-line Definition |
+|---|---|
+| express.Router() | Mini-app jaisa object jisme alag se routes define kar sakte hain, bina app object ko touch kiye |
+| module.exports | Kisi file ke andar declare hui value (object/function) ko EXPORT karta hai, taki doosri file usko require() se import kar sake |
+| require("./file") | Relative path - same folder mein khud ki banayi file dhoondta hai (node_modules MEIN NAHI) |
+| require("package") | Bina ./ ke - node_modules folder mein installed external package dhoondta hai |
+| app.use(path, router) | router ke andar ke saare routes ke aage "path" prefix add ho jata hai |
+
+## Concept Notes
+
+### Why organize routes into separate files
+- Jaise routes badhte hain (10-15+), sab kuch ek file mein rakhna messy/unmanageable ho jata hai
+- express.Router() se related routes ko logical groups mein, alag files mein tod sakte hain
+
+### Pattern
+```javascript
+// questionRoutes.js
+const express = require("express");
+const router = express.Router();
+
+router.get("/", (req, res) => {...});       // full path: /questions (prefix se)
+router.post("/add", (req, res) => {...});   // full path: /questions/add
+
+module.exports = router;
+```
+```javascript
+// express-server.js
+const questionRoutes = require("./questionRoutes");
+app.use("/questions", questionRoutes);
+```
+
+### Key clarification (Amit's question)
+router.get()/router.post() EXACTLY waisa hi GET/POST method identify karte hain jaise app.get()/app.post() karte the - method-detection ka kaam KABHI nahi badla, sirf routes ki FILE/LOCATION badli hai. Routes "delete" nahi hue, sirf reorganize hue.
+
+### require() path rules
+- `require("./questionRoutes")` - "./" = relative path, current folder mein apni file dhoondo
+- `require("express")` - bina "./" ke = node_modules mein installed package dhoondo
+- Galat: `require("questionRoutes")` bina "./" ke -> "Cannot find module" error, kyunki node_modules mein dhoondega jo wahan exist nahi karta
+
+### Path change after refactor
+- Pehle: /add-question
+- Ab: /questions/add (kyunki app.use("/questions",...) ka prefix + router ke andar "/add")
+
+---
+
+## Daily Task / Refactor (Day 11) - Self-coded with help
+
+**Amit ne khud kiya:**
+1. questionRoutes.js file banayi, router.get("/", ...) aur router.post("/add", ...) likha, module.exports = router add kiya
+2. express-server.js mein purane /questions, /add-question routes delete kiye
+3. require("./questionRoutes") aur app.use("/questions", questionRoutes) add kiya, sahi order mein
+4. Postman se dono test kiye - GET /questions aur POST /questions/add - dono successfully kaam kiye
+
+**Result:** Refactor successful, naya modular structure working.
+
+---
+
+## Mock Interview Record (Day 11)
+
+**Q1: module.exports = router; line kyun zaroori hai? Missing ho to kya hoga?**
+
+- Amit's answer: "ye dono files exports krne ke liye use hota hai, isi liye exports kiya hai" (circular reasoning)
+- Polished answer: "JavaScript mein har file by default isolated/private hoti hai - ek file ke variables doosri file ko automatically nahi dikhte. module.exports se explicitly batate hain ki kya share karna hai. Missing ho to require() se empty object {} milega, router jaisa kaam nahi karega, app.use() mein error/unexpected behavior aayega."
+
+**Q2: require(./questionRoutes) mein ./ kyun hai, require(express) mein nahi?**
+
+- Amit's answer (pehla attempt): galat - V8 aur "bahar nahi dikhana" wala confusion
+- Polished answer: "./" = relative path, current folder mein khud ki file dhoondo. Bina "./" ke, Node.js node_modules folder mein installed package dhoondta hai. require("express") mein "./" nahi hai isliye node_modules mein dhoondta hai; require("./questionRoutes") mein "./" hai isliye same folder mein dhoondta hai.
+- Feedback: Pehla answer galat tha, lekin explanation ke baad solid recap diya
+
+**Mistake Box Addition:**
+
+| Mistake | Correction |
+|---|---|
+| Routes "delete" hone se confusion hua ki GET/POST kaise identify hoga | Routes delete nahi hue, sirf REORGANIZE hue - router.get()/post() exactly wahi method-detection karte hain jo app.get()/post() karte the |
+| module.exports ka reasoning circular diya ("exports karne ke liye exports kiya") | Asli reason: JS files by default isolated hoti hain, exports se explicitly share karna padta hai |
+| require() mein ./ ka matlab V8/"hiding" se jod diya, galat direction | ./ ka matlab hai RELATIVE PATH lookup (apni file), bina ./ ke node_modules lookup (installed package) |

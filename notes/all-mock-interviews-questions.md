@@ -238,7 +238,19 @@ console.log(user.username);  // lowercase 'n'
 > JavaScript case-sensitive hai - declare karte time jo naming (uppercase/lowercase) use ki, exactly wahi baad mein use karte time bhi likhni padti hai. Express aur express JavaScript ke liye completely alag identifiers hain.
 
 
+---
 
+## Day 11 — express.Router(), module.exports, require() paths
+
+**Q1: module.exports = router; line kyun zaroori hai? Missing ho to kya hoga?**
+
+> JavaScript mein har file by default isolated/private hoti hai - ek file ke variables doosri file ko automatically nahi dikhte. module.exports se explicitly batate hain ki kya share karna hai. Missing ho to require() se empty object {} milega, router jaisa kaam nahi karega, app.use() mein error/unexpected behavior aayega.
+
+---
+
+**Q2: require("./questionRoutes") mein ./ kyun hai, require("express") mein nahi?**
+
+> "./" ka matlab hai relative path - current folder mein khud ki banayi file dhoondo. Bina "./" ke, Node.js node_modules folder mein installed external package dhoondta hai.
 
 
 
