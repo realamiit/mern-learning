@@ -263,5 +263,90 @@ app.post("/add-question", (req, res) => {
 |---|---|
 | Dono Day 9 answers mein sirf conclusion bola, WHY/mechanism explain nahi kiya | Interview answers mein conclusion ke saath REASONING dena zaroori hai - "kya hua" ke saath "kyun hua" bhi bolna |
 
-## 10. Reference Document
-(https://docs.google.com/document/d/1TSU9t-wV8d0P8bRqo-QaPM6IzKiEJlqd3c2lxVzlf_A/edit?tab=t.0)
+---
+
+## Daily Task #2 (Day 9) - Predict + Verify: POST on a GET-only route
+
+**Task:** Postman se /questions (GET-only route) ko POST method se hit karo. Predict pehle, phir test karo.
+
+**Amit ka prediction (BEFORE testing):** 404 Not Found, "Cannot POST /questions"
+
+**Actual result (AFTER testing in Postman):** Exactly match hua - 404 Not Found, response body:
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Error</title>
+</head>
+<body>
+    <pre>Cannot POST /questions</pre>
+</body>
+</html>
+```
+
+**Significance:** Prediction sahi nikla bina test kiye - confirms ki "path + method dono match hone chahiye" wala rule sirf yaad nahi hai, balki samajh mein aa gaya hai (pattern ko naye scenario mein correctly apply kiya).
+
+---
+
+# Day 10 Addition - express.json() Middleware, req.body, 5 Real Debugging Incidents
+
+## Definitions (Day 10)
+
+| Term | One-line Definition |
+|---|---|
+| Middleware | Function jo request aane aur final route callback ke beech chalta hai - jaise checkpoint/filter |
+| express.json() | Built-in Express middleware jo incoming JSON request body ko parse karke JavaScript object banata hai, req.body mein daal deta hai |
+| app.use(middleware) | Middleware ko app-wide (saare routes ke liye) activate karta hai |
+| req.body | POST/PUT request ke saath bheja gaya actual data (parsed object form mein) - bina express.json() ke ye undefined rehta hai |
+
+## Concept Notes
+
+### Why express.json() is needed
+- By default Express POST body ko parse NAHI karta - raw bytes/stream form mein aata hai
+- app.use(express.json()) lagane se Express automatically JSON data ko object mein convert karke req.body mein daal deta hai
+- IMPORTANT: app.use(express.json()) routes (app.get, app.post) se PEHLE likhna chahiye, aur const app = express() ke BAAD
+
+### Order of code matters (JavaScript top-to-bottom execution)
+```javascript
+const express = require("express");
+const app = express();              // Step 1: app banao
+app.use(express.json());            // Step 2: middleware activate karo
+app.get("/", (req, res) => {...});  // Step 3: routes define karo
+app.listen(3000, ...);
+```
+
+---
+
+## Mistake Box - 5 Real Debugging Incidents (Day 10)
+
+| # | Mistake | Error Message | Fix |
+|---|---|---|---|
+| 1 | Extra empty `app.get();` line bina path/callback ke | app.get() requires callback (path/callback missing) | Line poori delete ki |
+| 2 | `comsol.log` typo (console ka galat spelling) | ReferenceError: comsol is not defined | console.log likha sahi se |
+| 3 | `app.use(express.json())` ko `const app = Express()` se PEHLE likha | ReferenceError: Cannot access 'app' before initialization | app.use() ko app banने ke BAAD move kiya - JS top-to-bottom chalta hai |
+| 4 | Terminal command mein typo: `node express server.js` (space) instead of `node express-server.js` (hyphen) | Error: Cannot find module 'express' | Command sahi se likha, hyphen ke saath |
+| 5 | `const Express` (capital E) declare kiya, lekin `express.json()` (lowercase e) use kiya | ReferenceError: express is not defined | Saari file mein lowercase `express` consistent use kiya (convention bhi yehi hai) |
+
+**Key learning:** JavaScript case-sensitive hai - declare karte time jo naming use ki, EXACTLY wahi use/call karte time bhi likhni padti hai.
+
+---
+
+## Mock Interview Record (Day 10)
+
+**Q1: express.json() middleware ka kaam exactly kya hai, aur agar missing ho to req.body mein kya aata hai?**
+
+- Amit's answer (pehla attempt): "middleware ek function hai jo request aane aur final callback ke beech chalta hai, checkpoint ka kaam karta hai" (general definition, specific behavior missing)
+- Polished answer: "express.json() specifically ek built-in middleware hai jo incoming JSON data ko parse karke JavaScript object mein convert karta hai aur req.body mein daal deta hai. Agar missing ho, req.body undefined aayega, chahe Postman se kuch bhi data bhej do."
+
+**Q2: Express (capital) vs express (lowercase) - kis JS rule ki wajah se error aaya?**
+
+- Amit's answer: "JavaScript case sensitive hai, jo naming variable banane mein use ki vahi call karte time bhi use karni hai - example Question (capital Q) declare kiya but question (lowercase q) call kiya"
+- Polished answer: "JavaScript case-sensitive hai - declare karte time jo naming (upper/lowercase) use ki, exactly wahi baad mein use karte time likhni padegi. Question aur question JS ke liye completely alag identifiers hain."
+- Feedback: Solid answer, concise, khud ka example diya - good improvement
+
+**Mistake Box Addition:**
+
+| Mistake | Correction |
+|---|---|
+| Q1 mein general middleware definition repeat ki, specific tool (express.json()) ka exact behavior nahi bataya | Jab specific method/tool pucha jaye, uska EXACT effect/consequence batana zaroori hai, generic definition kaafi nahi |

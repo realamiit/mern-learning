@@ -1,10 +1,19 @@
 // express external module hai (npm install express se download kiya tha)
 // isliye http jaisa seedha require nahi - pehle install karna padta hai
-const Express = require("express");
+const express = require("express");
+
 
 // express() call karne par "app" object milta hai
 // isi app object se hum routes define karenge aur server start karenge
-const app = Express();
+const app = express();
+
+
+// ye eek function hai jo incoming mtlb hm jo raw data JSON formet 
+// me dete hai ye usko js ke formet me convert krta hai 
+// , aur use req.body mein daal deta hai. Agar ye line missing ho (app.use(express.json()) na 
+// likha ho), to req.body undefined aayega — chahe Postman se kitna bhi data bhej do, 
+// Express use samajh hi nahi payega.
+app.use(express.json());
 
 // app.get(path, callback) - jab koi GET request "/" (home) par aaye, ye callback chalega
 // GET = browser jab normally URL kholta hai, wo GET request hoti hai (data maangna)
@@ -29,6 +38,8 @@ app.get("/questions",(req,res) => {
 // app.post() un routes ke liye use hota hai jaha client server ko data bhejta hai, 
 // jaise koi naya record create/save karna. 
 app.post("/add-question", (req, res) => {
+    // req.body me ab postman se bheja gyaa JSON data milega (object form main)
+    console.log("Nya question aaya : ", req.body); 
     res.send("Nya Question Add ho Gya!!");
 });
 

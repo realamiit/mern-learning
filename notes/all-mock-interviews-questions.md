@@ -223,18 +223,19 @@ console.log(user.username);  // lowercase 'n'
 | req.body | POST data access karne ke liye - express.json() middleware chahiye (upcoming topic) |
 
 
+---
 
+## Day 10 — express.json() Middleware, req.body
 
+**Q1: express.json() middleware ka kaam exactly kya hai, aur agar missing ho to req.body mein kya aata hai?**
 
+> express.json() ek built-in Express middleware hai jo incoming JSON data ko parse karke JavaScript object mein convert karta hai aur req.body mein daal deta hai. Agar ye middleware missing ho, req.body undefined aayega, chahe Postman se kuch bhi data bhej diya jaye.
 
+---
 
+**Q2: Express (capital) vs express (lowercase) - kis JavaScript rule ki wajah se error aata hai?**
 
-
-
-
-
-
-
+> JavaScript case-sensitive hai - declare karte time jo naming (uppercase/lowercase) use ki, exactly wahi baad mein use karte time bhi likhni padti hai. Express aur express JavaScript ke liye completely alag identifiers hain.
 
 
 
