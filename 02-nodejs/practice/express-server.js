@@ -37,10 +37,11 @@ app.get("/questions",(req,res) => {
 
 // app.post() un routes ke liye use hota hai jaha client server ko data bhejta hai, 
 // jaise koi naya record create/save karna. 
+
 app.post("/add-question", (req, res) => {
     // req.body me ab postman se bheja gyaa JSON data milega (object form main)
-    console.log("Nya question aaya : ", req.body); 
-    res.send("Nya Question Add ho Gya!!");
+    console.log(req.body.questionName+" Name ka ","Nya Question add ho gya"); 
+    res.send("Nya Question Add ho gya "+req.body.questionName+" Name ka");
 });
 
 // app.listen() - http module ke server.listen() jaisa
