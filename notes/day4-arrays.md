@@ -26,7 +26,7 @@ console.log(questions[2]);   // "Merge Sort"
 console.log(questions[10]);  // undefined — no error, index doesn't exist
 
 // Length of array
-console.log(questions.length);  // 3
+console.log(questions.length);  //the output is: 3
 
 // push() — add to the end
 questions.push("Linked List");
