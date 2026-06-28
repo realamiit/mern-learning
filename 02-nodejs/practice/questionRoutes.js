@@ -16,6 +16,7 @@ router.post("/add", (req, res) => {
   const newQuestion = new Question({
     questionName: req.body.questionName,
     topic: req.body.topic,
+    difficulty: req.body.difficulty,
   });
 
   newQuestion
