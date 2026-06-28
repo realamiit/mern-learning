@@ -253,6 +253,19 @@ console.log(user.username);  // lowercase 'n'
 > "./" ka matlab hai relative path - current folder mein khud ki banayi file dhoondo. Bina "./" ke, Node.js node_modules folder mein installed external package dhoondta hai.
 
 
+---
+
+## Day 12 — MongoDB Connection, process.env, Async (.then/.catch)
+
+**Q1: process.env.MONGO_URI ka kaam exactly kya hai, value kaha se aati hai?**
+
+> process.env Node.js ka built-in object hai jisme environment variables store hoti hain. .env file (text file) mein likhi gayi value ko dotenv.config() padhta hai, KEY=VALUE pattern todta hai, aur process.env object mein ek nayi property bana deta hai. Code mein process.env.MONGO_URI likhne se wo value mil jati hai.
+
+---
+
+**Q2: .then()/.catch() kyun use kiya, if/else kyun nahi mongoose.connect() ke saath?**
+
+> mongoose.connect() asynchronous hai - internet ke through MongoDB se connect hone mein time lagta hai. if/else synchronous check hai, turant result chahiye hota hai, lekin connection process complete hone se pehle koi result hota hi nahi check karne ke liye. .then()/.catch() JavaScript ko batata hai ki jab bhi result aaye, success/fail handle karo, bina code ko block kiye.
 
 
 
