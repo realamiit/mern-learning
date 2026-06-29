@@ -8,7 +8,14 @@ const router = express.Router();
 const Question = require("./Question");
 
 router.get("/", (req, res) => {
-  res.send("Ye Sare questions !!! Solve it");
+    Question.find()
+    .then((questions) => {
+        res.send(questions);
+    })
+    .catch((error) => {
+        console.log("Fetch error:",error);
+        res.send("Error fetching questions")
+    });
 });
 
 // ye route ka full path banega: "/question/add"
