@@ -268,5 +268,30 @@ console.log(user.username);  // lowercase 'n'
 > mongoose.connect() asynchronous hai - internet ke through MongoDB se connect hone mein time lagta hai. if/else synchronous check hai, turant result chahiye hota hai, lekin connection process complete hone se pehle koi result hota hi nahi check karne ke liye. .then()/.catch() JavaScript ko batata hai ki jab bhi result aaye, success/fail handle karo, bina code ko block kiye.
 
 
+---
 
+## Day 13 — Mongoose Schema, Model, .save()
 
+**Q1: new Question({...}) aur Question.save() alag steps kyun hain?**
+
+> new Question({...}) sirf memory mein object banata hai - database mein kuch save nahi hota. .save() actually MongoDB ko bolta hai object ko permanently likhne ke liye. Analogy: new Question() = form bharna, .save() = form submit karna.
+
+---
+
+**Q2: require("./db") missing hone se "buffering timed out" error kaise aaya?**
+
+> require("./db") missing tha, isliye db.js ka code kabhi execute nahi hua - MongoDB connection process kabhi shuru hi nahi hua. Jab .save() call hua POST request par, Mongoose ne connection dhoonda, nahi mila, 10 second wait kiya (timeout), aur error diya.
+
+---
+
+## Day 14 — Model.find(), MongoDB Flexibility
+
+**Q1: Question.find() vs Question.find({topic: "Arrays"}) - difference?**
+
+> find() bina filter ke saare documents deta hai. find({topic: "Arrays"}) sirf un documents ko return karta hai jinka topic field "Arrays" ho - lekin pura document milta hai dono cases mein, sirf list ki length filter ke hisaab se badalti hai.
+
+---
+
+**Q2: Agar sirf 1 document mein difficulty field ho, find({difficulty: "Medium"}) kya return karega?**
+
+> Sirf wahi document(s) jinka difficulty field exactly match kare. Jin documents mein wo field absent hai, wo automatically exclude ho jate hain match na hone ki wajah se.
