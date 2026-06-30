@@ -91,7 +91,7 @@ router.get("/hard", (req, res) => {
     });
 });
 
-// task prt this is combination section 
+// task prt this is combination section
 
 router.get("/easy-arrays", (req, res) => {
   Question.find({ topic: "Arrays", difficulty: "Easy" })
@@ -110,7 +110,7 @@ router.post("/add", (req, res) => {
     questionName: req.body.questionName,
     topic: req.body.topic,
     difficulty: req.body.difficulty,
-    dateAdded: new Date(),   // this is current Date actualy 
+    dateAdded: new Date(), // this is current Date actualy
   });
 
   newQuestion

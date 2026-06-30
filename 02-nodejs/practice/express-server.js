@@ -8,10 +8,10 @@ require("./db");
 // isi app object se hum routes define karenge aur server start karenge
 const app = express();
 
-// ye eek function hai jo (incoming) mtlb hm jo raw data JSON formet 
-// me dete hai ye usko js ke formet me convert krta hai 
-// , aur use req.body mein daal deta hai. Agar ye line missing ho (app.use(express.json()) na 
-// likha ho), to req.body undefined aayega — chahe Postman se kitna bhi data bhej do, 
+// ye eek function hai jo (incoming) mtlb hm jo raw data JSON formet
+// me dete hai ye usko js ke formet me convert krta hai
+// , aur use req.body mein daal deta hai. Agar ye line missing ho (app.use(express.json()) na
+// likha ho), to req.body undefined aayega — chahe Postman se kitna bhi data bhej do,
 // Express use samajh hi nahi payega.
 app.use(express.json());
 
@@ -19,21 +19,21 @@ app.use("/questions", questionRoutes); // "/questions" se shuru hone wala koi bh
 
 // app.get(path, callback) - jab koi GET request "/" (home) par aaye, ye callback chalega
 // GET = browser jab normally URL kholta hai, wo GET request hoti hai (data maangna)
-app.get("/" , (req , res) => {
-    // res.send() - Express ka method, http module ke res.end() jaisa hi kaam karta hai
+app.get("/", (req, res) => {
+  // res.send() - Express ka method, http module ke res.end() jaisa hi kaam karta hai
   // lekin zyada flexible hai (string, object, etc. sab handle kar leta hai)
-    res.send("Ye Home Page!!");
+  res.send("Ye Home Page!!");
 });
 
 // dusra route - /dashboard path ke liye alag callback
 // dhyan do: yaha koi if/else nahi - Express khud route ko match karke
 // sahi callback chalata hai, humein manually check nahi karna
-app.get("/dashboard",(req , res) => {
-    res.send("Ye Dashboard Page hai!!");
+app.get("/dashboard", (req, res) => {
+  res.send("Ye Dashboard Page hai!!");
 });
 
 // app.listen() - http module ke server.listen() jaisa
 // port 3000 par server activate karta hai
 app.listen(3000, () => {
-    console.log("Express Server Chal Raha Hai: http://localhost:3000");
+  console.log("Express Server Chal Raha Hai: http://localhost:3000");
 });
