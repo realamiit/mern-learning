@@ -365,3 +365,15 @@ router.get("/", (req, res) => {
 |---|---|
 | find() filter ko "field return karne wala" samjha, jabki wo "document choose karne wala" hai | Filter CHOOSES documents (konse milenge), FIELDS nahi chhanta - pura document hi milta hai har match mein |
 | Interview answer mein general mechanism repeat kiya, specific data ke saath exact count/naam nahi diya | Jab specific data diya ho, EXACT answer dena chahiye (kitne, kaunse), sirf general rule repeat karna kaafi nahi |
+
+---
+
+## Important Update - Mobile Hotspot + IP Whitelist (Day 14, later session)
+
+**Issue:** "Add Current IP Address" baar baar karna pada kyunki Amit mobile hotspot use karta hai - hotspot IP bahut frequently change karta hai (carrier-grade NAT ki wajah se).
+
+**Permanent Fix:** Atlas Network Access mein `0.0.0.0/0` ("Allow Access from Anywhere") add kiya, **"Temporary" toggle OFF rakha** (warna 6 hours baad automatically delete ho jata).
+
+**Additional issue jo isi session mein aaya:** IP fix hone ke baad bhi `bad auth: authentication failed` aaya - phir se password mismatch tha. Fixed using same method as Day 12: Atlas se "Autogenerate Secure Password" + copy-paste (never manual type) + immediately update .env.
+
+**Key reminder for future:** Agar "could not connect to any servers" / IP whitelist error aaye -> check Network Access settings (0.0.0.0/0 active hai ya nahi). Agar "bad auth" error aaye -> password regenerate + copy-paste karo, kabhi type mat karo.
