@@ -2,36 +2,39 @@
 
 ## 1. Full Form + Definitions
 
-| Term | One-line Definition |
-|---|---|
-| MongoDB | NoSQL database jo data ko JSON-jaisi documents mein permanently store karta hai |
-| Database | Pura storage system (jaise "dsaTracker") |
-| Collection | Similar data ka group (SQL table jaisa) - jaise "questions" collection |
-| Document | Ek single record/entry (SQL row jaisa) - jaise ek question |
-| MongoDB Atlas | MongoDB ka cloud-hosted version - koi local install nahi chahiye |
-| MongoDB Compass | Desktop GUI tool jisse database ko visually dekh/manage kar sakte hain |
-| Mongoose | npm package jo Node.js/Express aur MongoDB ke beech bridge ka kaam karta hai |
-| Connection String | Special URL jisme username, password, cluster address encoded hota hai |
-| dotenv | npm package jo .env file ko padh kar process.env mein values daalta hai |
-| process.env | Node.js ka built-in object jisme environment variables store hoti hain |
-| Asynchronous | Operation jo turant complete nahi hota, time leta hai (jaise network call) - JS ko "wait" karna padta hai result ke liye |
-| .then() / .catch() | Async operation ka result handle karne ka tarika - then() success ke liye, catch() error ke liye |
+| Term               | One-line Definition                                                                                                      |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------ |
+| MongoDB            | NoSQL database jo data ko JSON-jaisi documents mein permanently store karta hai                                          |
+| Database           | Pura storage system (jaise "dsaTracker")                                                                                 |
+| Collection         | Similar data ka group (SQL table jaisa) - jaise "questions" collection                                                   |
+| Document           | Ek single record/entry (SQL row jaisa) - jaise ek question                                                               |
+| MongoDB Atlas      | MongoDB ka cloud-hosted version - koi local install nahi chahiye                                                         |
+| MongoDB Compass    | Desktop GUI tool jisse database ko visually dekh/manage kar sakte hain                                                   |
+| Mongoose           | npm package jo Node.js/Express aur MongoDB ke beech bridge ka kaam karta hai                                             |
+| Connection String  | Special URL jisme username, password, cluster address encoded hota hai                                                   |
+| dotenv             | npm package jo .env file ko padh kar process.env mein values daalta hai                                                  |
+| process.env        | Node.js ka built-in object jisme environment variables store hoti hain                                                   |
+| Asynchronous       | Operation jo turant complete nahi hota, time leta hai (jaise network call) - JS ko "wait" karna padta hai result ke liye |
+| .then() / .catch() | Async operation ka result handle karne ka tarika - then() success ke liye, catch() error ke liye                         |
 
 ## 2. Concept Notes
 
 ### Why MongoDB needed
+
 - Abhi tak POST se bheja gaya data sirf console.log/res.send hota tha, kahi STORE nahi hota tha
 - Server restart hone par sab data gayab ho jata - MongoDB ye gap fill karta hai (permanent storage)
 
 ### MongoDB vs SQL terminology
-| MongoDB | SQL |
-|---|---|
-| Database | Database |
-| Collection | Table |
-| Document | Row |
-| Field | Column |
+
+| MongoDB    | SQL      |
+| ---------- | -------- |
+| Database   | Database |
+| Collection | Table    |
+| Document   | Row      |
+| Field      | Column   |
 
 ### Setup flow
+
 1. MongoDB Atlas account bana, free M0 cluster banaya (AWS Mumbai region)
 2. Database user banaya (username: realamiit, password)
 3. Network Access mein current IP allow kiya
@@ -43,12 +46,14 @@
 9. db.js banayi jo mongoose.connect() se Atlas se connect karti hai
 
 ### Why .then()/.catch() instead of if/else (IMPORTANT)
+
 - if/else SYNCHRONOUS hai - turant check karta hai, result abhi available hona chahiye
 - mongoose.connect() ASYNCHRONOUS hai - internet/network ke through MongoDB se baat karta hai, TIME LETA HAI
 - Jab if/else check hota, connection process abhi complete hi nahi hua hota - koi result hi nahi hota check karne ke liye
 - .then()/.catch() JS ko batata hai: "jab bhi result aaye (turant ya kuch second baad), success ho to .then() chalao, fail ho to .catch() chalao" - bina blocking ke
 
 ### process.env flow (practically verified)
+
 1. .env file mein text: MONGO_URI=mongodb+srv://...
 2. require("dotenv").config() chalne par - dotenv file padhta hai, KEY=VALUE pattern todta hai
 3. process.env object mein NAYI property add hoti hai: process.env.MONGO_URI = "mongodb+srv://..."
@@ -61,14 +66,14 @@
 
 Is din EK SINGLE problem (MongoDB connect karna) solve karne mein 6+ real issues face kiye - sabse valuable learning experience tha:
 
-| # | Mistake | Error | Fix |
-|---|---|---|---|
-| 1 | Password mein `@` symbol tha (Amit@143) | uri malformed, undefined errors | URL encode kiya - @ ko %40 se replace |
-| 2 | .env file mein `MONGO_URI=` likhna bhool gaye, sirf URL likha | "injected env (0)" - 0 variables load hue, uri undefined | KEY=VALUE format zaroori hai - MONGO_URI= add kiya |
-| 3 | Username ke baad extra SPACE tha (realamiit: password) | Invalid URI | Space hata diya, : ke baad directly password |
-| 4 | `node db.js` ROOT folder (mern-learning) se chalaya, jabki db.js aur .env "02-nodejs/practice" mein the | "injected env (0)" - .env current directory mein dhoonda jata hai, file location se nahi | cd 02-nodejs/practice karke phir command chalaya |
-| 5 | Password MANUALLY TYPE kiya (dekh kar likha) bajaye copy-paste ke | bad auth: authentication failed (baar baar) | Atlas se copy-paste kiya password (clipboard icon use karke), kabhi type nahi kiya |
-| 6 | Atlas ne "insecure password" (test12345) reject kar diya SILENTLY - lekin .env mein wahi rakha raha, jo actual mein save hi nahi hua tha | bad auth (kyunki .env ka password Atlas ke real password se match nahi karta tha) | Atlas se naya AUTOGENERATED password copy-paste kiya, confirm kiya success message aaya |
+| #   | Mistake                                                                                                                                  | Error                                                                                    | Fix                                                                                     |
+| --- | ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| 1   | Password mein `@` symbol tha (Amit@143)                                                                                                  | uri malformed, undefined errors                                                          | URL encode kiya - @ ko %40 se replace                                                   |
+| 2   | .env file mein `MONGO_URI=` likhna bhool gaye, sirf URL likha                                                                            | "injected env (0)" - 0 variables load hue, uri undefined                                 | KEY=VALUE format zaroori hai - MONGO_URI= add kiya                                      |
+| 3   | Username ke baad extra SPACE tha (realamiit: password)                                                                                   | Invalid URI                                                                              | Space hata diya, : ke baad directly password                                            |
+| 4   | `node db.js` ROOT folder (mern-learning) se chalaya, jabki db.js aur .env "02-nodejs/practice" mein the                                  | "injected env (0)" - .env current directory mein dhoonda jata hai, file location se nahi | cd 02-nodejs/practice karke phir command chalaya                                        |
+| 5   | Password MANUALLY TYPE kiya (dekh kar likha) bajaye copy-paste ke                                                                        | bad auth: authentication failed (baar baar)                                              | Atlas se copy-paste kiya password (clipboard icon use karke), kabhi type nahi kiya      |
+| 6   | Atlas ne "insecure password" (test12345) reject kar diya SILENTLY - lekin .env mein wahi rakha raha, jo actual mein save hi nahi hua tha | bad auth (kyunki .env ka password Atlas ke real password se match nahi karta tha)        | Atlas se naya AUTOGENERATED password copy-paste kiya, confirm kiya success message aaya |
 
 **SABSE BADA TAKEAWAY:** Passwords/credentials ke saath KABHI manually type mat karo - hamesha copy-paste karo. Typos ka risk bahut high hota hai aur dhoondhna mushkil (silent failure - koi syntax error nahi dikhta, sirf "auth failed" jo bahut generic hai).
 
@@ -92,8 +97,8 @@ Is din EK SINGLE problem (MongoDB connect karna) solve karne mein 6+ real issues
 
 **Mistake Box Addition:**
 
-| Mistake | Correction |
-|---|---|
+| Mistake                                                                                       | Correction                                                                                                                     |
+| --------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
 | ".then()/.catch() kyun, if/else kyun nahi" ka WHY (asynchronous nature) initially missing tha | Synchronous (turant result) vs Asynchronous (time leta hai, network calls) ka distinction interview mein clearly bolna chahiye |
 
 ---
@@ -107,7 +112,8 @@ const mongoose = require("mongoose");
 
 const mongoURI = process.env.MONGO_URI;
 
-mongoose.connect(mongoURI)
+mongoose
+  .connect(mongoURI)
   .then(() => {
     console.log("MongoDB se connection successful!");
   })
@@ -128,6 +134,7 @@ node_modules/
 ```
 
 **Terminal:**
+
 ```bash
 npm install mongoose
 npm install dotenv
@@ -144,6 +151,7 @@ node db.js   # IMPORTANT: chalao usi folder se jaha .env file hai!
 ---
 
 ## 6. Connection to DSA Tracker
+
 - MongoDB connection ab ready hai - next step: Mongoose SCHEMA define karna (questions ka structure define karna)
 - Phir actual save operations (.save(), .find()) seekhna - taki POST se aaya data ACTUALLY database mein store ho
 - Ye DSA Tracker ke liye sabse critical piece hai - permanent data storage ka foundation aaj ban gaya
@@ -154,18 +162,19 @@ node db.js   # IMPORTANT: chalao usi folder se jaha .env file hai!
 
 ## Definitions (Day 13)
 
-| Term | One-line Definition |
-|---|---|
-| Schema | Blueprint/structure define karta hai - kaunse fields honge document mein, aur unka data type (Java class jaisa) |
-| Model | Schema se bana usable object jisse actual database operations (save/find/delete) kar sakte hain (Java class jiska object bana ke methods call karte ho) |
-| new Question({...}) | Document object banata hai MEMORY mein (JavaScript ke andar) - abhi database mein kuch save NAHI hota |
-| .save() | Actual operation jo object ko MongoDB database mein PERMANENTLY likhta hai (disk/cloud pe) |
-| _id (ObjectId) | MongoDB automatically har document ko unique identifier deta hai |
-| __v | Version key, Mongoose document changes track karne ke liye use karta hai |
+| Term                | One-line Definition                                                                                                                                     |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Schema              | Blueprint/structure define karta hai - kaunse fields honge document mein, aur unka data type (Java class jaisa)                                         |
+| Model               | Schema se bana usable object jisse actual database operations (save/find/delete) kar sakte hain (Java class jiska object bana ke methods call karte ho) |
+| new Question({...}) | Document object banata hai MEMORY mein (JavaScript ke andar) - abhi database mein kuch save NAHI hota                                                   |
+| .save()             | Actual operation jo object ko MongoDB database mein PERMANENTLY likhta hai (disk/cloud pe)                                                              |
+| \_id (ObjectId)     | MongoDB automatically har document ko unique identifier deta hai                                                                                        |
+| \_\_v               | Version key, Mongoose document changes track karne ke liye use karta hai                                                                                |
 
 ## Concept Notes
 
 ### Schema vs Model pattern
+
 ```javascript
 // Question.js
 const mongoose = require("mongoose");
@@ -179,14 +188,17 @@ const questionSchema = new mongoose.Schema({
 const Question = mongoose.model("Question", questionSchema);
 module.exports = Question;
 ```
+
 - mongoose.model("Question", ...) - "Question" (singular, capital) diya, MongoDB mein collection automatically "questions" (lowercase, plural) ban jata hai
 
 ### new Question() vs .save() - analogy
+
 - new Question({...}) = form bharna (kagaz pe likhna) - abhi submit nahi kiya
 - .save() = form SUBMIT karna - tabhi record banta hai system mein
 - Dono ALAG STEPS hain taki object banane aur actually save karne ke beech validation/checks kiye ja sakein (flexibility)
 
 ### CRITICAL: db.js ko require karna zaroori hai
+
 - db.js sirf "alag se" test karne (node db.js) se express-server.js ko MongoDB se connect NAHI karta
 - express-server.js ke top mein require("./db") add karna zaroori hai (no variable assignment needed - side-effect import)
 - Bina iske: db.js ka code kabhi execute nahi hota, connection kabhi banta nahi, .save() "buffering timed out" error deta hai (10 second wait karke connection na milne par)
@@ -195,11 +207,11 @@ module.exports = Question;
 
 ## Mistake Box - Day 13 Debugging
 
-| # | Mistake | Error | Fix |
-|---|---|---|---|
-| 1 | Question.js mein `mongooseSchema` likha (ek word) instead of `mongoose.Schema` (object.property) | ReferenceError: mongooseSchema is not defined | mongoose.Schema likha sahi se |
-| 2 | express-server.js mein db.js ko kabhi require nahi kiya | MongooseError: buffering timed out after 10000ms | require("./db") add kiya top mein |
-| 3 | IP address Atlas whitelist se mismatch ho gaya (network change hone se) | MongooseServerSelectionError: Could not connect - IP not whitelisted | Atlas Network Access mein "Add Current IP Address" se naya IP add kiya |
+| #   | Mistake                                                                                          | Error                                                                | Fix                                                                    |
+| --- | ------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| 1   | Question.js mein `mongooseSchema` likha (ek word) instead of `mongoose.Schema` (object.property) | ReferenceError: mongooseSchema is not defined                        | mongoose.Schema likha sahi se                                          |
+| 2   | express-server.js mein db.js ko kabhi require nahi kiya                                          | MongooseError: buffering timed out after 10000ms                     | require("./db") add kiya top mein                                      |
+| 3   | IP address Atlas whitelist se mismatch ho gaya (network change hone se)                          | MongooseServerSelectionError: Could not connect - IP not whitelisted | Atlas Network Access mein "Add Current IP Address" se naya IP add kiya |
 
 **Key learning:** IP whitelist issue baar baar aa sakta hai jab network/WiFi change ho - "Add Current IP Address" hamesha yaad rakhna agar connection fail ho jaye sudden se.
 
@@ -219,9 +231,9 @@ module.exports = Question;
 
 **Mistake Box Addition:**
 
-| Mistake | Correction |
-|---|---|
-| new Question() aur .save() ke roles galat samjhe (swap kar diye) | new = memory object banata hai, .save() = actual database write. Form-bharna vs form-submit jaisa difference |
+| Mistake                                                                                  | Correction                                                                                                                                         |
+| ---------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| new Question() aur .save() ke roles galat samjhe (swap kar diye)                         | new = memory object banata hai, .save() = actual database write. Form-bharna vs form-submit jaisa difference                                       |
 | Error ka "kaise" (mechanism) explain karne ke bajaye sirf "kya" (conclusion) repeat kiya | Interview mein causal CHAIN batana chahiye: X missing -> Y nahi hua -> Z fail hua -> error aaya, sirf "X missing tha isliye error aaya" kaafi nahi |
 
 ---
@@ -252,7 +264,8 @@ router.post("/add", (req, res) => {
     topic: req.body.topic,
   });
 
-  newQuestion.save()
+  newQuestion
+    .save()
     .then(() => {
       res.send("Question saved successfully!");
     })
@@ -265,12 +278,13 @@ router.post("/add", (req, res) => {
 
 ```javascript
 // express-server.js - CRITICAL import
-require("./db");   // ye line zaroori hai DB connection activate karne ke liye
+require("./db"); // ye line zaroori hai DB connection activate karne ke liye
 ```
 
 ---
 
 ## Connection to DSA Tracker
+
 - Pehla REAL question successfully MongoDB mein save hua: {questionName: "Two Sum", topic: "Arrays"}
 - Backend ka core data-persistence loop complete: Postman -> Express -> Mongoose -> MongoDB Atlas -> Compass se verify
 - Next: GET route banakar saare saved questions FETCH karna (Model.find()), aur spaced-repetition fields (revision dates) schema mein add karna
@@ -282,6 +296,7 @@ require("./db");   // ye line zaroori hai DB connection activate karne ke liye
 **Task:** questionRoutes.js ke POST /add route mein difficulty field bhi save karna (already schema mein tha, route mein use nahi ho raha tha).
 
 **Amit ne khud kiya:**
+
 ```javascript
 const newQuestion = new Question({
   questionName: req.body.questionName,
@@ -300,14 +315,15 @@ const newQuestion = new Question({
 
 ## Definitions (Day 14)
 
-| Term | One-line Definition |
-|---|---|
-| Model.find() | Saare documents collection se fetch karta hai (bina filter ke), result Array of Objects hota hai |
+| Term                       | One-line Definition                                                                                                                       |
+| -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| Model.find()               | Saare documents collection se fetch karta hai (bina filter ke), result Array of Objects hota hai                                          |
 | Model.find({field: value}) | FILTERED fetch - sirf wahi documents return karta hai jinka specified field exact match kare. PURA document milta hai, sirf wo field nahi |
 
 ## Concept Notes
 
 ### Model.find() pattern
+
 ```javascript
 router.get("/", (req, res) => {
   Question.find()
@@ -320,16 +336,19 @@ router.get("/", (req, res) => {
     });
 });
 ```
+
 - find() ka result ARRAY OF OBJECTS hota hai (Day 4-5 ka concept wapas use hua)
 - find() bhi asynchronous hai (database/network operation), isliye .then()/.catch() zaroori
 
 ### MongoDB Flexibility (IMPORTANT CONCEPT)
+
 - SQL tables: har row ka structure FIXED hota hai (same columns sabke liye)
 - MongoDB: har document collection ke andar APNA ALAG structure rakh sakta hai
 - Practical proof: 3 saved documents mein se sirf 1 mein `difficulty` field hai, baki 2 mein nahi - koi error nahi aaya
 - Mongoose Schema thoda structure enforce karta hai, lekin underlying MongoDB itna rigid nahi jitna SQL
 
 ### find() with filter vs without
+
 - Question.find() -> SAARE documents
 - Question.find({topic: "Arrays"}) -> SIRF wahi documents jinka topic field exactly "Arrays" ho
 - Filter documents ko CHOOSE karta hai (kaunse milenge), fields ko nahi chhanta (pura document hi milta hai)
@@ -339,11 +358,11 @@ router.get("/", (req, res) => {
 
 ## Mistake Box - Day 14 Debugging
 
-| # | Mistake | Error | Fix |
-|---|---|---|---|
-| 1 | `.than(` likha instead of `.then(` | TypeError: Question.find(...).than is not a function | then likha sahi spelling se |
-| 2 | catch block mein `req.send(...)` likha, `res.send(...)` hona chahiye tha | TypeError: req.send is not a function | res.send likha - req sirf REQUEST hai, send() method RESPONSE (res) ke paas hota hai |
-| 3 | IP whitelist mismatch (network change se) - YEH BAAR BAAR HO RAHA HAI | MongooseServerSelectionError: could not connect, IP not whitelisted | Atlas Network Access mein "Add Current IP Address" - REMINDER: ye baar baar hoga, Amit ka network IP frequently change hota hai |
+| #   | Mistake                                                                  | Error                                                               | Fix                                                                                                                             |
+| --- | ------------------------------------------------------------------------ | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | `.than(` likha instead of `.then(`                                       | TypeError: Question.find(...).than is not a function                | then likha sahi spelling se                                                                                                     |
+| 2   | catch block mein `req.send(...)` likha, `res.send(...)` hona chahiye tha | TypeError: req.send is not a function                               | res.send likha - req sirf REQUEST hai, send() method RESPONSE (res) ke paas hota hai                                            |
+| 3   | IP whitelist mismatch (network change se) - YEH BAAR BAAR HO RAHA HAI    | MongooseServerSelectionError: could not connect, IP not whitelisted | Atlas Network Access mein "Add Current IP Address" - REMINDER: ye baar baar hoga, Amit ka network IP frequently change hota hai |
 
 ---
 
@@ -361,9 +380,9 @@ router.get("/", (req, res) => {
 
 **Mistake Box Addition:**
 
-| Mistake | Correction |
-|---|---|
-| find() filter ko "field return karne wala" samjha, jabki wo "document choose karne wala" hai | Filter CHOOSES documents (konse milenge), FIELDS nahi chhanta - pura document hi milta hai har match mein |
+| Mistake                                                                                                | Correction                                                                                                      |
+| ------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------- |
+| find() filter ko "field return karne wala" samjha, jabki wo "document choose karne wala" hai           | Filter CHOOSES documents (konse milenge), FIELDS nahi chhanta - pura document hi milta hai har match mein       |
 | Interview answer mein general mechanism repeat kiya, specific data ke saath exact count/naam nahi diya | Jab specific data diya ho, EXACT answer dena chahiye (kitne, kaunse), sirf general rule repeat karna kaafi nahi |
 
 ---
@@ -385,13 +404,15 @@ router.get("/", (req, res) => {
 **Task:** Naya route banaya jo sirf topic: "Arrays" wale questions return kare.
 
 **Amit ke pehle attempt mein 2 syntax errors the (VS Code ne highlight kiye, khud fix kiye):**
+
 1. `router.get("/arrays"(req, res) => {` - comma missing path aur callback ke beech
 2. `.then((questions) => { req.send({topic: "Arrays"}); })` - req.send galat (res.send hona chahiye) + hardcoded object bhej raha tha actual questions data ki jagah
 
 **Final working code:**
+
 ```javascript
 router.get("/arrays", (req, res) => {
-  Question.find({topic: "Arrays"})
+  Question.find({ topic: "Arrays" })
     .then((questions) => {
       res.send(questions);
     })
@@ -409,9 +430,10 @@ router.get("/arrays", (req, res) => {
 ## Bonus Self-Initiative (Day 14) - /questions/linkedList route
 
 Amit ne khud se, bina poochhe, ek aur filtered route banaya (pattern repeat karke):
+
 ```javascript
 router.get("/linkedList", (req, res) => {
-  Question.find({topic: "Linked List"})
+  Question.find({ topic: "Linked List" })
     .then((questions) => {
       res.send(questions);
     })
@@ -433,16 +455,19 @@ Saath mein naye questions bhi Postman se POST kiye: "Merge Two Sorted Lists" (Ea
 Amit ne khud se, bina kisi help/code diye, ye saare filter routes bana diye - sab consistent pattern follow karte hue:
 
 **Topic-based filters:**
+
 - `/questions/arrays` -> {topic: "Arrays"}
 - `/questions/linkedList` -> {topic: "Linked List"}
 - `/questions/recursion` -> {topic: "Recursion"}
 
 **Difficulty-based filters:**
+
 - `/questions/easy` -> {difficulty: "Easy"}
 - `/questions/medium` -> {difficulty: "Medium"}
 - `/questions/hard` -> {difficulty: "Hard"}
 
 **Combination filter (NEW CONCEPT - multiple keys in find object = AND logic):**
+
 ```javascript
 router.get("/easy-arrays", (req, res) => {
   Question.find({ topic: "Arrays", difficulty: "Easy" })
@@ -467,6 +492,7 @@ router.get("/easy-arrays", (req, res) => {
 **Task:** Schema mein naya field add kiya - dateAdded (Date type), automatically server-side set hota hai using new Date().
 
 **Schema update:**
+
 ```javascript
 const questionSchema = new mongoose.Schema({
   questionName: String,
@@ -477,6 +503,7 @@ const questionSchema = new mongoose.Schema({
 ```
 
 **Route update:**
+
 ```javascript
 const newQuestion = new Question({
   questionName: req.body.questionName,
