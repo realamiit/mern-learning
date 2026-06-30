@@ -8,41 +8,101 @@ const router = express.Router();
 const Question = require("./Question");
 
 router.get("/", (req, res) => {
-    Question.find()
+  Question.find()
     .then((questions) => {
-        res.send(questions);
+      res.send(questions);
     })
     .catch((error) => {
-        console.log("Fetch error:",error);
-        res.send("Error fetching questions")
+      console.log("Fetch error:", error);
+      res.send("Error fetching questions");
     });
 });
 
 //   tssk  to filter all array questions
 router.get("/arrays", (req, res) => {
-  Question.find({topic: "Arrays"})
-  .then((questions) => {
-    res.send(questions);
-  })
-  .catch((error) => {
-    console.log("Fetch error:",error);
-    res.send("Error fetching questions")
-  })
+  Question.find({ topic: "Arrays" })
+    .then((questions) => {
+      res.send(questions);
+    })
+    .catch((error) => {
+      console.log("Fetch error:", error);
+      res.send("Error fetching questions");
+    });
 });
 
 // task    to filter all linkedList questions
 router.get("/linkedList", (req, res) => {
-  Question.find({topic: "Linked List"})
-  .then((questions) => {
-    res.send(questions);
-  })
-  .catch((error) => {
-    console.log("Fetch error:",error);
-    res.send("Error fetching questions")
-  })
+  Question.find({ topic: "Linked List" })
+    .then((questions) => {
+      res.send(questions);
+    })
+    .catch((error) => {
+      console.log("Fetch error:", error);
+      res.send("Error fetching questions");
+    });
 });
 
-// task recursion 
+// task recursion
+router.get("/recursion", (req, res) => {
+  Question.find({ topic: "Recursion" })
+    .then((questions) => {
+      res.send(questions);
+    })
+    .catch((error) => {
+      console.log("Fetch error:", error);
+      res.send("Error fetching questions");
+    });
+});
+
+//  task easy
+
+router.get("/easy", (req, res) => {
+  Question.find({ difficulty: "Easy" })
+    .then((questions) => {
+      res.send(questions);
+    })
+    .catch((error) => {
+      console.log("Fetch error:", error);
+      res.send("Error fetching easy questions");
+    });
+});
+
+//  task medium
+router.get("/medium", (req, res) => {
+  Question.find({ difficulty: "Medium" })
+    .then((questions) => {
+      res.send(questions);
+    })
+    .catch((error) => {
+      console.log("Fetch error:", error);
+      res.send("Error fetching medium questions");
+    });
+});
+
+//  task hard
+router.get("/hard", (req, res) => {
+  Question.find({ difficulty: "Hard" })
+    .then((questions) => {
+      res.send(questions);
+    })
+    .catch((error) => {
+      console.log("Fetch error:", error);
+      res.send("Error fetching hard questions");
+    });
+});
+
+// task prt this is combination section 
+
+router.get("/easy-arrays", (req, res) => {
+  Question.find({ topic: "Arrays", difficulty: "Easy" })
+    .then((questions) => {
+      res.send(questions);
+    })
+    .catch((error) => {
+      console.log("Fetch error:", error);
+      res.send("Error fetching questions");
+    });
+});
 
 // ye route ka full path banega: "/question/add"
 router.post("/add", (req, res) => {
@@ -58,7 +118,7 @@ router.post("/add", (req, res) => {
       res.send("Question saved successfully!");
     })
     .catch((error) => {
-        console.log("Save error:", error)
+      console.log("Save error:", error);
       res.send("Error saving question");
     });
 });

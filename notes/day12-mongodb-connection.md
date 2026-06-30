@@ -425,3 +425,37 @@ router.get("/linkedList", (req, res) => {
 Saath mein naye questions bhi Postman se POST kiye: "Merge Two Sorted Lists" (Easy), "Detect Cycle in Linked List" (Medium). Sab successfully MongoDB mein save hue aur /questions/linkedList se fetch hue (3 documents, sab match).
 
 **Significance:** Pattern ko independently repeat karna (bina hint ke) dikhata hai genuine understanding - ye exact tarah ka self-directed practice hai jo learning ko solid karta hai.
+
+---
+
+## Extended Self-Practice (Day 14) - 7+ Filter Routes Built Independently
+
+Amit ne khud se, bina kisi help/code diye, ye saare filter routes bana diye - sab consistent pattern follow karte hue:
+
+**Topic-based filters:**
+- `/questions/arrays` -> {topic: "Arrays"}
+- `/questions/linkedList` -> {topic: "Linked List"}
+- `/questions/recursion` -> {topic: "Recursion"}
+
+**Difficulty-based filters:**
+- `/questions/easy` -> {difficulty: "Easy"}
+- `/questions/medium` -> {difficulty: "Medium"}
+- `/questions/hard` -> {difficulty: "Hard"}
+
+**Combination filter (NEW CONCEPT - multiple keys in find object = AND logic):**
+```javascript
+router.get("/easy-arrays", (req, res) => {
+  Question.find({ topic: "Arrays", difficulty: "Easy" })
+    .then((questions) => {
+      res.send(questions);
+    })
+    .catch((error) => {
+      console.log("Fetch error:", error);
+      res.send("Error fetching questions");
+    });
+});
+```
+
+**Prediction exercise:** Amit predicted BEFORE testing that /easy-arrays would return `[]`, reasoning correctly that no saved question has BOTH topic: "Arrays" AND difficulty: "Easy" simultaneously. Tested and confirmed - prediction matched exactly.
+
+**Significance:** This shows genuine understanding of MongoDB's AND-logic for multi-key filter objects, not just pattern-copying. Building 7 consistent routes independently + correctly predicting an edge case result demonstrates solid grasp of Model.find() filtering.
