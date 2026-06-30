@@ -18,6 +18,32 @@ router.get("/", (req, res) => {
     });
 });
 
+//   tssk  to filter all array questions
+router.get("/arrays", (req, res) => {
+  Question.find({topic: "Arrays"})
+  .then((questions) => {
+    res.send(questions);
+  })
+  .catch((error) => {
+    console.log("Fetch error:",error);
+    res.send("Error fetching questions")
+  })
+});
+
+// task    to filter all linkedList questions
+router.get("/linkedList", (req, res) => {
+  Question.find({topic: "Linked List"})
+  .then((questions) => {
+    res.send(questions);
+  })
+  .catch((error) => {
+    console.log("Fetch error:",error);
+    res.send("Error fetching questions")
+  })
+});
+
+// task recursion 
+
 // ye route ka full path banega: "/question/add"
 router.post("/add", (req, res) => {
   const newQuestion = new Question({

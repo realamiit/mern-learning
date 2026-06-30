@@ -377,3 +377,29 @@ router.get("/", (req, res) => {
 **Additional issue jo isi session mein aaya:** IP fix hone ke baad bhi `bad auth: authentication failed` aaya - phir se password mismatch tha. Fixed using same method as Day 12: Atlas se "Autogenerate Secure Password" + copy-paste (never manual type) + immediately update .env.
 
 **Key reminder for future:** Agar "could not connect to any servers" / IP whitelist error aaye -> check Network Access settings (0.0.0.0/0 active hai ya nahi). Agar "bad auth" error aaye -> password regenerate + copy-paste karo, kabhi type mat karo.
+
+---
+
+## Daily Task (Day 14) - Filtered route /questions/arrays
+
+**Task:** Naya route banaya jo sirf topic: "Arrays" wale questions return kare.
+
+**Amit ke pehle attempt mein 2 syntax errors the (VS Code ne highlight kiye, khud fix kiye):**
+1. `router.get("/arrays"(req, res) => {` - comma missing path aur callback ke beech
+2. `.then((questions) => { req.send({topic: "Arrays"}); })` - req.send galat (res.send hona chahiye) + hardcoded object bhej raha tha actual questions data ki jagah
+
+**Final working code:**
+```javascript
+router.get("/arrays", (req, res) => {
+  Question.find({topic: "Arrays"})
+    .then((questions) => {
+      res.send(questions);
+    })
+    .catch((error) => {
+      console.log("Fetch error:", error);
+      res.send("Error fetching questions");
+    });
+});
+```
+
+**Result:** Sirf 1 document mila ("Two Sum") - kyunki uska topic exactly "Arrays" hai. "Factorial" wala exclude hua kyunki uska topic "Array" (singular) tha - EXACT MATCH demonstration, "Array" != "Arrays" for find() filter.
