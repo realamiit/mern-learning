@@ -403,3 +403,25 @@ router.get("/arrays", (req, res) => {
 ```
 
 **Result:** Sirf 1 document mila ("Two Sum") - kyunki uska topic exactly "Arrays" hai. "Factorial" wala exclude hua kyunki uska topic "Array" (singular) tha - EXACT MATCH demonstration, "Array" != "Arrays" for find() filter.
+
+---
+
+## Bonus Self-Initiative (Day 14) - /questions/linkedList route
+
+Amit ne khud se, bina poochhe, ek aur filtered route banaya (pattern repeat karke):
+```javascript
+router.get("/linkedList", (req, res) => {
+  Question.find({topic: "Linked List"})
+    .then((questions) => {
+      res.send(questions);
+    })
+    .catch((error) => {
+      console.log("Fetch error:", error);
+      res.send("Error fetching questions");
+    });
+});
+```
+
+Saath mein naye questions bhi Postman se POST kiye: "Merge Two Sorted Lists" (Easy), "Detect Cycle in Linked List" (Medium). Sab successfully MongoDB mein save hue aur /questions/linkedList se fetch hue (3 documents, sab match).
+
+**Significance:** Pattern ko independently repeat karna (bina hint ke) dikhata hai genuine understanding - ye exact tarah ka self-directed practice hai jo learning ko solid karta hai.
