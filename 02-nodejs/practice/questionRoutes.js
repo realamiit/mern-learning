@@ -110,6 +110,7 @@ router.post("/add", (req, res) => {
     questionName: req.body.questionName,
     topic: req.body.topic,
     difficulty: req.body.difficulty,
+    dateAdded: new Date(),   // this is current Date actualy 
   });
 
   newQuestion

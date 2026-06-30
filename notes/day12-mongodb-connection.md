@@ -459,3 +459,33 @@ router.get("/easy-arrays", (req, res) => {
 **Prediction exercise:** Amit predicted BEFORE testing that /easy-arrays would return `[]`, reasoning correctly that no saved question has BOTH topic: "Arrays" AND difficulty: "Easy" simultaneously. Tested and confirmed - prediction matched exactly.
 
 **Significance:** This shows genuine understanding of MongoDB's AND-logic for multi-key filter objects, not just pattern-copying. Building 7 consistent routes independently + correctly predicting an edge case result demonstrates solid grasp of Model.find() filtering.
+
+---
+
+## Bonus Task (Day 14) - dateAdded field (Date type)
+
+**Task:** Schema mein naya field add kiya - dateAdded (Date type), automatically server-side set hota hai using new Date().
+
+**Schema update:**
+```javascript
+const questionSchema = new mongoose.Schema({
+  questionName: String,
+  topic: String,
+  difficulty: String,
+  dateAdded: Date,
+});
+```
+
+**Route update:**
+```javascript
+const newQuestion = new Question({
+  questionName: req.body.questionName,
+  topic: req.body.topic,
+  difficulty: req.body.difficulty,
+  dateAdded: new Date(),
+});
+```
+
+**Result:** Verified in Compass - dateAdded saved in ISO format: `2026-06-30T18:15:16.734+00:00`
+
+**Significance:** dateAdded NAHI client se aata (req.body.dateAdded use nahi kiya) - SERVER khud current time set karta hai. Ye field foundation banega spaced-repetition logic ke liye (Day 6 ka getRevisionDate(daysToAdd) function) - kal isे real dateAdded field ke saath connect karenge taaki Day 3/7/15/30 revision dates calculate ho sakein.

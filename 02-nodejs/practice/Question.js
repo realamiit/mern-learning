@@ -9,6 +9,7 @@ const questionSchema = new mongoose.Schema({
     questionName: String,  // Question kaname jaise "Two Sum"
     topic: String,            // topic jaise "Array"
     difficulty: String,      // difficulty level, jaise "Easy"/"Medium"/"Hard"
+    dateAdded: Date,   // dateAdded me hmara date  add hoga 
 });
 
 // Model - is schema se "Question" naam ka model bana rahe hain
