@@ -126,12 +126,60 @@ router.post("/add", (req, res) => {
 
 // date rkhna revision
 // /questions/due - aaj Day 3 revision ke due questions
-router.get("/due", (req, res) => {
+router.get("/due3", (req, res) => {
   
   const threeDaysAgo = new Date();
   threeDaysAgo.setDate(threeDaysAgo.getDate() - 3);    //aaj ki date se 3 din pehle ki date calculate karen
   // sirf vhi question jo tin din pehele ya usse pehele add huyi hain ya the
   Question.find({ dateAdded: { $lte: threeDaysAgo } })
+    .then((questions) => {
+      res.send(questions);
+    })
+    .catch((error) => {
+      console.log("Due Question error:", error);
+      res.send("Error fetching due questions");
+    });
+});
+
+// /questions/due - aaj Day 7 revision ke due questions
+router.get("/due7", (req, res) => {
+  
+  const sevenDaysAgo = new Date();
+  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);    //aaj ki date se 7 din pehle ki date calculate karen
+  // sirf vhi question jo tin din pehele ya usse pehele add huyi hain ya the
+  Question.find({ dateAdded: { $lte: sevenDaysAgo } })
+    .then((questions) => {
+      res.send(questions);
+    })
+    .catch((error) => {
+      console.log("Due Question error:", error);
+      res.send("Error fetching due questions");
+    });
+});
+
+// /questions/due - aaj Day 15 revision ke due questions
+router.get("/due15", (req, res) => {
+ 
+  const fifteenDaysAgo = new Date();
+  fifteenDaysAgo.setDate(fifteenDaysAgo.getDate() - 15);    //aaj ki date se 15 din pehle ki date calculate karen
+  // sirf vhi question jo tin din pehele ya usse pehele add huyi hain ya the
+  Question.find({ dateAdded: { $lte: fifteenDaysAgo } })
+    .then((questions) => {
+      res.send(questions);
+    })
+    .catch((error) => {
+      console.log("Due Question error:", error);
+      res.send("Error fetching due questions");
+    });
+});
+
+// /questions/due - aaj Day 30 revision ke due questions
+router.get("/due30", (req, res) => {
+ 
+  const thirtyDaysAgo = new Date();
+  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);    //aaj ki date se 30 din pehle ki date calculate karen
+  // sirf vhi question jo tin din pehele ya usse pehele add huyi hain ya the
+  Question.find({ dateAdded: { $lte: thirtyDaysAgo } })
     .then((questions) => {
       res.send(questions);
     })
