@@ -124,6 +124,25 @@ router.post("/add", (req, res) => {
     });
 });
 
+// date rkhna revision
+
+// /questions/due - aaj Day 3 revision ke due questions
+router.get("/due",(req ,res) => {
+  // aaj ki date se 3 din pehle ki date calculate karen
+  const threeDaysAgo = new Date();
+  threeDaysAgo.setDate(threeDaysAgo.getDate() -0);
+  // sirf vhi question jo tin din pehele ya usse pehele add huyi hain ya the
+  Question.find({dateAdded:{$lte: threeDaysAgo}})
+  .then((questions) => {
+    res.send(questions);
+  })
+  .catch((error) => {
+    console.log("Due Question error:",error);
+    res.send("Error fetching due questions");
+  });
+
+});
+
 // module.experts - is file ko "router" object ko EXPORT kar rahe hain
 // taki express-server.js (ya koi aur file) ise IMPORT karke use kar sake
 module.exports = router;
