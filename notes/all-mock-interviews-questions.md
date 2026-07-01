@@ -295,3 +295,10 @@ console.log(user.username);  // lowercase 'n'
 **Q2: Agar sirf 1 document mein difficulty field ho, find({difficulty: "Medium"}) kya return karega?**
 
 > Sirf wahi document(s) jinka difficulty field exactly match kare. Jin documents mein wo field absent hai, wo automatically exclude ho jate hain match na hone ki wajah se.
+
+
+## Day 15 — Spaced Repetition, $lte Operator
+
+**Q: Spaced repetition mein "due" question kaise identify karte hain MongoDB mein?**
+
+> Pehle aaj ki date se 3 din pehle ki date calculate karte hain (new Date() + setDate(getDate() - 3)). Phir Question.find({ dateAdded: { $lte: threeDaysAgo } }) se sirf wahi documents milte hain jinka dateAdded threeDaysAgo se chhota ya equal ho — matlab jo questions 3 din pehle ya usse pehle add hue the, unka revision due hai.
