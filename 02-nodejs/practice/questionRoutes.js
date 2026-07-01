@@ -130,7 +130,7 @@ router.post("/add", (req, res) => {
 router.get("/due",(req ,res) => {
   // aaj ki date se 3 din pehle ki date calculate karen
   const threeDaysAgo = new Date();
-  threeDaysAgo.setDate(threeDaysAgo.getDate() -0);
+  threeDaysAgo.setDate(threeDaysAgo.getDate() -3);
   // sirf vhi question jo tin din pehele ya usse pehele add huyi hain ya the
   Question.find({dateAdded:{$lte: threeDaysAgo}})
   .then((questions) => {
