@@ -1,8 +1,7 @@
 // router file - sirf "question" se related routes yaad rkhegaa
 const express = require("express");
 
-// express.Router() - ek mini-app jaisa object banata hai
-// isme hum alag alg se routes define kr Sakte hain , sirf "/" object ko touch nhi krna padegaa
+// express.Router() - ek mini-app jaisa object banata hain isme hum alag alg se routes define kr Sakte hain , sirf "/" object ko touch nhi krna padegaa
 const router = express.Router();
 
 const Question = require("./Question");
@@ -55,7 +54,6 @@ router.get("/recursion", (req, res) => {
 });
 
 //  task easy
-
 router.get("/easy", (req, res) => {
   Question.find({ difficulty: "Easy" })
     .then((questions) => {
@@ -92,7 +90,6 @@ router.get("/hard", (req, res) => {
 });
 
 // task prt this is combination section
-
 router.get("/easy-arrays", (req, res) => {
   Question.find({ topic: "Arrays", difficulty: "Easy" })
     .then((questions) => {
@@ -175,8 +172,8 @@ router.get("/due15", (req, res) => {
 
 // /questions/due - aaj Day 30 revision ke due questions
 router.get("/due30", (req, res) => {
- 
-  const thirtyDaysAgo = new Date();
+  
+  const thirtyDaysAgo = new Date(); 
   thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);    //aaj ki date se 30 din pehle ki date calculate karen
   // sirf vhi question jo tin din pehele ya usse pehele add huyi hain ya the
   Question.find({ dateAdded: { $lte: thirtyDaysAgo } })
