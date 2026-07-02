@@ -211,12 +211,6 @@ router.get("/due3-details", (req, res) => {
       res.send("Error fetching due questions");
     });
 
-//    find all the questions koyi filter nhi 
-  //  Question.find({})
-  // .then((questions) => {
-  //   console.log("Total Question:", questions.length);
-  //   res.send(questions);
-  // })
   });
 
 
