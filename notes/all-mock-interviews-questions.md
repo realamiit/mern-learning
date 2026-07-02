@@ -302,3 +302,12 @@ console.log(user.username);  // lowercase 'n'
 **Q: Spaced repetition mein "due" question kaise identify karte hain MongoDB mein?**
 
 > Pehle aaj ki date se 3 din pehle ki date calculate karte hain (new Date() + setDate(getDate() - 3)). Phir Question.find({ dateAdded: { $lte: threeDaysAgo } }) se sirf wahi documents milte hain jinka dateAdded threeDaysAgo se chhota ya equal ho — matlab jo questions 3 din pehle ya usse pehle add hue the, unka revision due hai.
+
+
+## Day 16 — .toObject(), .map(), Revision Dates
+
+**Q1: .toObject() kyun use kiya?**
+> Mongoose document mein sirf schema-defined fields allowed hoti hain. .toObject() se plain JavaScript object banta hai jisme freely naye fields (jaise due3, due7) add kar sakte hain.
+
+**Q2: .map() ka kaam kya tha is route mein?**
+> .map() array ke har element pe ek function chalata hai aur transformed elements ka naya array return karta hai. Yahan har question ko .toObject() se convert kiya, due3 date calculate karke add ki, aur naya array return kiya.
