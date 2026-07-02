@@ -172,7 +172,7 @@ router.get("/due15", (req, res) => {
 
 // /questions/due - aaj Day 30 revision ke due questions
 router.get("/due30", (req, res) => {
-  
+
   const thirtyDaysAgo = new Date(); 
   thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);    //aaj ki date se 30 din pehle ki date calculate karen
   // sirf vhi question jo tin din pehele ya usse pehele add huyi hain ya the
@@ -185,6 +185,41 @@ router.get("/due30", (req, res) => {
       res.send("Error fetching due questions");
     });
 });
+
+// /due3
+router.get("/due3-details", (req, res) => {
+  const threeDaysAgo = new Date();
+  threeDaysAgo.getDate = (threeDaysAgo.getDate() - 3);
+  Question.find({dateAdded: {$lte: threeDaysAgo}})
+    .then((questions) => {
+      // har question ko plain object me convert karo 
+      //  aur revision date bhi add kroo
+
+      const questionsWithDates = questions.map((questions) => {
+        const q = questions.toObject();
+
+        // due3 date = dateAdded + 3 days 
+        const due3 = new Date(q.dateAdded);
+        due3.setDate(due3.getDate() + 3);
+        q.due3 = due3;
+        return q;
+      });
+      res.send(questionsWithDates);
+    })
+    .catch((error) => {
+      console.log("Due question error" , reeor);
+      res.send("Error fetching due questions");
+    });
+
+//    find all the questions koyi filter nhi 
+  //  Question.find({})
+  // .then((questions) => {
+  //   console.log("Total Question:", questions.length);
+  //   res.send(questions);
+  // })
+  });
+
+
 
 // module.experts - is file ko "router" object ko EXPORT kar rahe hain
 // taki express-server.js (ya koi aur file) ise IMPORT karke use kar sake
