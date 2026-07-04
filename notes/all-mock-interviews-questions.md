@@ -322,3 +322,14 @@ console.log(user.username);  // lowercase 'n'
 
 **Q2: JSX kya hai — normal HTML se kya alag hai?**
 > JSX (JavaScript XML) ek syntax extension hai jo JS file mein HTML jaisa code likhne deta hai. Normal HTML static hota hai. JSX mein {} curly braces se JavaScript expressions directly embed kar sakte hain (jaise {count}), isliye UI dynamically state ke saath automatically update hoti hai.
+
+
+## Day 18 Mock Interview
+
+**Q1: useEffect mein [] kyun diya?**
+> Amit's answer: "pehli baar browser mein jaate hain to pehli baar dikhta hai, sirf ek baar render hone pe"
+> Polished answer: "[] empty array isliye diya kyunki sirf ek baar chalana chahte hain — jab component pehli baar render ho (page load pe). Bina [] ke har re-render pe chalega (infinite loop risk). [value] dene se us value ke change hone pe chalega."
+
+**Q2: CORS error kyun aaya?**
+> Amit's answer: "browser ka security rule hai, ek request se dusri request ko block karta hai, CORS = Cross-Origin Resource Sharing"
+> Polished answer: "CORS browser ka security rule hai jo alag origins (different port/domain) ke beech requests block karta hai. React (5173) se Express (3000) pe request bhejne pe browser ne block kiya. Fix: npm install cors + app.use(cors()) Express mein."
