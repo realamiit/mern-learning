@@ -1,25 +1,25 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [questions, setQuestions] = useState([])  //empty array initially
 
-  // my hook
+  useEffect(() => {
+    // components load hone pe peheli baar ye chlega 
+    fetch('http://localhost:3000/questions')
+    .then((res) => res.json())
+    .then((data) => {
+      setQuestions(data)  //backend se aaya data state mein store karo
+    
+    })
+  }, []) // sirf eeek baar run krega 
   
-
   return (
    <div>
     <h1>DSA Tracker</h1>
-    <p>count: {count}</p>
-    <button onClick={() => setCount(count + 1)}>
-      Add 1
-    </button>
-    <br/>
-    <button onClick={() => setCount(0)}>
-      Reset
-    </button>
-   </div>
-   
+    <p>Total Questions: {questions.length}</p>
+    <button>See Questions</button>
+   </div> 
   )
 }
 
