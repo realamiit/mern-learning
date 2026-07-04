@@ -311,3 +311,14 @@ console.log(user.username);  // lowercase 'n'
 
 **Q2: .map() ka kaam kya tha is route mein?**
 > .map() array ke har element pe ek function chalata hai aur transformed elements ka naya array return karta hai. Yahan har question ko .toObject() se convert kiya, due3 date calculate karke add ki, aur naya array return kiya.
+
+
+## Day 17 — React Basics, JSX, useState
+
+**Q1: useState mein [count, setCount] do alag cheezein kyun return karta hai?**
+> Read aur write separate rakhna zaroori hai. count sirf current value padhne ke liye hai (directly change nahi kar sakte). setCount value change karne ka authorized tarika hai — jab call hota hai, React ko pata chalta hai UI re-render karna hai. Direct assignment se React ko pata nahi chalta ki state badli.
+
+---
+
+**Q2: JSX kya hai — normal HTML se kya alag hai?**
+> JSX (JavaScript XML) ek syntax extension hai jo JS file mein HTML jaisa code likhne deta hai. Normal HTML static hota hai. JSX mein {} curly braces se JavaScript expressions directly embed kar sakte hain (jaise {count}), isliye UI dynamically state ke saath automatically update hoti hai.
