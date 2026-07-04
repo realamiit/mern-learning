@@ -18,7 +18,31 @@ function App() {
    <div>
     <h1>DSA Tracker</h1>
     <p>Total Questions: {questions.length}</p>
-    <button>See Questions</button>
+    <ul>
+      {questions.map((q) => (  // JSX me array ke hr element ke liye <li> list render kro 
+        <li key = {q.id}>         
+          {q.questionName} - {q.topic} - {q.difficulty}
+        </li>
+      ))}
+    </ul> 
+
+    {/* <ul>
+  {questions.map((q) => (
+    <li key={q.id} className="question-item">
+      <div>
+        <h3>{q.questionName}</h3>
+        <p>📚 {q.topic}</p>
+        <p>⭐ {q.difficulty}</p>
+      </div>
+
+      <div className="buttons">
+        <button>Solve</button>
+        <button>Edit</button>
+        <button>Delete</button>
+      </div>
+    </li>
+  ))}
+</ul> */}
    </div> 
   )
 }
