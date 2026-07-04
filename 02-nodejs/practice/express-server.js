@@ -15,7 +15,7 @@ const app = express();
 // Express use samajh hi nahi payega.
 app.use(express.json());
 const cors = require("cors");
-app.use(cors());
+app.use(cors()); 
 
 app.use("/questions", questionRoutes); // "/questions" se shuru hone wala koi bhi request questionRoutes file ko jayega
 
