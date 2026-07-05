@@ -18,16 +18,18 @@ function App() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ questionName, topic, difficulty })
     })
-      .then((res) => res.json())
+
       .then(() => {
         // form clear karo
         setQuestionName('')
         setTopic('')
         setDifficulty('')
+        // list refress hoga 
         return fetch('http://localhost:3000/questions')
       })
       .then((res) => res.json())
       .then((data) => setQuestions(data))
+      
   }
 
   return (
