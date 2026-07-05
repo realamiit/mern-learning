@@ -333,3 +333,18 @@ console.log(user.username);  // lowercase 'n'
 **Q2: CORS error kyun aaya?**
 > Amit's answer: "browser ka security rule hai, ek request se dusri request ko block karta hai, CORS = Cross-Origin Resource Sharing"
 > Polished answer: "CORS browser ka security rule hai jo alag origins (different port/domain) ke beech requests block karta hai. React (5173) se Express (3000) pe request bhejne pe browser ne block kiya. Fix: npm install cors + app.use(cors()) Express mein."
+
+
+
+
+## Day 19 Mock Interview
+
+**Q1: onChange mein `e` aur `e.target.value` kya hai?**
+> Amit's answer: "e variable hai, e.target.value se value set ho rahi hai"
+> Polished answer: "`e` event object hai jo browser bhejta hai — us event ki info contain karta hai. `e.target` wo input element hai. `e.target.value` us input ka current text value hai jo user ne type kiya."
+
+**Q2: JSON.stringify() kyun use kiya?**
+> Amit's answer: "json format se string format mein convert karna tha"
+> Polished answer: "fetch() body mein sirf string bhej sakta hai. JSON.stringify() JS object ko JSON string mein convert karta hai. Backend mein express.json() middleware use string ko wapas JS object mein convert karta hai."
+
+### Pura cycle: JS Object → JSON.stringify() → String → Network → express.json() → JS Object
