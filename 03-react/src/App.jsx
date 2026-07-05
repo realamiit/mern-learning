@@ -1,49 +1,68 @@
 import { useState, useEffect } from 'react'
-import './App.css';
 
 function App() {
-  const [questions, setQuestions] = useState([])  //empty array initially
+  const [questions, setQuestions] = useState([])
+  const [questionName, setQuestionName] = useState('')
+  const [topic, setTopic] = useState('')
+  const [difficulty, setDifficulty] = useState('')
 
   useEffect(() => {
-    // components load hone pe peheli baar ye chlega 
     fetch('http://localhost:3000/questions')
-    .then((res) => res.json())
-    .then((data) => {
-      setQuestions(data)  //backend se aaya data state mein store karo
-    
+      .then((res) => res.json())
+      .then((data) => setQuestions(data))
+  }, [])
+
+  function handleSubmit() {
+    fetch('http://localhost:3000/questions/add', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ questionName, topic, difficulty })
     })
-  }, []) // sirf eeek baar run krega 
-  
+      .then((res) => res.json())
+      .then(() => {
+        // form clear karo
+        setQuestionName('')
+        setTopic('')
+        setDifficulty('')
+        return fetch('http://localhost:3000/questions')
+      })
+      .then((res) => res.json())
+      .then((data) => setQuestions(data))
+  }
+
   return (
-   <div>
-    <h1>DSA Tracker</h1>
-    <p>Total Questions: {questions.length}</p>
-    <ul>
-      {questions.map((q) => (  // JSX me array ke hr element ke liye <li> list render kro 
-        <li key = {q.id}>         
-          {q.questionName} - {q.topic} - {q.difficulty}
-        </li>
-      ))}
-    </ul> 
-
-    {/* <ul>
-  {questions.map((q) => (
-    <li key={q.id} className="question-item">
+    <div>
+      <h1>DSA Tracker</h1>
+      
+      {/* Add Question Form */}
       <div>
-        <h3>{q.questionName}</h3>
-        <p>📚 {q.topic}</p>
-        <p>⭐ {q.difficulty}</p>
+        <input 
+          placeholder="Question Name"
+          value={questionName}
+          onChange={(e) => setQuestionName(e.target.value)}
+        />
+        <input 
+          placeholder="Topic"
+          value={topic}
+          onChange={(e) => setTopic(e.target.value)}
+        />
+        <input 
+          placeholder="Difficulty"
+          value={difficulty}
+          onChange={(e) => setDifficulty(e.target.value)}
+        />
+        <button onClick={handleSubmit}>Add Question</button>
       </div>
 
-      <div className="buttons">
-        <button>Solve</button>
-        <button>Edit</button>
-        <button>Delete</button>
-      </div>
-    </li>
-  ))}
-</ul> */}
-   </div> 
+      {/* Questions List */}
+      <ul>
+        {questions.map((q) => (
+          <li key={q._id}>
+            {q.questionName} — {q.topic} — {q.difficulty}
+          </li>
+        ))}
+      </ul>
+    </div>
   )
 }
 
