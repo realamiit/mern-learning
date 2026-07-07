@@ -214,6 +214,9 @@ router.get("/due3-details", (req, res) => {
   });
 
 
+  // router.delete("/:id" ,res)   baad me krege means pending work 
+
+
 
 // module.experts - is file ko "router" object ko EXPORT kar rahe hain
 // taki express-server.js (ya koi aur file) ise IMPORT karke use kar sake
