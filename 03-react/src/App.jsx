@@ -12,6 +12,51 @@ function App() {
       .then((data) => setQuestions(data))
   }, [])
 
+
+
+  const [dueQuestions, setDueQuestions] = useState({
+  due3: [], due7: [], due15: [], due30: []
+});
+
+
+//  due 3
+  useEffect(() => {
+  fetch('http://localhost:3000/due3')
+    .then((res) => res.json())
+    .then((data) => {
+      setDueQuestions(prev => ({ ...prev, due3: data }));
+    });
+}, []);
+// due 7
+ useEffect(() => {
+  fetch('http://localhost:3000/due7')
+    .then((res) => res.json())
+    .then((data) => {
+      setDueQuestions(prev => ({ ...prev, due7: data }));
+    });
+}, []);
+
+// due 15
+ useEffect(() => {
+  fetch('http://localhost:3000/due15')
+    .then((res) => res.json())
+    .then((data) => {
+      setDueQuestions(prev => ({ ...prev, due15: data }));
+    });
+}, []);
+
+// due 30
+ useEffect(() => {
+  fetch('http://localhost:3000/due30')
+    .then((res) => res.json())
+    .then((data) => {
+      setDueQuestions(prev => ({ ...prev, due30: data }));
+    });
+}, []);
+
+
+
+
   function handleSubmit() {
     fetch('http://localhost:3000/questions/add', {
       method: 'POST',
