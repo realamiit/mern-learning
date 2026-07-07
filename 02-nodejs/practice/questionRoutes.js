@@ -215,6 +215,7 @@ router.get("/due3-details", (req, res) => {
 
 
   router.delete("/:id" ,async (req, res) => {
+    try{
      // id nikalo
      const id = req.params.id;
 
@@ -222,8 +223,15 @@ router.get("/due3-details", (req, res) => {
   await Question.findByIdAndDelete(id);
 
   // response bhejo
-
-  })    
+  res.json({
+    message: "Question deleted successfully"
+  });
+  }catch (err){
+    res.status(500).json({
+      error: err.message
+    });
+  }
+  });   
 
 
 
