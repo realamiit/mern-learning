@@ -81,7 +81,7 @@ function App() {
     <div>
       <h1>DSA Tracker</h1>
       
-      {/* Add Question Form */}
+      {/* Add Question Form  */}
       <div>
         <input 
           placeholder="Question Name"
@@ -98,7 +98,7 @@ function App() {
           value={difficulty}
           onChange={(e) => setDifficulty(e.target.value)}
         />
-        <button onClick={handleSubmit}>Add Question</button>
+        <button onClick={handleSubmit}>Add Question</button> // button to submit the form
       </div>
 
       {/* Questions List */}
