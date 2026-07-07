@@ -214,7 +214,16 @@ router.get("/due3-details", (req, res) => {
   });
 
 
-  // router.delete("/:id" ,res)   baad me krege means pending work 
+  router.delete("/:id" ,async (req, res) => {
+     // id nikalo
+     const id = req.params.id;
+
+  // question delete karo
+  await Question.findByIdAndDelete(id);
+
+  // response bhejo
+
+  })    
 
 
 
