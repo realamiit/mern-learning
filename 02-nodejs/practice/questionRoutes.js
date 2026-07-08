@@ -213,7 +213,7 @@ router.get("/due3-details", (req, res) => {
 
   });
 
-
+//   Delete route 
   router.delete("/:id" ,async (req, res) => {
     try{
      // id nikalo
@@ -232,7 +232,6 @@ router.get("/due3-details", (req, res) => {
     });
   }
   });   
-
 
 
 // module.experts - is file ko "router" object ko EXPORT kar rahe hain
