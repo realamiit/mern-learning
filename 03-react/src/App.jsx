@@ -203,6 +203,7 @@ const showDue30Questions = async () => {
       <ul>
         {dueQuestions.due3.map((q) => (
           <li key={q._id}>{q.questionName}
+          
           <button onClick={() => deleteQuestion(q._id)}>
             Delete
           </button>
@@ -214,6 +215,7 @@ const showDue30Questions = async () => {
       <ul>
         {dueQuestions.due7.map((q) => (
           <li key={q._id}>{q.questionName}
+
           <button onClick={() => deleteQuestion(q._id)}>
             Delete
           </button>
@@ -225,6 +227,7 @@ const showDue30Questions = async () => {
       <ul>
         {dueQuestions.due15.map((q) => (
           <li key={q._id}>{q.questionName}
+
           <button onClick={() => deleteQuestion(q._id)}>
             Delete
           </button>
@@ -236,6 +239,7 @@ const showDue30Questions = async () => {
       <ul>
         {dueQuestions.due30.map((q) => (
           <li key={q._id}>{q.questionName}
+
           <button onClick={() => deleteQuestion(q._id)}>
             Delete
             </button>
