@@ -144,26 +144,16 @@ const showDue30Questions = async () => {
 
   // ======== DeletQuestion Function=====
 
-  const deleteQuestion = async (id) => {
-  try {
-    // Delete request
-    await fetch(`http://localhost:3000/questions/${id}`, {
-      method: "DELETE",
-    });
-
-    // Questions list ko dobara fetch karo
-    const res = await fetch("http://localhost:3000/questions");
-    const data = await res.json();
-
-    // State update
-    setQuestions(data);
-
-  } catch (err) {
-    console.error("Delete Error:", err);
-  }
+const deleteQuestion = (id) => {
+  fetch(`http://localhost:3000/questions/${id}`, { method: "DELETE" })
+    .then(() => {
+      return  fetch("http://localhost:3000/questions");
+    })
+    .then((res) => res.json())
+    .then((data) => setQuestions(data))
+    .catch((err) => console.error("Delete Error:",err));
 };
-
-
+ 
   // ===== RETURN — sirf JSX yahan, koi declaration nahi =====
   return (
     <div>
@@ -203,7 +193,7 @@ const showDue30Questions = async () => {
       <ul>
         {dueQuestions.due3.map((q) => (
           <li key={q._id}>{q.questionName}
-          
+
           <button onClick={() => deleteQuestion(q._id)}>
             Delete
           </button>
