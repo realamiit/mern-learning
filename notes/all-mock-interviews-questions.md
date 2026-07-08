@@ -355,16 +355,37 @@ console.log(user.username);  // lowercase 'n'
 ## Day 20 — Due Questions Dashboard
 
 **Q1: `useState({...})` ke andar `prev` kyun nahi likh sakte?**
-- **Answer:** `prev` state ke current/existing value ka reference hai — sirf update ke time valid. `useState(...)` state create karta hai, is point pe koi existing state hai hi nahi, isliye `prev` invalid.
+> **Answer:** `prev` state ke current/existing value ka reference hai — sirf update ke time valid. `useState(...)` state create karta hai, is point pe koi existing state hai hi nahi, isliye `prev` invalid.
 
 **Q2: Agar spread operator hata ke sirf `{due3: data}` likhen, toh due7/due15/due30 ka kya hoga?**
-- **Answer:** React setState merge nahi karta, poora replace karta hai. `due7`, `due15`, `due30` **undefined ho jayenge** — "vaise hi" nahi rahenge.
+> **Answer:** React setState merge nahi karta, poora replace karta hai. `due7`, `due15`, `due30` **undefined ho jayenge** — "vaise hi" nahi rahenge.
 
 **Q3: 4 alag useEffect vs 1 useEffect mein 4 fetch — performance farak?**
-- **Answer:** Performance mein koi farak nahi — sab parallel chalte hain (dependency array `[]`). Farak sirf code organization aur fault isolation ka hai.
+> **Answer:** Performance mein koi farak nahi — sab parallel chalte hain (dependency array `[]`). Farak sirf code organization aur fault isolation ka hai.
 
 **Q4: `.map()` mein `key` prop kyun zaroori hai?**
-- **Answer:** React ko list item ki identity batata hai, taaki re-render pe efficiently track ho sake kya add/update/delete hua.
+> **Answer:** React ko list item ki identity batata hai, taaki re-render pe efficiently track ho sake kya add/update/delete hua.
 
 **Q5: CORS error kyun aaya, kaha fix hota hai?**
-- **Answer:** `Access-Control-Allow-Origin` header missing tha backend response mein. `cors` package ka `app.use(cors())` main server file mein add karke fix hota hai.
+> **Answer:** `Access-Control-Allow-Origin` header missing tha backend response mein. `cors` package ka `app.use(cors())` main server file mein add karke fix hota hai.
+
+
+## Mock Interview — Day 21
+
+**Q1: Props kya hote hain, useState se kaise alag hain?**
+> **Amit ka answer:** "Props ek bundle hai useState se alag hai is tarah hai kyuki" (incomplete)
+> **Polished answer:** Props — data jo component ko **bahar se (parent se)** milta hai, **read-only** hota hai. `useState` — data jo component **khud apne andar manage** karta hai aur **khud change** kar sakta hai. Core farak: props external hai (parent control karta hai), state internal hai (component khud control karta hai).
+
+**Q2: `export default` vs `export { }` mein farak?**
+> **Amit ka answer:** "Dono ek dusre ke purak hain, syntax alag thoda sa" ❌ **Galat**
+> **Polished answer:** Ye do **competing tarike** hain (ek saath use nahi hote, alag-alag scenario ke liye). `export default` — file se ek hi default export, import mein koi bhi naam rakh sakte ho, curly braces nahi. `export { Name }` — named export, multiple ho sakte hain ek file se, import mein exact naam match karna zaroori, curly braces lagti hain.
+
+**Q3: Agar prop naam mismatch ho (`title` pass kiya, `heading` expect kiya) toh kya hoga?**
+> **Amit ka answer:** "Crash ho jata" ⚠️ **Directionally sahi, incomplete**
+> **Polished answer:** Crash **nahi** hota seedha — jo prop mismatch hai (`heading`) wo React mein **`undefined`** ban jaata hai, screen par sirf **khaali** dikhta hai us jagah, koi error nahi aata. Crash sirf tab hota agar `.map()` jaise method ko `undefined` array pe call kiya jaye.
+
+**Q4: Component splitting ka fayda is project ke context mein?**
+> **Amit ka answer:** "No idea" (khud bataya)
+> **Polished answer:** (1) Repetition khatam — 35-40 lines se 4 lines mein aa gaya. (2) Single source of truth — ek jagah fix karo, sab jagah update ho jaata hai. (3) Readability — App.jsx chota, samajhne mein aasan. (4) Scalability — naya due section add karna ho toh sirf ek naya `<DueSection ... />` call likhna hai.
+
+**Score: 1/4 fully correct direction (Q3), 3/4 need clear revision — especially Q1, Q2, Q4. Concept revise karna zaroori hai agle session se pehle.**

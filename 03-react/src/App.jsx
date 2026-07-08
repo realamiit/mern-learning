@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react'
+// import DueSection from './components/DueSection'  //  import from DueSection.jsx
+import DueSection from './DueSection'
 
 function App() {
   const [questions, setQuestions] = useState([])
@@ -189,53 +191,14 @@ const deleteQuestion = (id) => {
 
        {/* Due Questions Dashboard */}
 
-       <h2 onClick={showDue3Questions}>Due in 3 days</h2>
-      <ul>
-        {dueQuestions.due3.map((q) => (
-          <li key={q._id}>{q.questionName}
+       <DueSection questions={dueQuestions.due3} title="Due in 3 days" onDelete={deleteQuestion} />
 
-          <button onClick={() => deleteQuestion(q._id)}>
-            Delete
-          </button>
-          </li>
-        ))}
-      </ul>
+      <DueSection questions={dueQuestions.due7} title="Due in 7 days" onDelete={deleteQuestion}/>
 
-      <h2 onClick={showDue7Questions}>Due in 7 days</h2>
-      <ul>
-        {dueQuestions.due7.map((q) => (
-          <li key={q._id}>{q.questionName}
+      <DueSection questions={dueQuestions.due15} title="Due in 15 days" onDelete={deleteQuestion}/>
 
-          <button onClick={() => deleteQuestion(q._id)}>
-            Delete
-          </button>
-          </li>
-        ))}
-      </ul>
+       <DueSection questions={dueQuestions.due30} title="Due in 30 days" onDelete={deleteQuestion}/>
 
-      <h2 onClick={showDue15Questions}>Due in 15 days</h2>
-      <ul>
-        {dueQuestions.due15.map((q) => (
-          <li key={q._id}>{q.questionName}
-
-          <button onClick={() => deleteQuestion(q._id)}>
-            Delete
-          </button>
-          </li>
-        ))}
-      </ul>
-
-      <h2 onClick={showDue30Questions}>Due in 30 days</h2>
-      <ul>
-        {dueQuestions.due30.map((q) => (
-          <li key={q._id}>{q.questionName}
-
-          <button onClick={() => deleteQuestion(q._id)}>
-            Delete
-            </button>
-          </li>
-        ))}
-      </ul>
     </div>
   )
 }
