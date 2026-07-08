@@ -348,3 +348,23 @@ console.log(user.username);  // lowercase 'n'
 > Polished answer: "fetch() body mein sirf string bhej sakta hai. JSON.stringify() JS object ko JSON string mein convert karta hai. Backend mein express.json() middleware use string ko wapas JS object mein convert karta hai."
 
 ### Pura cycle: JS Object → JSON.stringify() → String → Network → express.json() → JS Object
+
+
+---
+
+## Day 20 — Due Questions Dashboard
+
+**Q1: `useState({...})` ke andar `prev` kyun nahi likh sakte?**
+- **Answer:** `prev` state ke current/existing value ka reference hai — sirf update ke time valid. `useState(...)` state create karta hai, is point pe koi existing state hai hi nahi, isliye `prev` invalid.
+
+**Q2: Agar spread operator hata ke sirf `{due3: data}` likhen, toh due7/due15/due30 ka kya hoga?**
+- **Answer:** React setState merge nahi karta, poora replace karta hai. `due7`, `due15`, `due30` **undefined ho jayenge** — "vaise hi" nahi rahenge.
+
+**Q3: 4 alag useEffect vs 1 useEffect mein 4 fetch — performance farak?**
+- **Answer:** Performance mein koi farak nahi — sab parallel chalte hain (dependency array `[]`). Farak sirf code organization aur fault isolation ka hai.
+
+**Q4: `.map()` mein `key` prop kyun zaroori hai?**
+- **Answer:** React ko list item ki identity batata hai, taaki re-render pe efficiently track ho sake kya add/update/delete hua.
+
+**Q5: CORS error kyun aaya, kaha fix hota hai?**
+- **Answer:** `Access-Control-Allow-Origin` header missing tha backend response mein. `cors` package ka `app.use(cors())` main server file mein add karke fix hota hai.
