@@ -8,7 +8,7 @@
 // liye chahiye hota hai, jo Node.js ke saath nahi aate
 
 // Key difference jo interview mein bolna hai:
-// 1. Built-in module → require() se directly use, install nahi karna
+// 1. Built-in module → require() se directly use kr liya jata hain, install nahi karna padta 
 // 2. External module → pehle npm install, phir require()
 const http = require("http");
 
@@ -28,6 +28,7 @@ const server = http.createServer((req, res) => {
     res.end("Yeh home page hai");
    }
    
+
   // res.end() response ko complete karta hai aur data bhej deta hai
  // jab tak end() nahi bolte, browser wait karta rahega response ke liye
   // res.end("Hello i am Amit from DSA Tracker Backend!");
