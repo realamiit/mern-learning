@@ -49,7 +49,6 @@ function App() {
 
 
 // due 30
-
 useEffect(() => {
   fetch('http://localhost:3000/questions/due30')
     .then((res) => res.json())
@@ -89,7 +88,6 @@ const showDue7Questions = async () => {
 };
 
 // For Due15
-
 // function  return ke baad 
 
 const showDue15Questions = async () => {
@@ -189,7 +187,7 @@ const deleteQuestion = (id) => {
         ))}
       </ul>
 
-       {/* Due Questions Dashboard */}
+       {/* Due Questions Dashboard approx 34 line of code convert into 4 line of code */}
 
        <DueSection questions={dueQuestions.due3} title="Due in 3 days" onDelete={deleteQuestion} />
 
@@ -204,8 +202,6 @@ const deleteQuestion = (id) => {
 }
 
 export default App
-
-
 
 //  summery for understanding 
 // Key rule jo yaad rakhna: React component ke andar 3 zones hote hain, hamesha isi order mein —
