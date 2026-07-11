@@ -50,6 +50,7 @@ function App() {
 
   // due 30
 
+<<<<<<< HEAD
   useEffect(() => {
     fetch("http://localhost:3000/questions/due30")
       .then((res) => res.json())
@@ -59,6 +60,16 @@ function App() {
   }, []);
 
   // function  return ke baad  for Due3
+=======
+// due 30
+useEffect(() => {
+  fetch('http://localhost:3000/questions/due30')
+    .then((res) => res.json())
+    .then((data) => {
+      setDueQuestions(prev => ({ ...prev, due30: data }));
+    });
+}, []);
+>>>>>>> dba1da7ff740304f062ca7da7d7b7fdfffc96dfa
 
   const showDue3Questions = async () => {
     console.log("Clicked");
@@ -90,10 +101,15 @@ function App() {
 
   // For Due15
 
+<<<<<<< HEAD
   // function  return ke baad
 
   const showDue15Questions = async () => {
     console.log("Clicked");
+=======
+// For Due15
+// function  return ke baad 
+>>>>>>> dba1da7ff740304f062ca7da7d7b7fdfffc96dfa
 
     const res = await fetch("http://localhost:3000/questions/due15");
     const data = await res.json();
@@ -196,7 +212,11 @@ function App() {
         ))}
       </ul>
 
+<<<<<<< HEAD
       {/* Due Questions Dashboard */}
+=======
+       {/* Due Questions Dashboard approx 34 line of code convert into 4 line of code */}
+>>>>>>> dba1da7ff740304f062ca7da7d7b7fdfffc96dfa
 
       <DueSection
         questions={dueQuestions.due3}
@@ -227,7 +247,11 @@ function App() {
 
 export default App;
 
+<<<<<<< HEAD
 //  summery for understanding
+=======
+//  summery for understanding 
+>>>>>>> dba1da7ff740304f062ca7da7d7b7fdfffc96dfa
 // Key rule jo yaad rakhna: React component ke andar 3 zones hote hain, hamesha isi order mein —
 // 1. State + useEffect + functions (return se pehle)
 // 2. return(...) — sirf JSX, koi const/useState/useEffect yahan nahi ja sakta
