@@ -13,6 +13,7 @@ function App() {
     due7: [],
     due15: [],
     due30: [],
+    dueCustom: [],
   });
 
   // ===== useEffect — sab yahan, return se pehle =====
@@ -59,15 +60,24 @@ function App() {
       });
   }, []);
 
+  // -------
+  useEffect(() => {
+    fetch("http://localhost:3000/questions/dueCustom")
+      .then((res) => res.json())
+      .then((data) => {
+        setDueQuestions((prev) => ({ ...prev, dueCustom: data }));
+      });
+  }, []);
+
   // function  return ke baad  for Due3
-// due 30
-useEffect(() => {
-  fetch('http://localhost:3000/questions/due30')
-    .then((res) => res.json())
-    .then((data) => {
-      setDueQuestions(prev => ({ ...prev, due30: data }));
-    });
-}, []);
+  // due 30
+  useEffect(() => {
+    fetch("http://localhost:3000/questions/due30")
+      .then((res) => res.json())
+      .then((data) => {
+        setDueQuestions((prev) => ({ ...prev, due30: data }));
+      });
+  }, []);
 
   const showDue3Questions = async () => {
     console.log("Clicked");
@@ -104,8 +114,8 @@ useEffect(() => {
   const showDue15Questions = async () => {
     console.log("Clicked");
 
-// For Due15
-// function  return ke baad 
+    // For Due15
+    // function  return ke baad
 
     const res = await fetch("http://localhost:3000/questions/due15");
     const data = await res.json();
@@ -159,21 +169,34 @@ useEffect(() => {
     fetch(`http://localhost:3000/questions/${id}`, { method: "DELETE" })
       .then(() => {
         // yhaaaan delete ke baad ka process hain , sari listes ko refress kiye hai -- parallely
-        fetch("http://localhost:3000/questions").then((res) => res.json()).then((data) => setQuestions(data));
-        fetch("http://localhost:3000/questions/due3").then((res) => res.json()).then((data) => setDueQuestions(prev => ({...prev, due3: data})));
-        fetch("http://localhost:3000/questions/due7").then((res) => res.json()).then((data) => setDueQuestions(prev => ({...prev, due7: data})));
-        fetch("http://localhost:3000/questions/due15").then((res) => res.json()).then((data) => setDueQuestions(prev => ({...prev, due15: data})));
-        fetch("http://localhost:3000/questions/due30").then((res) => res.json()).then((data) => setDueQuestions(prev => ({...prev, due30: data})));
+        fetch("http://localhost:3000/questions")
+          .then((res) => res.json())
+          .then((data) => setQuestions(data));
+        fetch("http://localhost:3000/questions/due3")
+          .then((res) => res.json())
+          .then((data) => setDueQuestions((prev) => ({ ...prev, due3: data })));
+        fetch("http://localhost:3000/questions/due7")
+          .then((res) => res.json())
+          .then((data) => setDueQuestions((prev) => ({ ...prev, due7: data })));
+        fetch("http://localhost:3000/questions/due15")
+          .then((res) => res.json())
+          .then((data) =>
+            setDueQuestions((prev) => ({ ...prev, due15: data })),
+          );
+        fetch("http://localhost:3000/questions/due30")
+          .then((res) => res.json())
+          .then((data) =>
+            setDueQuestions((prev) => ({ ...prev, due30: data })),
+          );
       })
       .catch((err) => console.error("Delete Error:", err));
   };
 
   // ===== RETURN — sirf JSX yahan, koi declaration nahi =====
   return (
-    <div>3
-      <h1>DSA Tracker</h1>
-       {/* Add Question Form */}
-    
+    <div>
+      3<h1>DSA Tracker</h1>
+      {/* Add Question Form */}
       <QuestionForm
         questionName={questionName}
         setQuestionName={setQuestionName}
@@ -183,7 +206,6 @@ useEffect(() => {
         setDifficulty={setDifficulty}
         handleSubmit={handleSubmit}
       />
-
       {/* All Questions List */}
       <ul>
         {questions.map((q) => (
@@ -192,32 +214,31 @@ useEffect(() => {
           </li>
         ))}
       </ul>
-
       {/* Due Questions Dashboard */}
-       {/* Due Questions Dashboard approx 34 line of code convert into 4 line of code */}
-
-
+      {/* Due Questions Dashboard approx 34 line of code convert into 4 line of code */}
       <DueSection
         questions={dueQuestions.due3}
         title="Due in 3 days"
         onDelete={deleteQuestion}
       />
-
       <DueSection
         questions={dueQuestions.due7}
         title="Due in 7 days"
         onDelete={deleteQuestion}
       />
-
       <DueSection
         questions={dueQuestions.due15}
         title="Due in 15 days"
         onDelete={deleteQuestion}
       />
-
       <DueSection
         questions={dueQuestions.due30}
         title="Due in 30 days"
+        onDelete={deleteQuestion}
+      />
+      <DueSection
+        questions={dueQuestions.dueCustom}
+        title="Custom Revision Questions"
         onDelete={deleteQuestion}
       />
     </div>
@@ -225,7 +246,6 @@ useEffect(() => {
 }
 
 export default App;
-
 
 //  summery for understanding
 // Key rule jo yaad rakhna: React component ke andar 3 zones hote hain, hamesha isi order mein —

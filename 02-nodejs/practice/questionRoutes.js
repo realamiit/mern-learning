@@ -101,6 +101,8 @@ router.get("/easy-arrays", (req, res) => {
     });
 });
 
+
+
 // ye route ka full path banega: "/question/add"
 router.post("/add", (req, res) => {
   const newQuestion = new Question({
@@ -186,7 +188,33 @@ router.get("/due30", (req, res) => {
     });
 });
 
-// /due3
+
+// Custom revision days wale questions ke liye due list
+router.get("/dueCustom", (req, res) => {
+  // Step 1: Sirf wo questions nikaalo jinme revisionAfterDays set hai (null nahi hai)
+  Question.find({ revisionAfterDays: { $ne: null } })
+    .then((questions) => {
+      // Step 2: Har question ke liye calculate karo — kya uska revision time aa chuka hai
+      const dueCustomQuestions = questions.filter((question) => {
+        const q = question.toObject();
+
+        // dateAdded + revisionAfterDays = revision due date
+        const revisionDueDate = new Date(q.dateAdded);
+        revisionDueDate.setDate(revisionDueDate.getDate() + q.revisionAfterDays);
+
+        // Agar revisionDueDate aaj ki date se pehle ya barabar hai, toh ye question "due" hai
+        return revisionDueDate <= new Date();
+      });
+
+      res.send(dueCustomQuestions);
+    })
+    .catch((error) => {
+      console.log("Due custom question error:", error);
+      res.send("Error fetching due custom questions");
+    });
+});
+
+// /due3-details
 router.get("/due3-details", (req, res) => {
   const threeDaysAgo = new Date();
   threeDaysAgo.getDate = (threeDaysAgo.getDate() - 3);
@@ -232,6 +260,20 @@ router.get("/due3-details", (req, res) => {
     });
   }
   });   
+
+  // Custom revision days update karne ke liye route
+router.patch("/:id", (req, res) => {
+  const id = req.params.id;  // 
+
+  const revisionAfterDays = req.body.revisionAfterDays;
+  Question.findByIdAndUpdate(id, { revisionAfterDays: revisionAfterDays })
+    .then((updatedQuestion) => {
+      res.json({ message: "Revision days updated successfully!", updatedQuestion });
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
+});
 
 
 // module.experts - is file ko "router" object ko EXPORT kar rahe hain
