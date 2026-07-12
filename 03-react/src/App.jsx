@@ -158,16 +158,19 @@ useEffect(() => {
   const deleteQuestion = (id) => {
     fetch(`http://localhost:3000/questions/${id}`, { method: "DELETE" })
       .then(() => {
-        return fetch("http://localhost:3000/questions");
+        // yhaaaan delete ke baad ka process hain , sari listes ko refress kiye hai -- parallely
+        fetch("http://localhost:3000/questions").then((res) => res.json()).then((data) => setQuestions(data));
+        fetch("http://localhost:3000/questions/due3").then((res) => res.json()).then((data) => setDueQuestions(prev => ({...prev, due3: data})));
+        fetch("http://localhost:3000/questions/due7").then((res) => res.json()).then((data) => setDueQuestions(prev => ({...prev, due7: data})));
+        fetch("http://localhost:3000/questions/due15").then((res) => res.json()).then((data) => setDueQuestions(prev => ({...prev, due15: data})));
+        fetch("http://localhost:3000/questions/due30").then((res) => res.json()).then((data) => setDueQuestions(prev => ({...prev, due30: data})));
       })
-      .then((res) => res.json())
-      .then((data) => setQuestions(data))
       .catch((err) => console.error("Delete Error:", err));
   };
 
   // ===== RETURN — sirf JSX yahan, koi declaration nahi =====
   return (
-    <div>
+    <div>3
       <h1>DSA Tracker</h1>
        {/* Add Question Form */}
     
