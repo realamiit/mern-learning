@@ -3,7 +3,7 @@ import React from 'react'
 
 const DueSection = ({ questions, title, onDelete }) => {
   return (
-    <div>
+    <div className='card'>
       <h2>{title}</h2>
       <ul>
         {questions.map((q) => (

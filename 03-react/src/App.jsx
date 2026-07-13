@@ -17,7 +17,6 @@ function App() {
     dueCustom: [],
   });
 
-
   const [customDaysInput, setCustomDaysInput] = useState({});
 
   // ===== useEffect — sab yahan, return se pehle =====
@@ -196,26 +195,31 @@ function App() {
       .catch((err) => console.error("Delete Error:", err));
   };
 
-
   const setCustomDays = (id) => {
-  fetch(`http://localhost:3000/questions/${id}`, {
-    method: "PATCH",
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ revisionAfterDays: customDaysInput[id] })
-  })
-    .then(() => {
-      fetch("http://localhost:3000/questions/dueCustom")
-        .then((res) => res.json())
-        .then((data) => setDueQuestions(prev => ({ ...prev, dueCustom: data })));
+    fetch(`http://localhost:3000/questions/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ revisionAfterDays: customDaysInput[id] }),
     })
-    .catch((err) => console.error("Set Days Error:", err));
-};
+      .then(() => {
+        fetch("http://localhost:3000/questions/dueCustom")
+          .then((res) => res.json())
+          .then((data) =>
+            setDueQuestions((prev) => ({ ...prev, dueCustom: data })),
+          );
+      })
+      .catch((err) => console.error("Set Days Error:", err));
+  };
 
   // ===== RETURN — sirf JSX yahan, koi declaration nahi =====
   return (
-    <div>
+
+    
+    <div className="container">
+    
       <h1>DSA Tracker</h1>
       {/* Add Question Form */}
+      <div className="card">
       <QuestionForm
         questionName={questionName}
         setQuestionName={setQuestionName}
@@ -225,22 +229,30 @@ function App() {
         setDifficulty={setDifficulty}
         handleSubmit={handleSubmit}
       />
+      </div>
       {/* All Questions List */}
       <ul>
         {questions.map((q) => (
           <li key={q._id}>
             {q.questionName} — {q.topic} — {q.difficulty}
-            <input type="number" 
-            placeholder="Days"
-            value={customDaysInput[q._id] || ""} 
-            onChange={(e) =>setCustomDaysInput(prev => ({ ...prev, [q._id]: e.target.value}))}
+            <input
+              type="number"
+              placeholder="Days"
+              value={customDaysInput[q._id] || ""}
+              onChange={(e) =>
+                setCustomDaysInput((prev) => ({
+                  ...prev,
+                  [q._id]: e.target.value,
+                }))
+              }
             />
             <button onClick={() => setCustomDays(q._id)}>Set</button>
           </li>
         ))}
       </ul>
-      {/* Due Questions Dashboard */}
+
       {/* Due Questions Dashboard approx 34 line of code convert into 4 line of code */}
+
       <DueSection
         questions={dueQuestions.due3}
         title="Due in 3 days"
