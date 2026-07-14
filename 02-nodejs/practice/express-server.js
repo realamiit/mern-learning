@@ -25,7 +25,7 @@ const transporter = nodemailer.createTransport({
 function sendReminderEmail(questionName) {
   transporter.sendMail({
     from: process.env.GMAIL_USER,
-    to: process.env.GMAIL_USERR,
+    to: process.env.RECIPIENT_USER,
     subject: "DSA Revision Reminder",
     html: `
       <div style="font-family: sans-serif; padding: 20px;">
