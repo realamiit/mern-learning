@@ -9,6 +9,41 @@ const nodemailer = require("nodemailer");
 // isi app object se hum routes define karenge aur server start karenge
 const app = express();
 
+// for test because of isue
+// console.log("Password length:", process.env.GMAIL_APP_PASSWORD.length);
+// console.log("Email:", process.env.GMAIL_USER);
+
+
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.GMAIL_USER,         // ye gmail access krta hai 
+    pass: process.env.GMAIL_APP_PASSWORD,  // password access krta hai 
+  },
+});
+
+function sendReminderEmail(questionName) {
+  transporter.sendMail({
+    from: process.env.GMAIL_USER,
+    to: process.env.GMAIL_USERR,
+    subject: "DSA Revision Reminder",
+    html: `
+      <div style="font-family: sans-serif; padding: 20px;">
+        <h2 style="color: #333;">📚 Time to Revise!</h2>
+        <p style="font-size: 16px;">Your scheduled revision is due for:</p>
+        <p style="font-size: 18px; font-weight: bold; color: #4CAF50;">${questionName}</p>
+        <p style="font-size: 14px; color: #777;">Keep up the consistency — head over to your DSA Tracker dashboard to mark it done.</p>
+      </div>
+    `, 
+  })
+  .then(() => {
+    console.log("Email Send SuccessFully!");
+  })
+  .catch((error) => {
+    console.log("Email Sending Error:", error);
+  });
+}
+
 // ye eek function hai jo (incoming) mtlb hm jo raw data JSON formet
 // me dete hai ye usko js ke formet me convert krta hai
 // , aur use req.body mein daal deta hai. Agar ye line missing ho (app.use(express.json()) na
@@ -38,5 +73,6 @@ app.get("/dashboard", (req, res) => {
 // app.listen() - http module ke server.listen() jaisa
 // port 3000 par server activate karta hai
 app.listen(3000, () => {
+  sendReminderEmail("Two Sum");
   console.log("Express Server Chal Raha Hai: http://localhost:3000");
 });
