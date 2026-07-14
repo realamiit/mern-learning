@@ -9,10 +9,6 @@ const nodemailer = require("nodemailer");
 // isi app object se hum routes define karenge aur server start karenge
 const app = express();
 
-// for test because of isue
-// console.log("Password length:", process.env.GMAIL_APP_PASSWORD.length);
-// console.log("Email:", process.env.GMAIL_USER);
-
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
