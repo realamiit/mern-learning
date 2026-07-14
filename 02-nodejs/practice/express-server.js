@@ -3,6 +3,7 @@
 const express = require("express");
 const questionRoutes = require("./questionRoutes"); //  questionRoutes.js se router import kar rahe hain
 require("./db");
+const nodemailer = require("nodemailer");
 
 // express() call karne par "app" object milta hai
 // isi app object se hum routes define karenge aur server start karenge
