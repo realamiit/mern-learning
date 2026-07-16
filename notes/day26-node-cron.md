@@ -129,7 +129,8 @@ A: Nahi. node-cron koi OS-level ya independent background process nahi hai — y
 **Q4. Aaj wale bug (2 AM vs 2 PM) ka root cause?**
 - *Student's answer:* (Galat example diya — AM ko convert karne ki baat ki, jabki AM convert nahi hota)
 - *Polished answer:* Hour field mein `2` likha jo dopahar 2 PM ka matlab tha, lekin cron 24-hour format mein leta hai isliye usne raat 2 AM samjha — PM ko 24-hour format mein convert karna (12 add karna) bhool gaya tha.
-
+**Notes
+    https://docs.google.com/document/d/16OimnvczpRI3sxMNwQzNQU0E_gYRBWUaXc-PSJuRX2Q/edit?tab=t.0#heading=h.j5mql6115tz1
 ---
 
 ## Pending Fix (next session)
