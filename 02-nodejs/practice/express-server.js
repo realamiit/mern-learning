@@ -26,7 +26,7 @@ function sendReminderEmail(questionName) {
     html: `
       <div style="font-family: sans-serif; padding: 20px;">
         <h2 style="color: #333;">📚 Time to Revise!</h2>
-        <p style="font-size: 16px;">Your scheduled revision is due for:</p>
+        <p style="font-size: 16px;">Your Scheduled Revision is due for:</p>
         <p style="font-size: 18px; font-weight: bold; color: #4CAF50;">${questionName}</p>
         <p style="font-size: 14px; color: #777;">Keep up the consistency — head over to your DSA Tracker dashboard to mark it done.</p>
       </div>
