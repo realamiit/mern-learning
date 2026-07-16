@@ -4,11 +4,11 @@ const express = require("express");
 const questionRoutes = require("./questionRoutes"); //  questionRoutes.js se router import kar rahe hain
 require("./db");
 const nodemailer = require("nodemailer");
+const cron = require('node-cron');  
 
 // express() call karne par "app" object milta hai
 // isi app object se hum routes define karenge aur server start karenge
 const app = express();
-
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -66,10 +66,16 @@ app.get("/dashboard", (req, res) => {
   res.send("Ye Dashboard Page hai!!");
 });
 
+// Har rooz subha 7 :30 AM par reminder email Trigger hogaa
+cron.schedule('45 14 * * *' , () => {
+  console.log('Cron triggered: sending reminder email...')
+  sendReminderEmail();
+});
+
 // app.listen() - http module ke server.listen() jaisa
 // port 3000 par server activate karta hai
 app.listen(3000, () => {
-  sendReminderEmail("Two Sum");
+  // sendReminderEmail("Two Sum");
   console.log("Express Server Chal Raha Hai: http://localhost:3000");
 });
 
