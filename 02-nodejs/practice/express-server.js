@@ -76,7 +76,7 @@ app.get("/dashboard", (req, res) => {
 });
 
 // Har rooz subha 7 :30 AM par reminder email Trigger hogaa
-cron.schedule('50 12 * * *' , () => {
+cron.schedule('0 17 * * *' , () => {
   console.log('Cron triggered: sending reminder email...');
 
   getDueQuestions().then((questions) => {

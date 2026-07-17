@@ -6,6 +6,7 @@ import QuestionForm from "./QuestionForm";
 
 function App() {
   const [questions, setQuestions] = useState([]);
+  const [link, setLink] = useState("");
   const [questionName, setQuestionName] = useState("");
   const [topic, setTopic] = useState("");
   const [difficulty, setDifficulty] = useState("");
@@ -146,19 +147,20 @@ function App() {
     }));
   };
 
-  // ===== FUNCTIONS — return se pehle =====
+  // ===== HandleSubmit FUNCTIONS — return se pehle =====
 
   function handleSubmit() {
     fetch("http://localhost:3000/questions/add", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ questionName, topic, difficulty }),
+      body: JSON.stringify({ questionName, topic, difficulty, link }),
     })
       .then(() => {
         // form clear karo
         setQuestionName("");
         setTopic("");
         setDifficulty("");
+        setLink("");
         // list refress hoga
         return fetch("http://localhost:3000/questions");
       })
@@ -228,13 +230,18 @@ function App() {
         difficulty={difficulty}
         setDifficulty={setDifficulty}
         handleSubmit={handleSubmit}
+        link={link}
+        setLink={setLink}
       />
       </div>
       {/* All Questions List */}
       <ul>
         {questions.map((q) => (
           <li key={q._id}>
-            {q.questionName} — {q.topic} — {q.difficulty}
+            {q.questionName} — {q.topic} — {q.difficulty} 
+            <a href={q.link} target="_blank">
+              <img src="/LeetCode_logo_rvs.png" alt="LeetCode" width="20" />
+            </a>
             <input
               type="number"
               placeholder="Days"

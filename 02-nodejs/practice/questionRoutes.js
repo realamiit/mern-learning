@@ -101,12 +101,13 @@ router.get("/easy-arrays", (req, res) => {
 
 
 
-// ye route ka full path banega: "/question/add"
+//  question/add"
 router.post("/add", (req, res) => {
   const newQuestion = new Question({
     questionName: req.body.questionName,
     topic: req.body.topic,
     difficulty: req.body.difficulty,
+    link: req.body.link,
     dateAdded: new Date(), // this is current Date actualy
   });
 

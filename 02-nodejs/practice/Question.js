@@ -1,6 +1,7 @@
 // Mongoose kr rhe hain schema aur modle banane ke liye 
 
 const mongoose = require("mongoose");
+const { link } = require("./questionRoutes");
 
 // Schema: bluprint/Structure Define kr rha hain
 // ye batate hain ki ek "question" document mein kaunse fields honge, aur unka type kya hoga
@@ -11,6 +12,7 @@ const questionSchema = new mongoose.Schema({
     difficulty: String,      // difficulty level, jaise "Easy"/"Medium"/"Hard"
     dateAdded: Date,   // dateAdded me hmara date  add hoga 
     revisionAfterDays: Number,   // Optional hain ye 
+    link: String,
 });
 
 // Model - is schema se "Question" naam ka model bana rahe hain
