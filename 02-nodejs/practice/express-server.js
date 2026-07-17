@@ -4,7 +4,8 @@ const express = require("express");
 const questionRoutes = require("./questionRoutes"); //  questionRoutes.js se router import kar rahe hain
 require("./db");
 const nodemailer = require("nodemailer");
-const cron = require('node-cron');  
+const cron = require('node-cron');
+const Question = require("./Question");  
 
 // express() call karne par "app" object milta hai
 // isi app object se hum routes define karenge aur server start karenge
@@ -18,7 +19,15 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-function sendReminderEmail(questionName) {
+
+function getDueQuestions() {
+  const threeDaysAgo = new Date();
+  threeDaysAgo.setDate(threeDaysAgo.getDate() -3);
+  return Question.find({ dateAdded: { $lte: threeDaysAgo} });
+}
+
+function sendReminderEmail(questionNames) {
+  const namesString = questionNames.join(", ")
   transporter.sendMail({
     from: process.env.GMAIL_USER,
     to: process.env.RECIPIENT_USER,
@@ -27,7 +36,7 @@ function sendReminderEmail(questionName) {
       <div style="font-family: sans-serif; padding: 20px;">
         <h2 style="color: #333;">📚 Time to Revise!</h2>
         <p style="font-size: 16px;">Your Scheduled Revision is due for:</p>
-        <p style="font-size: 18px; font-weight: bold; color: #4CAF50;">${questionName}</p>
+        <p style="font-size: 18px; font-weight: bold; color: #4CAF50;">${namesString}</p>
         <p style="font-size: 14px; color: #777;">Keep up the consistency — head over to your DSA Tracker dashboard to mark it done.</p>
       </div>
     `, 
@@ -67,9 +76,18 @@ app.get("/dashboard", (req, res) => {
 });
 
 // Har rooz subha 7 :30 AM par reminder email Trigger hogaa
-cron.schedule('45 14 * * *' , () => {
-  console.log('Cron triggered: sending reminder email...')
-  sendReminderEmail();
+cron.schedule('41 12 * * *' , () => {
+  console.log('Cron triggered: sending reminder email...');
+
+  getDueQuestions().then((questions) => {
+    if(questions.length === 0){
+      console.log("Koyi due question nhi aayi hain aaj.");
+      return;
+    }
+
+    const questionNames = questions.map((question) => question.questionName);
+    sendReminderEmail(questionNames);
+  });
 });
 
 // app.listen() - http module ke server.listen() jaisa

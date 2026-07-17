@@ -1,9 +1,7 @@
 // router file - sirf "question" se related routes yaad rkhegaa
 const express = require("express");
-
 // express.Router() - ek mini-app jaisa object banata hain isme hum alag alg se routes define kr Sakte hain , sirf "/" object ko touch nhi krna padegaa
 const router = express.Router();
-
 const Question = require("./Question");
 
 router.get("/", (req, res) => {
@@ -217,7 +215,7 @@ router.get("/dueCustom", (req, res) => {
 // /due3-details
 router.get("/due3-details", (req, res) => {
   const threeDaysAgo = new Date();
-  threeDaysAgo.getDate = (threeDaysAgo.getDate() - 3);
+  threeDaysAgo.setDate = (threeDaysAgo.getDate() - 3);
   Question.find({dateAdded: {$lte: threeDaysAgo}})
     .then((questions) => {
       // har question ko plain object me convert karo 
@@ -235,7 +233,7 @@ router.get("/due3-details", (req, res) => {
       res.send(questionsWithDates);
     })
     .catch((error) => {
-      console.log("Due question error" , reeor);
+      console.log("Due question error" , error);
       res.send("Error fetching due questions");
     });
 
