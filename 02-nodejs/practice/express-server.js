@@ -38,6 +38,9 @@ function sendReminderEmail(questionNames) {
         <p style="font-size: 16px;">Your Scheduled Revision is due for:</p>
         <p style="font-size: 18px; font-weight: bold; color: #4CAF50;">${namesString}</p>
         <p style="font-size: 14px; color: #777;">Keep up the consistency — head over to your DSA Tracker dashboard to mark it done.</p>
+        <a href="http://localhost:5173/" style="display: inline-block; margin-top: 15px; background-color: #e9b20d; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-size: 14px;">
+           Go to Dashboard
+        </a>
       </div>
     `, 
   })
@@ -76,7 +79,7 @@ app.get("/dashboard", (req, res) => {
 });
 
 // Har rooz subha 7 :30 AM par reminder email Trigger hogaa
-cron.schedule('0 17 * * *' , () => {
+cron.schedule('08 16 * * *' , () => {
   console.log('Cron triggered: sending reminder email...');
 
   getDueQuestions().then((questions) => {
