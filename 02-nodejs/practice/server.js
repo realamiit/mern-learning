@@ -7,7 +7,7 @@
 //  npm install sirf external/third-party modules (jaise Express) ke 
 // liye chahiye hota hai, jo Node.js ke saath nahi aate
 
-// Key difference jo interview mein bolna hai:
+// Keey difference jo interview mein bolna hai:
 // 1. Built-in module → require() se directly use kr liya jata hain, install nahi karna padta 
 // 2. External module → pehle npm install, phir require()
 const http = require("http");
