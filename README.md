@@ -6,6 +6,15 @@ Built as part of my [#100DaysOfCode](https://github.com/realamiit/mern-learning)
 
 ---
 
+## 🌐 Live Demo
+
+- **Frontend:** [https://amitdsatracker.onrender.com](https://amitdsatracker.onrender.com)
+- **Backend API:** [https://dsa-tracker-backend-8ymx.onrender.com](https://dsa-tracker-backend-8ymx.onrender.com)
+
+> Note: Both are hosted on Render's free tier, which spins down after inactivity — the first request after a period of idle time may take ~50 seconds to respond.
+
+---
+
 ## ✨ Features
 
 - **Add & Track Questions** — Log any DSA problem with its name, topic, difficulty, and original problem link (LeetCode/GFG).
@@ -86,15 +95,6 @@ App runs at `http://localhost:5173`
 
 ---
 
-## 🌐 Live Demo
-
-- **Frontend:** [https://amitdsatracker.onrender.com](https://amitdsatracker.onrender.com)
-- **Backend API:** [https://dsa-tracker-backend-8ymx.onrender.com](https://dsa-tracker-backend-8ymx.onrender.com)
-
-> Note: Both are hosted on Render's free tier, which spins down after inactivity — the first request after a period of idle time may take ~50 seconds to respond.
-
----
-
 ## 🗂️ How It Works
 
 1. **Add a question** you just solved — name, topic, difficulty, and link.
@@ -133,4 +133,4 @@ This project is open source and available for learning purposes.
 We welcome any feedback or contributions to improve this project!
 
 ## Documentation & Notes
-- [Day 30 Notes: Responsive Fixes](notes/day30-responsive-fix.md)(https://docs.google.com/document/d/1s6raJo2fB3PRzeAK840GapJydjRIfIM96UgELdfvkf4/edit?tab=t.0#heading=h.adxzhuuc7i6b)
+- [Day 30 Notes: Responsive Fixes](notes/day30-responsive-fix.md)(https://docs.google.com/document/d/1KnsI3nFaizzRcLBBxC8Dvex_bdhCiR0SxP844g_4BDw/edit?tab=t.0#heading=h.qiof9mmpls8s)
