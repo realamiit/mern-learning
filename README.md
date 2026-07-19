@@ -95,6 +95,10 @@ App runs at `http://localhost:5173`
 
 ---
 
+## ⚠️ Known Limitations
+
+- **Email deliverability:** Reminder emails are sent via plain Gmail SMTP (Nodemailer), which is fine for personal/individual use but may land in the recipient's **Spam folder** on first delivery — Gmail's automated-sending trust model requires the recipient to mark the sender as "Not Spam" once, or add the sender to their contacts. For a production/multi-user version, a dedicated transactional email service (SendGrid, Mailgun, or Amazon SES) with proper SPF/DKIM authentication would resolve this reliably.
+
 ## 🔮 Future Enhancements
 
 - GitHub contribution graph / coding platform submission tracking integration
@@ -112,7 +116,6 @@ App runs at `http://localhost:5173`
 
 ---
 
-
 ## 📝 License
 
 This project is open source and available for learning purposes.
@@ -121,4 +124,4 @@ This project is open source and available for learning purposes.
 We welcome any feedback or contributions to improve this project!
 
 ## Documentation & Notes
-- [Day 30 Notes: Responsive Fixes](notes/day30-responsive-fix.md)(https://docs.google.com/document/d/1EWuXAlOAGWw2Qq2bO7uXnoz3Ysp3dktfQf1saU8U28M/edit?tab=t.0#heading=h.wf3uu7ehje0r)
+- [Day 30 Notes: Responsive Fixes](notes/day30-responsive-fix.md)(https://docs.google.com/document/d/1k5lZQuNZ6yTZSKH4jQaHg4lv0qjlrJ_gLtAOwGOdT3U/edit?tab=t.0)
