@@ -78,8 +78,8 @@ app.get("/dashboard", (req, res) => {
   res.send("Ye Dashboard Page hai!!");
 });
 
-// Har rooz subha 7 :30 AM par reminder email Trigger hogaa
-cron.schedule('42 14 * * *' , () => {
+// Har rooz shaam 17:10 PM par reminder email Trigger hogaa
+cron.schedule('10 17 * * *' , () => {
   console.log('Cron triggered: sending reminder email...');
 
   getDueQuestions().then((questions) => {
@@ -96,7 +96,6 @@ cron.schedule('42 14 * * *' , () => {
 // app.listen() - http module ke server.listen() jaisa
 // port 3000 par server activate karta hai
 app.listen(3000, () => {
-  // sendReminderEmail("Two Sum");
   console.log("Express Server Chal Raha Hai: http://localhost:3000");
 });
 

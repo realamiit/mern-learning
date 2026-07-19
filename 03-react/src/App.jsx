@@ -73,80 +73,7 @@ function App() {
       });
   }, []);
 
-  // function  return ke baad  for Due3
-  // due 30
-  useEffect(() => {
-    fetch("http://localhost:3000/questions/due30")
-      .then((res) => res.json())
-      .then((data) => {
-        setDueQuestions((prev) => ({ ...prev, due30: data }));
-      });
-  }, []);
-
-  const showDue3Questions = async () => {
-    console.log("Clicked");
-
-    const res = await fetch("http://localhost:3000/questions/due3");
-    const data = await res.json();
-
-    console.log(data);
-
-    setDueQuestions((prev) => ({
-      ...prev,
-      due3: data,
-    }));
-  };
-  // For Due7
-  const showDue7Questions = async () => {
-    console.log("Clicked");
-
-    const res = await fetch("http://localhost:3000/questions/due7");
-    const data = await res.json();
-
-    console.log(data);
-
-    setDueQuestions((prev) => ({
-      ...prev,
-      due7: data,
-    }));
-  };
-
-  // For Due15
-
-  // function  return ke baad
-
-  const showDue15Questions = async () => {
-    console.log("Clicked");
-
-    // For Due15
-    // function  return ke baad
-
-    const res = await fetch("http://localhost:3000/questions/due15");
-    const data = await res.json();
-
-    console.log(data);
-
-    setDueQuestions((prev) => ({
-      ...prev,
-      due15: data,
-    }));
-  };
-
-  // For Due30
-  const showDue30Questions = async () => {
-    console.log("Clicked");
-
-    const res = await fetch("http://localhost:3000/questions/due30");
-    const data = await res.json();
-
-    console.log(data);
-
-    setDueQuestions((prev) => ({
-      ...prev,
-      due30: data,
-    }));
-  };
-
+  
   // ===== HandleSubmit FUNCTIONS — return se pehle =====
 
   function handleSubmit() {
@@ -214,11 +141,8 @@ function App() {
   };
 
   // ===== RETURN — sirf JSX yahan, koi declaration nahi =====
-  return (
-
-    
+  return ( 
     <div className="container">
-    
       <h1>DSA Tracker</h1>
       {/* Add Question Form */}
       <div className="card">
