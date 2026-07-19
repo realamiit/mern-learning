@@ -78,11 +78,20 @@ Server runs at `http://localhost:3000`
 
 ### 3. Frontend Setup
 ```bash
-cd ../../03-react
+cd ../../AmitDSATracker
 npm install
 npm run dev
 ```
 App runs at `http://localhost:5173`
+
+---
+
+## 🌐 Live Demo
+
+- **Frontend:** [https://amitdsatracker.onrender.com](https://amitdsatracker.onrender.com)
+- **Backend API:** [https://dsa-tracker-backend-8ymx.onrender.com](https://dsa-tracker-backend-8ymx.onrender.com)
+
+> Note: Both are hosted on Render's free tier, which spins down after inactivity — the first request after a period of idle time may take ~50 seconds to respond.
 
 ---
 
@@ -124,4 +133,4 @@ This project is open source and available for learning purposes.
 We welcome any feedback or contributions to improve this project!
 
 ## Documentation & Notes
-- [Day 30 Notes: Responsive Fixes](notes/day30-responsive-fix.md)(https://docs.google.com/document/d/1k5lZQuNZ6yTZSKH4jQaHg4lv0qjlrJ_gLtAOwGOdT3U/edit?tab=t.0)
+- [Day 30 Notes: Responsive Fixes](notes/day30-responsive-fix.md)(https://docs.google.com/document/d/1s6raJo2fB3PRzeAK840GapJydjRIfIM96UgELdfvkf4/edit?tab=t.0#heading=h.adxzhuuc7i6b)
