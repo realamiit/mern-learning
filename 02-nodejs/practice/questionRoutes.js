@@ -15,6 +15,9 @@ router.get("/", (req, res) => {
     });
 });
 
+
+// Practice route - topic/difficulty filtering (not used in current UI, kept for reference)
+
 //   tssk  to filter all array questions
 router.get("/arrays", (req, res) => {
   Question.find({ topic: "Arrays" })
@@ -213,32 +216,6 @@ router.get("/dueCustom", (req, res) => {
     });
 });
 
-// /due3-details
-router.get("/due3-details", (req, res) => {
-  const threeDaysAgo = new Date();
-  threeDaysAgo.setDate = (threeDaysAgo.getDate() - 3);
-  Question.find({dateAdded: {$lte: threeDaysAgo}})
-    .then((questions) => {
-      // har question ko plain object me convert karo 
-      //  aur revision date bhi add kroo
-
-      const questionsWithDates = questions.map((questions) => {
-        const q = questions.toObject();
-
-        // due3 date = dateAdded + 3 days 
-        const due3 = new Date(q.dateAdded);
-        due3.setDate(due3.getDate() + 3);
-        q.due3 = due3;
-        return q;
-      });
-      res.send(questionsWithDates);
-    })
-    .catch((error) => {
-      console.log("Due question error" , error);
-      res.send("Error fetching due questions");
-    });
-
-  });
 
 //   Delete route 
   router.delete("/:id" ,async (req, res) => {
@@ -275,6 +252,6 @@ router.patch("/:id", (req, res) => {
 });
 
 
-// module.experts - is file ko "router" object ko EXPORT kar rahe hain
+// module.exports - is file ko "router" object ko export kar rahe hain
 // taki express-server.js (ya koi aur file) ise IMPORT karke use kar sake
 module.exports = router;
