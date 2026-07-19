@@ -1,6 +1,7 @@
 // express external module hai (npm install express se download kiya tha)
 // isliye http jaisa seedha require nahi - pehle install karna padta hai
 const express = require("express");
+const PORT = process.env.PORT || 3000;
 const questionRoutes = require("./questionRoutes"); //  questionRoutes.js se router import kar rahe hain
 require("./db");
 const nodemailer = require("nodemailer");
@@ -94,8 +95,7 @@ cron.schedule('10 17 * * *' , () => {
 });
 
 // app.listen() - http module ke server.listen() jaisa
-// port 3000 par server activate karta hai
-app.listen(3000, () => {
-  console.log("Express Server Chal Raha Hai: http://localhost:3000");
+app.listen(PORT, () => {
+  console.log(`Express Server Chal Raha Hai: Port ${PORT}`);
 });
 
