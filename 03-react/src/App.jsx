@@ -3,6 +3,7 @@ import "./App.css"; // Import the stylesheet
 // import DueSection from './components/DueSection'  //  import from DueSection.jsx
 import DueSection from "./DueSection";
 import QuestionForm from "./QuestionForm";
+const API_URL = "https://dsa-tracker-backend-8ymx.onrender.com";
 
 function App() {
   const [questions, setQuestions] = useState([]);
@@ -22,14 +23,14 @@ function App() {
 
   // ===== useEffect — sab yahan, return se pehle =====
   useEffect(() => {
-    fetch("http://localhost:3000/questions")
+    fetch(`${API_URL}/questions`)
       .then((res) => res.json())
       .then((data) => setQuestions(data));
   }, []);
 
   // due 3
   useEffect(() => {
-    fetch("http://localhost:3000/questions/due3")
+    fetch(`${API_URL}/questions/due3`)
       .then((res) => res.json())
       .then((data) => {
         setDueQuestions((prev) => ({ ...prev, due3: data }));
@@ -38,7 +39,7 @@ function App() {
 
   // due 7
   useEffect(() => {
-    fetch("http://localhost:3000/questions/due7")
+    fetch(`${API_URL}/questions/due7`)
       .then((res) => res.json())
       .then((data) => {
         setDueQuestions((prev) => ({ ...prev, due7: data }));
@@ -47,7 +48,7 @@ function App() {
 
   // due 15
   useEffect(() => {
-    fetch("http://localhost:3000/questions/due15")
+    fetch(`${API_URL}/questions/due15`)
       .then((res) => res.json())
       .then((data) => {
         setDueQuestions((prev) => ({ ...prev, due15: data }));
@@ -57,7 +58,7 @@ function App() {
   // due 30
 
   useEffect(() => {
-    fetch("http://localhost:3000/questions/due30")
+    fetch(`${API_URL}/questions/due30`)
       .then((res) => res.json())
       .then((data) => {
         setDueQuestions((prev) => ({ ...prev, due30: data }));
@@ -66,7 +67,7 @@ function App() {
 
   // -------
   useEffect(() => {
-    fetch("http://localhost:3000/questions/dueCustom")
+    fetch(`${API_URL}/questions/dueCustom`)
       .then((res) => res.json())
       .then((data) => {
         setDueQuestions((prev) => ({ ...prev, dueCustom: data }));
@@ -77,7 +78,7 @@ function App() {
   // ===== HandleSubmit FUNCTIONS — return se pehle =====
 
   function handleSubmit() {
-    fetch("http://localhost:3000/questions/add", {
+    fetch(`${API_URL}/questions/add`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ questionName, topic, difficulty, link }),
@@ -89,7 +90,7 @@ function App() {
         setDifficulty("");
         setLink("");
         // list refress hoga
-        return fetch("http://localhost:3000/questions");
+        return fetch(`${API_URL}/questions`);
       })
       .then((res) => res.json())
       .then((data) => setQuestions(data));
@@ -98,24 +99,24 @@ function App() {
   // ======== DeletQuestion Function=====
 
   const deleteQuestion = (id) => {
-    fetch(`http://localhost:3000/questions/${id}`, { method: "DELETE" })
+    fetch(`${API_URL}/questions/${id}`, { method: "DELETE" })
       .then(() => {
         // yhaaaan delete ke baad ka process hain , sari listes ko refress kiye hai -- parallely
-        fetch("http://localhost:3000/questions")
+        fetch(`${API_URL}/questions`)
           .then((res) => res.json())
           .then((data) => setQuestions(data));
-        fetch("http://localhost:3000/questions/due3")
+        fetch(`${API_URL}/questions/due3`)
           .then((res) => res.json())
           .then((data) => setDueQuestions((prev) => ({ ...prev, due3: data })));
-        fetch("http://localhost:3000/questions/due7")
+        fetch(`${API_URL}/questions/due7`)
           .then((res) => res.json())
           .then((data) => setDueQuestions((prev) => ({ ...prev, due7: data })));
-        fetch("http://localhost:3000/questions/due15")
+        fetch(`${API_URL}/questions/due15`)
           .then((res) => res.json())
           .then((data) =>
             setDueQuestions((prev) => ({ ...prev, due15: data })),
           );
-        fetch("http://localhost:3000/questions/due30")
+        fetch(`${API_URL}/questions/due30`)
           .then((res) => res.json())
           .then((data) =>
             setDueQuestions((prev) => ({ ...prev, due30: data })),
@@ -125,13 +126,13 @@ function App() {
   };
 
   const setCustomDays = (id) => {
-    fetch(`http://localhost:3000/questions/${id}`, {
+    fetch(`${API_URL}/questions/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ revisionAfterDays: customDaysInput[id] }),
     })
       .then(() => {
-        fetch("http://localhost:3000/questions/dueCustom")
+        fetch(`${API_URL}/questions/dueCustom`)
           .then((res) => res.json())
           .then((data) =>
             setDueQuestions((prev) => ({ ...prev, dueCustom: data })),
