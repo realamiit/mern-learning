@@ -3,10 +3,12 @@
 const express = require("express");
 const PORT = process.env.PORT || 3000;
 const questionRoutes = require("./questionRoutes"); //  questionRoutes.js se router import kar rahe hain
+const userRoutes = require("./userRoutes");
 require("./db");
 const nodemailer = require("nodemailer");
 const cron = require('node-cron');
-const Question = require("./Question");  
+const Question = require("./Question"); 
+
 
 // express() call karne par "app" object milta hai
 // isi app object se hum routes define karenge aur server start karenge
@@ -63,6 +65,7 @@ const cors = require("cors");
 app.use(cors()); 
 
 app.use("/questions", questionRoutes); // "/questions" se shuru hone wala koi bhi request questionRoutes file ko jayega
+app.use("/users", userRoutes);
 
 // app.get(path, callback) - jab koi GET request "/" (home) par aaye, ye callback chalega
 // GET = browser jab normally URL kholta hai, wo GET request hoti hai (data maangna)
