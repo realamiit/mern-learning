@@ -2,6 +2,7 @@ const express = require("express"); // routes banane ka framework
 const router = express.Router();    // routes banane ka framework
 const bcrypt = require("bcrypt");  // For thr security
 const User = require("./User");   // database operations ke liye
+const jwt = require("jsonwebtoken");  // jwt require kr liye 
 
 
 router.post("/signup", (req, res) => {
@@ -36,7 +37,12 @@ router.post("/login", (req, res) => {
         bcrypt.compare(password, user.password)
         .then((isMatch) => {
             if (isMatch) {
-                res.send("Login successful!");
+                const token = jwt.sign(
+                { userId: user._id, email: user.email },
+                process.env.JWT_SECRET,
+                { expiresIn: "1h" }
+                );
+                res.send({ message: "Login successful!", token: token })
             }else {
                 res.send("Wrong password");
             }
