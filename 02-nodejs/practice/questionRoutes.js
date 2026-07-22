@@ -3,8 +3,9 @@ const express = require("express");
 // express.Router() - ek mini-app jaisa object banata hain isme hum alag alg se routes define kr Sakte hain , sirf "/" object ko touch nhi krna padegaa
 const router = express.Router();
 const Question = require("./Question");
+const authMiddleware = require("./authMiddleware");
 
-router.get("/", (req, res) => {
+router.get("/", authMiddleware, (req, res) => {
   Question.find()
     .then((questions) => {
       res.send(questions);
