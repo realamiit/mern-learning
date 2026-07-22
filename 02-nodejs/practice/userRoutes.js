@@ -25,6 +25,29 @@ router.post("/signup", (req, res) => {
     });
 });
 
+router.post("/login", (req, res) => {
+    const { email, password } = req.body;
+
+    User.findOne({ email: email })
+    .then((user) => {
+        if (!user) {
+            return res.send("User not found");
+        }
+        bcrypt.compare(password, user.password)
+        .then((isMatch) => {
+            if (isMatch) {
+                res.send("Login successful!");
+            }else {
+                res.send("Wrong password");
+            }
+        });
+    })
+    .catch((error) => {
+        console.log("Login error:", error);
+        res.send("Error logging in");
+    });
+});
+
 
 // module.exports - is file ko "router" object ko export kar rahe hain
 // taki express-server.js (ya koi aur file) ise IMPORT karke use kar sake
