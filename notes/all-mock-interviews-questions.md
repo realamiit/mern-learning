@@ -389,3 +389,35 @@ console.log(user.username);  // lowercase 'n'
 > **Polished answer:** (1) Repetition khatam — 35-40 lines se 4 lines mein aa gaya. (2) Single source of truth — ek jagah fix karo, sab jagah update ho jaata hai. (3) Readability — App.jsx chota, samajhne mein aasan. (4) Scalability — naya due section add karna ho toh sirf ek naya `<DueSection ... />` call likhna hai.
 
 **Score: 1/4 fully correct direction (Q3), 3/4 need clear revision — especially Q1, Q2, Q4. Concept revise karna zaroori hai agle session se pehle.**
+
+
+## Mock Interview — Day 35
+
+**Q1: `fetch()` mein `Content-Type: application/json` header kyun zaroori hai?**
+- Amit's answer: "Server ko batata hai data JSON format mein hai ya raw" (partial, technical mechanism missing)
+- Polished answer: Express ka `express.json()` middleware Content-Type header check karta hai ye decide karne ke liye ki request body parse kare ya nahi. Header missing hone par `req.body` undefined/empty aa jaata hai, jisse request silently fail hoti hai.
+- Score: 6/10
+
+**Q2: `res.send()` aur `res.json()` mein exact fark kya hai?**
+- Amit's answer: Confused database storage format ke saath (galat)
+- Polished answer: `res.json(object)` — object ko JSON string mein convert karta hai AUR `Content-Type: application/json` header automatically set karta hai. `res.send()` string ke liye raw text (Content-Type: text/html) bhejta hai. Database storage se in dono ka koi lena-dena nahi hai.
+- Score: 3/10
+
+**Q3: `response.ok` kis range ke liye true hota hai?**
+- Amit's answer: 200-299 range, 401 pe false — correct
+- Polished answer: Same as above, fully correct.
+- Score: 10/10
+
+**Q4: localStorage mein token store karne ke baad browser band karke dobara kholne pe token rahega?**
+- Amit's answer: "Hum time duration dete hain isliye utna time tak rehta hai" (galat — localStorage aur JWT expiry ko mix kiya)
+- Polished answer: localStorage hamesha persist karta hai jab tak manually clear na kiya jaye — koi automatic expiry nahi. JWT token khud apni `expiresIn` duration ke baad backend ke liye invalid ho jaata hai, lekin localStorage entry khud delete nahi hoti.
+- Score: 2/10
+
+**Q5: JWT token localStorage se next steps mein kahan use hoga?**
+- Amit's answer: "Baar baar password nahi dena padega" (directionally sahi, but header format missing)
+- Polished answer: Token ko protected routes access karte waqt `Authorization` header mein bhejna padta hai, format: `Authorization: Bearer <token>`. Ye backend ke `authMiddleware.js` mein verify hota hai.
+- Score: 5/10
+
+**Total: 26/50 — Needs revision on res.send()/res.json() and localStorage persistence concepts.**
+
+---

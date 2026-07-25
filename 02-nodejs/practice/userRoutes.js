@@ -18,11 +18,11 @@ router.post("/signup", (req, res) => {
         return newUser.save();
     })
     .then(() => {
-        res.send("User registered successfully!");
+        res.json("User registered successfully!");
     })
     .catch((error) => {
         console.log("Signup error:", error);
-        res.send("Error Registering user");
+        res.status(500).json({ message: "Error Registering user"});
     });
 });
 
@@ -32,7 +32,7 @@ router.post("/login", (req, res) => {
     User.findOne({ email: email })
     .then((user) => {
         if (!user) {
-            return res.send("User not found");
+            return res.status(404).json({ message: "User not found"});
         }
         bcrypt.compare(password, user.password)
         .then((isMatch) => {
@@ -42,15 +42,15 @@ router.post("/login", (req, res) => {
                 process.env.JWT_SECRET,
                 { expiresIn: "1h" }
                 );
-                res.send({ message: "Login successful!", token: token })
+                res.json({ message: "Login successful!", token: token })
             }else {
-                res.send("Wrong password");
+                res.status(401).json({ message: "Wrong password"});
             }
         });
     })
     .catch((error) => {
         console.log("Login error:", error);
-        res.send("Error logging in");
+        res.status(500).json({ message: "Error logging in"});
     });
 });
 

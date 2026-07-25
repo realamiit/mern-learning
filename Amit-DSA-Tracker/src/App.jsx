@@ -3,7 +3,9 @@ import "./App.css"; // Import the stylesheet
 // import DueSection from './components/DueSection'  //  import from DueSection.jsx
 import DueSection from "./DueSection";
 import QuestionForm from "./QuestionForm";
+import Authform from "./Authform";
 const API_URL = "https://dsa-tracker-backend-8ymx.onrender.com";
+
 
 function App() {
   const [questions, setQuestions] = useState([]);
@@ -145,6 +147,7 @@ function App() {
   return ( 
     <div className="container">
       <h1>DSA Tracker</h1>
+      <Authform/>
       {/* Add Question Form */}
       <div className="card">
       <QuestionForm
