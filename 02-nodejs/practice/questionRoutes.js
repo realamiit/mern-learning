@@ -6,7 +6,7 @@ const Question = require("./Question");
 const authMiddleware = require("./authMiddleware");
 
 router.get("/", authMiddleware, (req, res) => {
-  Question.find()
+  Question.find({ userId: req.user.userId })
     .then((questions) => {
       res.send(questions);
     })
@@ -16,10 +16,8 @@ router.get("/", authMiddleware, (req, res) => {
     });
 });
 
-
 // Practice route - topic/difficulty filtering (not used in current UI, kept for reference)
 
-//   tssk  to filter all array questions
 router.get("/arrays", (req, res) => {
   Question.find({ topic: "Arrays" })
     .then((questions) => {
@@ -31,7 +29,6 @@ router.get("/arrays", (req, res) => {
     });
 });
 
-// task    to filter all linkedList questions
 router.get("/linkedList", (req, res) => {
   Question.find({ topic: "Linked List" })
     .then((questions) => {
@@ -43,7 +40,6 @@ router.get("/linkedList", (req, res) => {
     });
 });
 
-// task recursion
 router.get("/recursion", (req, res) => {
   Question.find({ topic: "Recursion" })
     .then((questions) => {
@@ -55,7 +51,6 @@ router.get("/recursion", (req, res) => {
     });
 });
 
-//  task easy
 router.get("/easy", (req, res) => {
   Question.find({ difficulty: "Easy" })
     .then((questions) => {
@@ -67,7 +62,6 @@ router.get("/easy", (req, res) => {
     });
 });
 
-//  task medium
 router.get("/medium", (req, res) => {
   Question.find({ difficulty: "Medium" })
     .then((questions) => {
@@ -79,7 +73,6 @@ router.get("/medium", (req, res) => {
     });
 });
 
-//  task hard
 router.get("/hard", (req, res) => {
   Question.find({ difficulty: "Hard" })
     .then((questions) => {
@@ -91,7 +84,6 @@ router.get("/hard", (req, res) => {
     });
 });
 
-// task prt this is combination section
 router.get("/easy-arrays", (req, res) => {
   Question.find({ topic: "Arrays", difficulty: "Easy" })
     .then((questions) => {
@@ -103,16 +95,15 @@ router.get("/easy-arrays", (req, res) => {
     });
 });
 
-
-
 //  question/add"
-router.post("/add", (req, res) => {
+router.post("/add", authMiddleware, (req, res) => {
   const newQuestion = new Question({
     questionName: req.body.questionName,
     topic: req.body.topic,
     difficulty: req.body.difficulty,
     link: req.body.link,
-    dateAdded: new Date(), // this is current Date actualy
+    dateAdded: new Date(),
+    userId: req.user.userId,
   });
 
   newQuestion
@@ -126,14 +117,10 @@ router.post("/add", (req, res) => {
     });
 });
 
-// date rkhna revision
-// /questions/due - aaj Day 3 revision ke due questions
-router.get("/due3", (req, res) => {
-  
+router.get("/due3", authMiddleware, (req, res) => {
   const threeDaysAgo = new Date();
-  threeDaysAgo.setDate(threeDaysAgo.getDate() - 3);    //aaj ki date se 3 din pehle ki date calculate karen
-  // sirf vhi question jo tin din pehele ya usse pehele add huyi hain ya the
-  Question.find({ dateAdded: { $lte: threeDaysAgo } })
+  threeDaysAgo.setDate(threeDaysAgo.getDate() - 3);
+  Question.find({ dateAdded: { $lte: threeDaysAgo }, userId: req.user.userId })
     .then((questions) => {
       res.send(questions);
     })
@@ -143,13 +130,10 @@ router.get("/due3", (req, res) => {
     });
 });
 
-// /questions/due - aaj Day 7 revision ke due questions
-router.get("/due7", (req, res) => {
-  
+router.get("/due7", authMiddleware, (req, res) => {
   const sevenDaysAgo = new Date();
-  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);    //aaj ki date se 7 din pehle ki date calculate karen
-  // sirf vhi question jo tin din pehele ya usse pehele add huyi hain ya the
-  Question.find({ dateAdded: { $lte: sevenDaysAgo } })
+  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+  Question.find({ dateAdded: { $lte: sevenDaysAgo }, userId: req.user.userId  })
     .then((questions) => {
       res.send(questions);
     })
@@ -159,13 +143,10 @@ router.get("/due7", (req, res) => {
     });
 });
 
-// /questions/due - aaj Day 15 revision ke due questions
-router.get("/due15", (req, res) => {
- 
+router.get("/due15", authMiddleware, (req, res) => {
   const fifteenDaysAgo = new Date();
-  fifteenDaysAgo.setDate(fifteenDaysAgo.getDate() - 15);    //aaj ki date se 15 din pehle ki date calculate karen
-  // sirf vhi question jo tin din pehele ya usse pehele add huyi hain ya the
-  Question.find({ dateAdded: { $lte: fifteenDaysAgo } })
+  fifteenDaysAgo.setDate(fifteenDaysAgo.getDate() - 15);
+  Question.find({ dateAdded: { $lte: fifteenDaysAgo }, userId: req.user.userId })
     .then((questions) => {
       res.send(questions);
     })
@@ -175,13 +156,10 @@ router.get("/due15", (req, res) => {
     });
 });
 
-// /questions/due - aaj Day 30 revision ke due questions
-router.get("/due30", (req, res) => {
-
-  const thirtyDaysAgo = new Date(); 
-  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);    //aaj ki date se 30 din pehle ki date calculate karen
-  // sirf vhi question jo tin din pehele ya usse pehele add huyi hain ya the
-  Question.find({ dateAdded: { $lte: thirtyDaysAgo } })
+router.get("/due30", authMiddleware, (req, res) => {
+  const thirtyDaysAgo = new Date();
+  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+  Question.find({ dateAdded: { $lte: thirtyDaysAgo }, userId: req.user.userId })
     .then((questions) => {
       res.send(questions);
     })
@@ -191,24 +169,15 @@ router.get("/due30", (req, res) => {
     });
 });
 
-
-// Custom revision days wale questions ke liye due list
-router.get("/dueCustom", (req, res) => {
-  // Step 1: Sirf wo questions nikaalo jinme revisionAfterDays set hai (null nahi hai)
-  Question.find({ revisionAfterDays: { $ne: null } })
+router.get("/dueCustom", authMiddleware, (req, res) => {
+  Question.find({ revisionAfterDays: { $ne: null }, userId: req.user.userId })
     .then((questions) => {
-      // Step 2: Har question ke liye calculate karo — kya uska revision time aa chuka hai
       const dueCustomQuestions = questions.filter((question) => {
         const q = question.toObject();
-
-        // dateAdded + revisionAfterDays = revision due date
         const revisionDueDate = new Date(q.dateAdded);
         revisionDueDate.setDate(revisionDueDate.getDate() + q.revisionAfterDays);
-
-        // Agar revisionDueDate aaj ki date se pehle ya barabar hai, toh ye question "due" hai
         return revisionDueDate <= new Date();
       });
-
       res.send(dueCustomQuestions);
     })
     .catch((error) => {
@@ -217,31 +186,24 @@ router.get("/dueCustom", (req, res) => {
     });
 });
 
-
-//   Delete route 
-  router.delete("/:id" ,async (req, res) => {
-    try{
-     // id nikalo
-     const id = req.params.id;
-
-  // question delete karo
-  await Question.findByIdAndDelete(id);
-
-  // response bhejo
-  res.json({
-    message: "Question deleted successfully"
-  });
-  }catch (err){
+//   Delete route
+router.delete("/:id", authMiddleware, async (req, res) => {
+  try {
+    const id = req.params.id;
+    await Question.findByIdAndDelete(id);
+    res.json({
+      message: "Question deleted successfully",
+    });
+  } catch (err) {
     res.status(500).json({
-      error: err.message
+      error: err.message,
     });
   }
-  });   
+});
 
-  // Custom revision days update karne ke liye route
-router.patch("/:id", (req, res) => {
-  const id = req.params.id;  // 
-
+// Custom revision days update karne ke liye route
+router.patch("/:id", authMiddleware, (req, res) => {
+  const id = req.params.id;
   const revisionAfterDays = req.body.revisionAfterDays;
   Question.findByIdAndUpdate(id, { revisionAfterDays: revisionAfterDays })
     .then((updatedQuestion) => {
@@ -251,7 +213,6 @@ router.patch("/:id", (req, res) => {
       res.status(500).json({ error: err.message });
     });
 });
-
 
 // module.exports - is file ko "router" object ko export kar rahe hain
 // taki express-server.js (ya koi aur file) ise IMPORT karke use kar sake

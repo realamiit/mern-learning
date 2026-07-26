@@ -421,3 +421,29 @@ console.log(user.username);  // lowercase 'n'
 **Total: 26/50 — Needs revision on res.send()/res.json() and localStorage persistence concepts.**
 
 ---
+
+## Mock Interview — Day 36
+
+**Q1: `useEffect` dependency array mein `[isLoggedIn]` daalne se kya signal milta hai?**
+- Amit's answer: "Jyada farak nahi padta, refresh ho jayega" (galat)
+- Polished answer: React ko signal milta hai ki jab bhi `isLoggedIn` ki value change ho, effect ko dobara chalao. Khaali `[]` array ka matlab hai effect sirf ek baar (component mount pe) chalega, kabhi dobara nahi — chahe koi state change ho jaye.
+- Score: 3/10
+
+**Q2: `req.user.userId` kahan se aata hai, poori chain?**
+- Amit's answer: "Schema se aaya hai" (galat, confused)
+- Polished answer: Login ke waqt `jwt.sign({userId, email}, JWT_SECRET)` se token banta hai → frontend token ko `Authorization` header mein bhejta hai → `authMiddleware.js` token verify karke `req.user = decoded` set karta hai → route ke andar `req.user.userId` available ho jaata hai.
+- Score: 4/10
+
+**Q3: Kya User A ko User B ke questions dikh sakte hain?**
+- Amit's answer: Nahi (sahi), lekin "agar B ke pass A ki id/password ho" wali baat thodi misleading
+- Polished answer: Nahi — `Question.find({ userId: req.user.userId })` filter ki wajah se sirf logged-in user ke apne questions milte hain. Agar koi doosre ka email/password use karke login karta hai, wo unka account access kar raha hoga — ye normal authentication behavior hai, security bug nahi.
+- Score: 7/10
+
+**Q4: `setIsLoggedIn` AuthForm se App.jsx ka state kaise update karta hai?**
+- Amit's answer: "Import kiya isliye" (galat)
+- Polished answer: "Lifting state up" pattern — App.jsx ne apna `setIsLoggedIn` function prop ke roop mein AuthForm ko diya (`<Authform setIsLoggedIn={setIsLoggedIn} />`). Chunki ye function ek reference hai jo App.jsx ke state ko control karta hai, AuthForm ke andar isे call karna seedha App.jsx ka state update karta hai.
+- Score: 2/10
+
+**Total: 16/40 — Needs strong revision on useEffect dependency arrays and JWT verification chain.**
+
+---

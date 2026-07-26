@@ -4,7 +4,7 @@ import "./App.css"; // Import the stylesheet
 import DueSection from "./DueSection";
 import QuestionForm from "./QuestionForm";
 import Authform from "./Authform";
-const API_URL = "https://dsa-tracker-backend-8ymx.onrender.com";
+const API_URL = "http://localhost:3000";
 
 
 function App() {
@@ -13,6 +13,7 @@ function App() {
   const [questionName, setQuestionName] = useState("");
   const [topic, setTopic] = useState("");
   const [difficulty, setDifficulty] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [dueQuestions, setDueQuestions] = useState({
     due3: [],
     due7: [],
@@ -25,56 +26,80 @@ function App() {
 
   // ===== useEffect — sab yahan, return se pehle =====
   useEffect(() => {
-    fetch(`${API_URL}/questions`)
-      .then((res) => res.json())
-      .then((data) => setQuestions(data));
-  }, []);
+  fetch(`${API_URL}/questions`, {
+    headers: {
+      "Authorization": `Bearer ${localStorage.getItem("token")}`
+    }
+  })
+    .then((res) => res.json())
+    .then((data) => setQuestions(data));
+}, [isLoggedIn]);  // isLoggedIn   use for form fellin after clean the form
 
   // due 3
   useEffect(() => {
-    fetch(`${API_URL}/questions/due3`)
+    fetch(`${API_URL}/questions/due3`, {
+       headers: {
+      "Authorization": `Bearer ${localStorage.getItem("token")}`
+    }
+    })
       .then((res) => res.json())
       .then((data) => {
         setDueQuestions((prev) => ({ ...prev, due3: data }));
       });
-  }, []);
+  }, [isLoggedIn]);
 
   // due 7
   useEffect(() => {
-    fetch(`${API_URL}/questions/due7`)
+    fetch(`${API_URL}/questions/due7`, {
+       headers: {
+      "Authorization": `Bearer ${localStorage.getItem("token")}`
+    }
+    })
       .then((res) => res.json())
       .then((data) => {
         setDueQuestions((prev) => ({ ...prev, due7: data }));
       });
-  }, []);
+  }, [isLoggedIn]);
 
   // due 15
   useEffect(() => {
-    fetch(`${API_URL}/questions/due15`)
+    fetch(`${API_URL}/questions/due15`, {
+       headers: {
+      "Authorization": `Bearer ${localStorage.getItem("token")}`
+    }
+    })
       .then((res) => res.json())
       .then((data) => {
         setDueQuestions((prev) => ({ ...prev, due15: data }));
       });
-  }, []);
+  }, [isLoggedIn]);
 
   // due 30
 
   useEffect(() => {
-    fetch(`${API_URL}/questions/due30`)
+    fetch(`${API_URL}/questions/due30`, {
+       headers: {
+      "Authorization": `Bearer ${localStorage.getItem("token")}`
+    }
+    })
       .then((res) => res.json())
       .then((data) => {
         setDueQuestions((prev) => ({ ...prev, due30: data }));
       });
-  }, []);
+  }, [isLoggedIn]);
 
   // -------
   useEffect(() => {
-    fetch(`${API_URL}/questions/dueCustom`)
+    fetch(`${API_URL}/questions/dueCustom`,{
+       headers: {
+      "Authorization": `Bearer ${localStorage.getItem("token")}`
+    }
+    })
       .then((res) => res.json())
       .then((data) => {
         setDueQuestions((prev) => ({ ...prev, dueCustom: data }));
       });
-  }, []);
+  }, [isLoggedIn]);
 
   
   // ===== HandleSubmit FUNCTIONS — return se pehle =====
@@ -82,7 +107,10 @@ function App() {
   function handleSubmit() {
     fetch(`${API_URL}/questions/add`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { 
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem("token")}`
+      },
       body: JSON.stringify({ questionName, topic, difficulty, link }),
     })
       .then(() => {
@@ -92,33 +120,61 @@ function App() {
         setDifficulty("");
         setLink("");
         // list refress hoga
-        return fetch(`${API_URL}/questions`);
-      })
-      .then((res) => res.json())
-      .then((data) => setQuestions(data));
-  }
+         return fetch(`${API_URL}/questions`, {
+        headers: {
+          "Authorization": `Bearer ${localStorage.getItem("token")}`
+        }
+      });
+    })
+    .then((res) => res.json())
+    .then((data) => setQuestions(data));
+}
 
   // ======== DeletQuestion Function=====
 
   const deleteQuestion = (id) => {
-    fetch(`${API_URL}/questions/${id}`, { method: "DELETE" })
+    fetch(`${API_URL}/questions/${id}`, { method: "DELETE",
+       headers: {
+      "Authorization": `Bearer ${localStorage.getItem("token")}`
+    }
+     })
       .then(() => {
         // yhaaaan delete ke baad ka process hain , sari listes ko refress kiye hai -- parallely
-        fetch(`${API_URL}/questions`)
+        fetch(`${API_URL}/questions`,{
+           headers: {
+      "Authorization": `Bearer ${localStorage.getItem("token")}`
+    }
+        })
           .then((res) => res.json())
           .then((data) => setQuestions(data));
-        fetch(`${API_URL}/questions/due3`)
+        fetch(`${API_URL}/questions/due3`,{
+           headers: {
+      "Authorization": `Bearer ${localStorage.getItem("token")}`
+    }
+        })
           .then((res) => res.json())
           .then((data) => setDueQuestions((prev) => ({ ...prev, due3: data })));
-        fetch(`${API_URL}/questions/due7`)
+        fetch(`${API_URL}/questions/due7`,{
+           headers: {
+      "Authorization": `Bearer ${localStorage.getItem("token")}`
+    }
+        })
           .then((res) => res.json())
           .then((data) => setDueQuestions((prev) => ({ ...prev, due7: data })));
-        fetch(`${API_URL}/questions/due15`)
+        fetch(`${API_URL}/questions/due15`,{
+           headers: {
+      "Authorization": `Bearer ${localStorage.getItem("token")}`
+    }
+        })
           .then((res) => res.json())
           .then((data) =>
             setDueQuestions((prev) => ({ ...prev, due15: data })),
           );
-        fetch(`${API_URL}/questions/due30`)
+        fetch(`${API_URL}/questions/due30`,{
+           headers: {
+      "Authorization": `Bearer ${localStorage.getItem("token")}`
+    }
+        })
           .then((res) => res.json())
           .then((data) =>
             setDueQuestions((prev) => ({ ...prev, due30: data })),
@@ -130,11 +186,16 @@ function App() {
   const setCustomDays = (id) => {
     fetch(`${API_URL}/questions/${id}`, {
       method: "PATCH",
-      headers: { "Content-Type": "application/json" },
+      headers: { 
+        "Content-Type": "application/json",
+      "Authorization": `Bearer ${localStorage.getItem("token")}` 
+      },
       body: JSON.stringify({ revisionAfterDays: customDaysInput[id] }),
     })
       .then(() => {
-        fetch(`${API_URL}/questions/dueCustom`)
+        fetch(`${API_URL}/questions/dueCustom`,{
+          headers: { "Authorization": `Bearer ${localStorage.getItem("token")}`}
+        })
           .then((res) => res.json())
           .then((data) =>
             setDueQuestions((prev) => ({ ...prev, dueCustom: data })),
@@ -147,7 +208,7 @@ function App() {
   return ( 
     <div className="container">
       <h1>DSA Tracker</h1>
-      <Authform/>
+      <Authform setIsLoggedIn={ setIsLoggedIn } />
       {/* Add Question Form */}
       <div className="card">
       <QuestionForm

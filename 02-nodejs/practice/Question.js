@@ -13,6 +13,11 @@ const questionSchema = new mongoose.Schema({
     dateAdded: Date,   // dateAdded me hmara date  add hoga 
     revisionAfterDays: Number,   // Optional hain ye 
     link: String,
+    userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
+}
+    
 });
 
 // Model - is schema se "Question" naam ka model bana rahe hain

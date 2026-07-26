@@ -1,5 +1,5 @@
 import { useState } from "react";
-const AuthForm = () => {
+const AuthForm = ({ setIsLoggedIn }) => {
     const [isLoginMode, setIsLoginMode] = useState(false);
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -33,6 +33,7 @@ const AuthForm = () => {
 
             if (isLoginMode && data.token) {
                 localStorage.setItem("token", data.token);  // token save kiya taki refreshs ke bad login seate bhi rhe
+                setIsLoggedIn(true);
             }
             console.log(data);  // abhi ke liye check krne ke liye , baad me UI update krege 
         } catch (error) {
