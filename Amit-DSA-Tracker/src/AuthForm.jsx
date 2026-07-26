@@ -35,7 +35,11 @@ const AuthForm = ({ setIsLoggedIn }) => {
                 localStorage.setItem("token", data.token);  // token save kiya taki refreshs ke bad login seate bhi rhe
                 setIsLoggedIn(true);
             }
-            console.log(data);  // abhi ke liye check krne ke liye , baad me UI update krege 
+
+             setName("");
+             setEmail("");
+             setPassword("");
+            // console.log(data);  // abhi ke liye check krne ke liye , baad me UI update krege 
         } catch (error) {
             console.log("Auth error:", error);  // network fail ya server doun jaisi case ko handle krne ke liye 
         }
