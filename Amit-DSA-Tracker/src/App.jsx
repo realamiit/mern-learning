@@ -25,14 +25,18 @@ function App() {
   const [customDaysInput, setCustomDaysInput] = useState({});
 
   // ===== useEffect — sab yahan, return se pehle =====
-  useEffect(() => {
+ useEffect(() => {
   fetch(`${API_URL}/questions`, {
     headers: {
       "Authorization": `Bearer ${localStorage.getItem("token")}`
     }
   })
     .then((res) => res.json())
-    .then((data) => setQuestions(data));
+    .then((data) => {
+      if (Array.isArray(data)) {
+        setQuestions(data);
+      }
+    });
 }, [isLoggedIn]);  // isLoggedIn   use for form fellin after clean the form
 
   // due 3
@@ -43,8 +47,9 @@ function App() {
     }
     })
       .then((res) => res.json())
-      .then((data) => {
+      .then((data) => {  if (Array.isArray(data)){
         setDueQuestions((prev) => ({ ...prev, due3: data }));
+      }
       });
   }, [isLoggedIn]);
 
@@ -57,7 +62,10 @@ function App() {
     })
       .then((res) => res.json())
       .then((data) => {
+         if (Array.isArray(data)){
+          
         setDueQuestions((prev) => ({ ...prev, due7: data }));
+         }
       });
   }, [isLoggedIn]);
 
@@ -70,7 +78,9 @@ function App() {
     })
       .then((res) => res.json())
       .then((data) => {
+         if (Array.isArray(data)){
         setDueQuestions((prev) => ({ ...prev, due15: data }));
+         }
       });
   }, [isLoggedIn]);
 
@@ -84,7 +94,9 @@ function App() {
     })
       .then((res) => res.json())
       .then((data) => {
+         if (Array.isArray(data)){
         setDueQuestions((prev) => ({ ...prev, due30: data }));
+         }
       });
   }, [isLoggedIn]);
 
@@ -97,7 +109,9 @@ function App() {
     })
       .then((res) => res.json())
       .then((data) => {
+         if (Array.isArray(data)){
         setDueQuestions((prev) => ({ ...prev, dueCustom: data }));
+         }
       });
   }, [isLoggedIn]);
 
