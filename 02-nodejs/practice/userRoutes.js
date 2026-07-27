@@ -1,7 +1,7 @@
 const express = require("express"); // routes banane ka framework
 const router = express.Router();    // routes banane ka framework
 const bcrypt = require("bcrypt");  // For thr security
-const User = require("./User");   // database operations ke liye
+const User = require("./user");   // database operations ke liye
 const jwt = require("jsonwebtoken");  // jwt require kr liye 
 
 
