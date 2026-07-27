@@ -221,6 +221,14 @@ function App() {
   const logoutHandler = () => {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
+    setQuestions([]); 
+    setDueQuestions({
+      due3: [],
+      due7: [],
+      due15: [],
+      due30: [],
+      dueCustom: [],
+    });
   };
 
   // ===== RETURN — sirf JSX yahan, koi declaration nahi =====
