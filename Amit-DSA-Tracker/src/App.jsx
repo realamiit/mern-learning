@@ -3,8 +3,8 @@ import "./App.css"; // Import the stylesheet
 // import DueSection from './components/DueSection'  //  import from DueSection.jsx
 import DueSection from "./DueSection";
 import QuestionForm from "./QuestionForm";
-import Authform from "./Authform";
-const API_URL = "http://dsa-tracker-backend-8ymx.onrender.com";
+import Authform from "./AuthForm";
+const API_URL = "http://localhost:3000";
 
 
 function App() {
