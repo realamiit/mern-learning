@@ -8,7 +8,7 @@ const AuthForm = ({ setIsLoggedIn }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         
-        const BASE_URL = "http://localhost:3000";  // local backend, jb deplpy krege tb rendr url
+        const BASE_URL = "https://dsa-tracker-backend-8ymx.onrender.com";  // local backend, jb deplpy krege tb rendr url
 
         const url = isLoginMode 
         ? `${BASE_URL}/users/login` 
