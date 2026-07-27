@@ -447,3 +447,27 @@ console.log(user.username);  // lowercase 'n'
 **Total: 16/40 — Needs strong revision on useEffect dependency arrays and JWT verification chain.**
 
 ---
+
+## Mistake Box (Actual Mistakes Made)
+
+1. **Import case mismatch:** `import Authform from "./Authform"` likha jabki file ka naam `AuthForm.jsx` tha — Windows pe kaam kiya, Render (Linux) pe build fail hua: `UNRESOLVED_IMPORT`.
+2. **`user.js` vs `User.js`:** `userRoutes.js` mein `require("./User")` likha, jabki actual file `user.js` (lowercase) thi — Render pe `MODULE_NOT_FOUND` error diya.
+3. **API_URL ko local hi rakha production build ke liye:** `http://localhost:3000` deployed frontend mein kaam nahi karta — production build se pehle deployed backend URL (`https://...`) pe change karna zaroori tha.
+4. **`http://` use kiya `https://` ki jagah:** Deployed backend URL `http://` se likha gaya, jisse potential "Mixed Content" block ho sakta tha.
+5. **`AuthForm.jsx` ka `BASE_URL` update karna bhool gaye:** `App.jsx` ka `API_URL` fix kiya tha, lekin `AuthForm.jsx` mein alag variable (`BASE_URL`) tha jo abhi bhi `localhost:3000` point kar raha tha.
+6. **`authMiddleware.js` mein `res.send()` use kiya:** Isse frontend `response.json()` parse nahi kar paaya — `SyntaxError: Unexpected token`.
+7. **`JWT_SECRET` Render Environment mein set nahi kiya:** `.env` file Git mein push nahi hoti, isliye Render pe manually environment variable add karna zaroori tha — na karne se `jwt.sign()` fail hua: `secretOrPrivateKey must have a value`.
+8. **`Array.isArray()` check missing hone se crash:** Jab backend `401` (object) return karta hai lekin frontend expects array, `.map()` call crash kar deta hai — poori screen blank ho jaati hai.
+9. **`logoutHandler` mein `setQuestions([])` missing:** Sirf `setDueQuestions` reset kiya, `setQuestions` bhool gaye — is wajah se "All Questions" list logout ke baad bhi dikhti rahi.
+
+---
+
+## Mock Interview — Day 37 (concept check, informal)
+
+**Q: Kyun ek hi code local pe chal sakta hai lekin deployment pe fail ho sakta hai?**
+- Discussed: File system case sensitivity difference between Windows (dev machine) and Linux (Render server); environment variables not being version-controlled; hardcoded localhost URLs.
+
+**Q: `Array.isArray()` check state management mein kyun zaroori hai jab API calls fail ho sakti hain?**
+- Discussed: Failed/unauthorized responses often return objects (error messages) instead of arrays. Blindly calling `.map()` on unexpected data types crashes the component tree.
+
+---
