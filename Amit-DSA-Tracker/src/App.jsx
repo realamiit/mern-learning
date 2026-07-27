@@ -4,7 +4,7 @@ import "./App.css"; // Import the stylesheet
 import DueSection from "./DueSection";
 import QuestionForm from "./QuestionForm";
 import Authform from "./AuthForm";
-const API_URL = "http://localhost:3000";
+const API_URL = "https://dsa-tracker-backend-8ymx.onrender.com";
 
 
 function App() {
