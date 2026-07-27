@@ -4,7 +4,7 @@ import "./App.css"; // Import the stylesheet
 import DueSection from "./DueSection";
 import QuestionForm from "./QuestionForm";
 import Authform from "./Authform";
-const API_URL = "http://localhost:3000";
+const API_URL = "http://dsa-tracker-backend-8ymx.onrender.com";
 
 
 function App() {
@@ -204,10 +204,18 @@ function App() {
       .catch((err) => console.error("Set Days Error:", err));
   };
 
+  const logoutHandler = () => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+  };
+
   // ===== RETURN — sirf JSX yahan, koi declaration nahi =====
   return ( 
     <div className="container">
       <h1>DSA Tracker</h1>
+      {isLoggedIn && (
+        <button onClick={logoutHandler}>Logout</button>
+      )}
       <Authform setIsLoggedIn={ setIsLoggedIn } />
       {/* Add Question Form */}
       <div className="card">
