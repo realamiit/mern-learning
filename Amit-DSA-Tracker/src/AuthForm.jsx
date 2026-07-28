@@ -1,10 +1,11 @@
 import { useState } from "react";
-const AuthForm = ({ setIsLoggedIn }) => {
+const AuthForm = ({ setIsLoggedIn, setSuccessMessage }) => {
     const [isLoginMode, setIsLoginMode] = useState(false);
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+   
     const handleSubmit = async (e) => {
         e.preventDefault();
         
@@ -33,6 +34,7 @@ const AuthForm = ({ setIsLoggedIn }) => {
             if (isLoginMode && data.token) {
                 localStorage.setItem("token", data.token);  // token save kiya taki refreshs ke bad login seate bhi rhe
                 setIsLoggedIn(true);
+                setSuccessMessage("Login Successful!");
             }
 
              setName("");

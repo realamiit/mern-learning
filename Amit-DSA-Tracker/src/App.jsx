@@ -218,6 +218,8 @@ function App() {
       .catch((err) => console.error("Set Days Error:", err));
   };
 
+  const[successMessage, setSuccessMessage] = useState("");
+
   const logoutHandler = () => {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
@@ -235,10 +237,13 @@ function App() {
   return ( 
     <div className="container">
       <h1>DSA Tracker</h1>
+      {successMessage && (
+  <p>{successMessage}</p>
+)}
       {isLoggedIn && (
         <button onClick={logoutHandler}>Logout</button>
       )}
-      <Authform setIsLoggedIn={ setIsLoggedIn } />
+      <Authform setIsLoggedIn={ setIsLoggedIn } setSuccessMessage={setSuccessMessage} />
       {/* Add Question Form */}
       <div className="card">
       <QuestionForm
