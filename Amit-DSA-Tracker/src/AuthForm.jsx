@@ -35,6 +35,8 @@ const AuthForm = ({ setIsLoggedIn, setSuccessMessage }) => {
                 localStorage.setItem("token", data.token);  // token save kiya taki refreshs ke bad login seate bhi rhe
                 setIsLoggedIn(true);
                 setSuccessMessage("Login Successful!");
+            }else if (!isLoginMode) {
+                setSuccessMessage("Signup Successful!")
             }
 
              setName("");
@@ -76,5 +78,4 @@ const AuthForm = ({ setIsLoggedIn, setSuccessMessage }) => {
         </div>
     );
 };
-
 export default AuthForm;

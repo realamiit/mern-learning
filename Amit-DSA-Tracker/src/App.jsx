@@ -231,6 +231,7 @@ function App() {
       due30: [],
       dueCustom: [],
     });
+    setSuccessMessage("Logout Successful!");
   };
 
   // ===== RETURN — sirf JSX yahan, koi declaration nahi =====
