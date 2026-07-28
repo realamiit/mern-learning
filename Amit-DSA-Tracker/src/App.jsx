@@ -133,6 +133,12 @@ function App() {
         setTopic("");
         setDifficulty("");
         setLink("");
+        setSuccessMessage("Question Added Successfuly!");
+
+        setTimeout(() => {    // ye "Question Added Successfuly!" hote hi 2 second baad hta dega 
+          setSuccessMessage("");
+        },2000);
+
         // list refress hoga
          return fetch(`${API_URL}/questions`, {
         headers: {
