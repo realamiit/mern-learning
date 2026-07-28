@@ -13,7 +13,7 @@ function App() {
   const [questionName, setQuestionName] = useState("");
   const [topic, setTopic] = useState("");
   const [difficulty, setDifficulty] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
   const [dueQuestions, setDueQuestions] = useState({
     due3: [],
     due7: [],
