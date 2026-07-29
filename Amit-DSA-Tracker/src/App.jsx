@@ -129,6 +129,7 @@ function App() {
     })
       .then(() => {
         // form clear karo
+        
         setQuestionName("");
         setTopic("");
         setDifficulty("");
