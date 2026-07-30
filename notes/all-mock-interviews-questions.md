@@ -471,3 +471,148 @@ console.log(user.username);  // lowercase 'n'
 - Discussed: Failed/unauthorized responses often return objects (error messages) instead of arrays. Blindly calling `.map()` on unexpected data types crashes the component tree.
 
 ---
+
+
+
+
+# CSS Custom Properties (CSS Variables) — Notes
+
+## 1. Full Form + Definition
+
+| Term | Full Form / Meaning | One-line Definition |
+|---|---|---|
+| CSS Custom Property | Custom Property (informally "CSS Variable") | Reusable named value store in CSS, declared with `--` prefix |
+| `:root` | Root pseudo-class | Pseudo-class targeting the document's root element (`<html>` in HTML docs), used for declaring global variables |
+| `var()` | Variable function | CSS function used to fetch/consume a custom property's value |
+| Cascade | — | The rule system deciding which CSS declaration wins when multiple apply to the same element |
+| Fallback value | — | A backup value provided inside `var(--name, fallback)`, used if the variable is undefined |
+
+---
+
+## 2. Core Concept
+
+- Custom property syntax: `--variable-name: value;`
+- Must start with `--` (double hyphen) — this is what distinguishes it from a normal CSS property.
+- Declared inside `:root` → makes it **globally accessible** across the whole document.
+- Consumed using `var(--variable-name)` inside an actual CSS property.
+- Optional fallback: `var(--variable-name, fallback-value)` — used if variable is missing/invalid.
+
+### Why use it (for our project):
+- Define color once, use everywhere → consistency.
+- Easy theme changes later (e.g., light/dark toggle) — update only `:root`.
+- Prevents random/duplicate hex codes scattered across CSS.
+
+### Custom Property vs Normal CSS Property
+| | `background-color` (built-in) | `--background-color` (custom) |
+|---|---|---|
+| Meaning to browser | Predefined — sets an element's background | No predefined meaning — just a value container |
+| Action | Directly applies an effect | Does nothing by itself; must be used via `var()` |
+| Valid values | Only specific types (colors, etc.) | Any value at all |
+
+### Custom Property vs SCSS Variable
+- CSS custom properties resolve at **runtime**, can be changed live via JS (`element.style.setProperty(...)`).
+- SCSS variables resolve at **compile time** — fixed once CSS is generated.
+
+### Cascade + Duplicate Declaration Rule
+If the same custom property name is declared twice in the same scope, **the last declaration wins** — earlier one is overwritten/lost. This applies exactly like normal CSS cascade rules.
+
+Example of the mistake made during this session:
+```css
+:root {
+  --background-color: #1e1e2e;  /* page background */
+  --background-color: #282838;  /* card background — SAME NAME, overwrites the above! */
+}
+```
+Result: `--background-color` ends up as `#282838` everywhere; `#1e1e2e` is lost.
+
+**Fix:** Use a unique, descriptive name per purpose (e.g., `--card-bg-color` instead of reusing `--background-color`).
+
+---
+
+## 3. Final `:root` Block (Project: DSA Tracker — Dark "Code Editor" Theme)
+
+```css
+:root {
+  --background-color: #1e1e2e;
+  --card-bg-color: #282838;
+  --text-color: #e4e4e7;
+  --accent-color: #7c9cff;
+  --easy-color: #4ade80;
+  --medium-color: #fbbf24;
+  --hard-color: #f87171;
+}
+```
+
+---
+
+## 4. Confusion Box (Questions Asked + Answers)
+
+**Q: Ye JSX ke `className="card"` aur CSS variable `--card-bg-color` same hai kya?**
+A: Nahi. `className` batata hai konsa CSS class element pe apply hoga (styling target). `--card-bg-color` sirf ek color value store karta hai jo hum us class ke andar `background-color: var(--card-bg-color)` se use karenge. Dono related hain but alag concepts hain.
+
+**Q: `--background-color` aur `background-color` (bina dash) mein fundamental difference kya hai?**
+A: `background-color` ek built-in browser property hai jo directly action leti hai (background set karti hai). `--background-color` sirf ek custom storage container hai jiska koi predefined meaning nahi — use karne ke liye `var()` ke andar dena padta hai.
+
+**Q: Agar do jagah same variable naam declare kar doon to konsi value use hogi?**
+A: Jo **baad mein (last)** declare hui ho — cascade rule ke hisaab se wahi effective hogi, pehle wali overwrite ho jaayegi.
+
+---
+
+## 5. Mistake Box (Actual Mistakes Made This Session)
+
+1. **Space in property name:** Likha `-- text-color` (space ke saath) instead of `--text-color`. Custom property naam ek continuous token hona chahiye, `--` seedha naam se juda hona chahiye.
+2. **Reused variable name for a different purpose:** Card ke background ke liye bhi `--background-color` likh diya (page wale jaisa hi naam), jisse pehli value overwrite ho jaati — root cause: unique naming ka importance samajh nahi aaya tha shuru mein.
+3. **Spelling mistake:** `--meduam-color` likha instead of `--medium-color`.
+4. **Deleted instead of fixed:** Jab card variable ka naam fix karna tha, poori line hi delete kar di — matlab galat naam ko sahi karne ke bajaye poora entry hata diya. Dobara add karna pada.
+5. **Mock interview repeat of same mistake:** Q3 (duplicate declaration) ka jawab practical mistake ke bilkul ulta diya — "jo pehle rahega wahi acquire karega" (galat), sahi hai "jo baad mein declare ho wahi effective hota hai."
+
+---
+
+## 6. Mock Interview — This Topic
+
+**Q1: CSS custom property aur normal CSS property mein core difference kya hai?**
+- *Amit's answer:* Naam `--` se start hota hai, `:root` mein declare hota hai. *(Incomplete — sirf syntax bataya, core semantic difference missing)*
+- *Polished answer:* A normal CSS property (like `background-color`) is predefined by the browser and directly performs an action on an element. A custom property (`--name`) has no predefined meaning to the browser — it's purely a value container that does nothing until consumed via `var()` inside an actual property.
+
+**Q2: `:root` selector kya target karta hai, aur convention kyun hai?**
+- *Amit's answer:* Correct, matched given explanation.
+- *Polished answer:* `:root` is a pseudo-class targeting the document's root element (`<html>` in HTML). It's used by convention for global variables because it has slightly higher specificity than the `html` selector and clearly signals "these are global, app-wide values."
+
+**Q3: Agar same custom property do baar declare ho jaye same scope mein, to kya hota hai?**
+- *Amit's answer:* "Jo pehle rahega usko acquire karega" — **Incorrect (reversed)**.
+- *Polished answer:* The **last declared value wins** — it overwrites the earlier one, following normal CSS cascade behavior. The first declaration is effectively lost.
+
+**Q4: `var(--accent-color, blue)` mein `blue` ka role kya hai?**
+- *Amit's answer:* Not answered.
+- *Polished answer:* `blue` is the fallback value — it's used only if `--accent-color` is undefined or invalid, ensuring the property still gets some usable value instead of failing silently.
+
+**Score: 2/10** — Practical implementation ho gaya, lekin verbal articulation weak hai, especially Q3 jahan practical mistake hi interview mein repeat hui.
+
+---
+
+## 7. Syntax Reference Card
+
+```css
+/* Declaration (inside :root for global scope) */
+:root {
+  --variable-name: value;
+}
+
+/* Consumption */
+selector {
+  property: var(--variable-name);
+}
+
+/* With fallback */
+selector {
+  property: var(--variable-name, fallback-value);
+}
+
+/* JS runtime update (for later reference) */
+element.style.setProperty('--variable-name', 'new-value');
+```
+
+---
+
+## 8. Next Step
+Apply these 7 variables throughout `App.css` — starting with body/container background, then card, text, buttons, and difficulty badges — one element at a time.

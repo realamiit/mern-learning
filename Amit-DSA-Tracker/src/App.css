@@ -1,3 +1,17 @@
+:root {
+  --background-color: #1e1e2e;   /* storage — kuch nahi hota abhi, page ka background */
+  --card-bg-color: #282838;  /* card ka background - SAME NAME! */
+  --text-color: #e4e4e7;
+  --accent-color: #7c9cff;
+  --easy-color: #4ade80;
+  --medium-color: #fbbf24;
+  --hard-color: #f87171;
+}
+
+body {
+  background-color: var(--background-color);   /* ab actual apply hua */
+}
+
 .container {
   max-width: 700px;
   margin: 0 auto;
@@ -10,7 +24,7 @@
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 20px;
-  border: 1px solid #ddd;
+  border: 30% solid #ddd;
   color: #222;
 }
 
