@@ -270,7 +270,7 @@ function App() {
       <ul>
         {questions.map((q) => (
           <li key={q._id}>
-            {q.questionName} — {q.topic} — {q.difficulty} 
+            {q.questionName} — {q.topic} — <span className={q.difficulty.toLowerCase()}>{q.difficulty}</span>
             <a href={q.link} target="_blank">
               <img src="/LeetCode_logo_rvs.png" alt="LeetCode" width="20" />
             </a>
