@@ -47,3 +47,25 @@ li {
   
 }
 
+.easy{
+  background-color: var(--easy-color);
+  color: #14532d;
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+.medium{
+  background-color: var(--medium-color);
+  color: #451a03;
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+.hard{
+  background-color: var(--hard-color);
+  color: #9c1801;
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+
