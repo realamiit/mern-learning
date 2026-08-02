@@ -1,4 +1,4 @@
-# Dynamic className + Difficulty Badges — Notes (Day 30)
+# Dynamic className + Difficulty Badges — Notes (Day 42)
 
 ## 1. Full Form + Definition
 
@@ -151,9 +151,3 @@ className={variableName}    // evaluated, changes with data
 
 ## 9. Next Step
 Verify badges render correctly in browser (colors should now show on Easy/Medium/Hard text). Then continue with remaining dark theme elements — buttons, inputs, and due-section headers.
-
-## notes Document Link
-https://docs.google.com/document/d/13gYL_sympud9q1O50cAUFvXt3cZwvOjBY5Lb4MYUx70/edit?usp=drivesdk
-
-
-
