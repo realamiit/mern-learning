@@ -50,28 +50,28 @@ li {
 .easy{
   background-color: var(--easy-color);
   color: #14532d;
-  padding: 4px 10px;
+  padding: 3px 8px;
   border-radius: 4px;
 }
 
 .medium{
   background-color: var(--medium-color);
   color: #451a03;
-  padding: 4px 10px;
+  padding: 3px 8px;
   border-radius: 4px;
 }
 
 .hard{
   background-color: var(--hard-color);
   color: #9c1801;
-  padding: 4px 10px;
+  padding: 3px 8px;
   border-radius: 4px;
 }
 
 button {
   background-color: var(--accent-color);
   color: var(--background-color);
-  padding: 4px 8px;
+  padding: 6px 12px;
   border: none;
   border-radius: 6px;
   cursor: pointer;
