@@ -8,7 +8,7 @@ const DueSection = ({ questions, title, onDelete }) => {
       <ul>
         {questions.map((q) => (
           <li key={q._id}>
-            {q.questionName} — {q.topic} — {q.difficulty}
+            {q.questionName} — {q.topic} — <span className={q.difficulty.toLowerCase()}>{q.difficulty}</span>
             <button onClick={() =>onDelete(q._id)}>Delete</button>
           </li>
         ))}
