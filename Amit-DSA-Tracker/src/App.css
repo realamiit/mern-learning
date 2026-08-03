@@ -71,7 +71,7 @@ li {
 button {
   background-color: var(--accent-color);
   color: var(--background-color);
-  padding: 8px 16px;
+  padding: 4px 8px;
   border: none;
   border-radius: 6px;
   cursor: pointer;
