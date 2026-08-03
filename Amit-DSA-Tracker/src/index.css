@@ -111,5 +111,6 @@ code {
 }
 
 .card li {
-  color: #222;
+  color: var(--text-color);
+  
 }
