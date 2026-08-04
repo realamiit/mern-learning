@@ -85,7 +85,6 @@ function App() {
   }, [isLoggedIn]);
 
   // due 30
-
   useEffect(() => {
     fetch(`${API_URL}/questions/due30`, {
        headers: {
@@ -100,7 +99,6 @@ function App() {
       });
   }, [isLoggedIn]);
 
-  // -------
   useEffect(() => {
     fetch(`${API_URL}/questions/dueCustom`,{
        headers: {
@@ -115,7 +113,7 @@ function App() {
       });
   }, [isLoggedIn]);
 
-  
+
   // ===== HandleSubmit FUNCTIONS — return se pehle =====
 
   function handleSubmit() {
