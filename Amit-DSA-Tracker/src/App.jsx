@@ -126,7 +126,7 @@ function App() {
       body: JSON.stringify({ questionName, topic, difficulty, link }),
     })
       .then(() => {
-        // form clear karo
+        // after fill the new question details clear the form to add the now another question  
         
         setQuestionName("");
         setTopic("");
