@@ -181,5 +181,71 @@ input {
 
 ---
 
-## 9. Next Step
-Dedicated deep-dive on **CSS Specificity** as its own topic (how it's calculated, ID vs class vs element weight, `!important`, inline styles) — since today's debugging revealed this is a weak spot. After that, continue polishing remaining dark theme details (e.g. `::placeholder` styling if ever needed, hover states for buttons).
+## 9. CSS Specificity — Dedicated Deep-Dive (Day 44 Follow-up)
+
+### The scoring system
+Specificity is a 4-part score, written as a tuple:
+```
+(inline, ID, class, element)
+```
+Priority order, highest to lowest:
+1. **Inline styles** (`style="..."` attribute)
+2. **ID selectors** (`#id`)
+3. **Class selectors, attribute selectors, pseudo-classes** (`.class`, `[attr]`, `:hover`)
+4. **Element selectors, pseudo-elements** (`div`, `li`, `::before`)
+
+### How to calculate
+Break the selector into its parts, count how many of each type appear, place counts in the tuple.
+
+Examples worked through:
+- `li { }` → `(0, 0, 0, 1)`
+- `.card { }` → `(0, 0, 1, 0)`
+- `.card li { }` → `(0, 0, 1, 1)` (combined selectors ADD their specificity)
+- `#navbar .menu-item { }` → `(0, 1, 1, 0)`
+- `button.primary { }` → `(0, 0, 1, 1)`
+- `#sidebar .widget h3 { }` → `(0, 1, 1, 1)`
+
+### Comparison rule
+Compare tuples **column by column, left to right** (Inline → ID → Class → Element). The first column where scores differ decides the winner — no need to check further columns after that.
+
+Worked example:
+```css
+p { color: blue; }              /* (0,0,0,1) */
+.text-danger { color: red; }    /* (0,0,1,0) */
+```
+```html
+<p class="text-danger">Hello</p>
+```
+Class column: `0` vs `1` → `.text-danger` wins → text renders **red**.
+
+### Tie-breaker: equal specificity
+If two rules have **identical specificity**, the one declared **later in the CSS source** (further down the file, or loaded later) wins. This is the same principle behind the earlier session's mistake of declaring `--background-color` twice in `:root` — equal "specificity" (both were the same custom property), so the last declaration silently overwrote the first.
+
+### Inherited values have (near) zero specificity
+This was the key insight behind the DueSection debugging bug. When a property like `color` **inherits** from a parent down to a child (e.g. set at `:root`, inherited through `body` → `ul` → `li`), the inherited value does **not carry forward the specificity of its original selector**. Inherited values sit at the lowest priority — **any rule that directly targets the element will always beat an inherited value**, regardless of how "high level" the original declaration was.
+
+This is exactly why `.card li { color: var(--text-color); }` immediately won over the `index.css` `:root { color: var(--text); }` value that was cascading down via inheritance — the moment a rule directly targeted `li`, it overrode the inherited value automatically.
+
+---
+
+## 10. Mock Interview — CSS Specificity (Day 44)
+
+**Q1: 4 specificity levels, priority order?**
+- *Amit's answer:* Correct — Inline, ID, Class, Element.
+
+**Q2: `#sidebar .widget h3 { }` specificity?**
+- *Amit's answer:* Correct — `(0, 1, 1, 1)`.
+
+**Q3: If two rules have exactly equal specificity, which wins?**
+- *Amit's answer:* Not answered.
+- *Polished answer:* The rule declared **later in the CSS source order** wins. This only applies when specificity is tied — specificity itself always takes priority over source order when they differ.
+
+**Q4: Specificity of inherited values, and what it practically means?**
+- *Amit's answer:* Correct and detailed — inherited values carry no specificity from their original selector and sit at the lowest priority; any rule directly targeting the element overrides them.
+
+**Score: 7/10** — Strong session. Q1, Q2, Q4 solid (Q4 especially, the hardest concept). Only gap was Q3 (tie-breaker rule), which ties directly back to Amit's own earlier `:root` duplicate-variable mistake.
+
+---
+
+## 11. Next Step
+Continue polishing remaining dark theme details (e.g. `::placeholder` styling if ever needed, hover states for buttons). Specificity concept is now solid — safe to move forward.
