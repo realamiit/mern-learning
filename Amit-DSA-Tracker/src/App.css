@@ -7,6 +7,9 @@
   --medium-color: #fbbf24;
   --hard-color: #f87171;
   --accent-hover-color: #5a7de8;
+  --easy-hover-color : #4adf99;
+  --meduam-hover-color: #fbbf40;
+  --hard-hover-color: #f87199;
 }
 
 body {
@@ -67,6 +70,16 @@ li {
   color: #9c1801;
   padding: 4px 10px;
   border-radius: 4px;
+}
+.hard:hover {
+  background-color: var(--hard-hover-color);
+}
+
+.medium:hover {
+  background-color: var(--meduam-hover-color);
+}
+.easy:hover {
+  background-color: var(--easy-hover-color);
 }
 
 button {
