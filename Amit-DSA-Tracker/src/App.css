@@ -3,6 +3,7 @@
   --card-bg-color: #282838;  /* card ka background - SAME NAME! */
   --text-color: #e4e4e7;
   --accent-color: #7c9cff;
+  --input-bg-color: #1e1e2e;
   --easy-color: #4ade80;
   --medium-color: #fbbf24;
   --hard-color: #f87171;
@@ -89,7 +90,7 @@ button {
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  transition: background-coloe 0.2s ease;
+  transition: background-color 0.2s ease;
 
 }
 
