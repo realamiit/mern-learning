@@ -6,6 +6,7 @@
   --easy-color: #4ade80;
   --medium-color: #fbbf24;
   --hard-color: #f87171;
+  --accent-hover-color: #5a7de8;
 }
 
 body {
@@ -75,7 +76,12 @@ button {
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  transition: background-coloe 0.2s ease;
 
+}
+
+button:hover {
+  background-color: var(--accent-hover-color);
 }
 
 
