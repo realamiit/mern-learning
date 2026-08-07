@@ -4,12 +4,20 @@ const AuthForm = ({ setIsLoggedIn, setSuccessMessage }) => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [errorMsg, setErrorMsg] = useState("");
 
    
     const handleSubmit = async (e) => {
         e.preventDefault();
         
         const BASE_URL = "https://dsa-tracker-backend-8ymx.onrender.com";  // local backend, jb deplpy krege tb rendr url
+
+        // Validation 
+        if(!isLoginMode && name.trim() === "") {
+            setErrorMsg("Please enter your name");
+            return;   // yha se function turant exit ho jayega  niche code kabhi chlehga hi nhi
+        }
+
         const url = isLoginMode 
         ? `${BASE_URL}/users/login` 
         : `${BASE_URL}/users/signup`;
@@ -35,8 +43,10 @@ const AuthForm = ({ setIsLoggedIn, setSuccessMessage }) => {
                 localStorage.setItem("token", data.token);  // token save kiya taki refreshs ke bad login seate bhi rhe
                 setIsLoggedIn(true);
                 setSuccessMessage("Login Successful!");
+                setErrorMsg("");
             }else if (!isLoginMode) {
                 setSuccessMessage("Signup Successful!")
+                setErrorMsg("");
             }
 
              setName("");
@@ -51,13 +61,15 @@ const AuthForm = ({ setIsLoggedIn, setSuccessMessage }) => {
     return ( 
         <div>
             <h2>{isLoginMode ? "Login" : "Sign Up"}</h2>
-
+            {errorMsg && <p>{errorMsg}</p>}
+        
             {!isLoginMode && (
                 <input 
                 placeholder="Name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 />
+                
             )}
             <input
             placeholder="Email"
