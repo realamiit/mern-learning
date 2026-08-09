@@ -8,6 +8,11 @@ const jwt = require("jsonwebtoken");  // jwt require kr liye
 router.post("/signup", (req, res) => {
     const { name, email, password } = req.body;
 
+
+if(name.trim() === ""){
+    return res.status(400).json({ message: "Enter valid name" })
+}
+
     bcrypt.hash(password, 10)
     .then((hashedPassword) => {
         const newUser = new User({
@@ -25,6 +30,8 @@ router.post("/signup", (req, res) => {
         res.status(500).json({ message: "Error Registering user"});
     });
 });
+
+
 
 router.post("/login", (req, res) => {
     const { email, password } = req.body;
