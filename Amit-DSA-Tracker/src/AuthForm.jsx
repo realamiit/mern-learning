@@ -41,17 +41,30 @@ const AuthForm = ({ setIsLoggedIn, setSuccessMessage }) => {
 
             if (isLoginMode && data.token) {
                 localStorage.setItem("token", data.token);  // token save kiya taki refreshs ke bad login seate bhi rhe
+                // Login successful
                 setIsLoggedIn(true);
                 setSuccessMessage("Login Successful!");
                 setErrorMsg("");
-            }else if (!isLoginMode) {
-                setSuccessMessage("Signup Successful!")
-                setErrorMsg("");
-            }
 
-             setName("");
-             setEmail("");
-             setPassword("");
+                setName("");
+                setEmail("");
+                setPassword("");
+                
+            }else if (!isLoginMode&&response.ok) {
+                // Signup successful
+                setSuccessMessage("Signup Successful!");
+                setErrorMsg("");
+                setName("");
+                setEmail("");
+                setPassword("");
+            }else if(!isLoginMode&& !response.ok){
+                // Signup failed (server-side validation error)
+                setErrorMsg(data.message);
+            } else if (isLoginMode && !data.token){
+                // Login Faill
+                setErrorMsg(data.message);
+            }
+            
             // console.log(data);  // abhi ke liye check krne ke liye , baad me UI update krege 
         } catch (error) {
             console.log("Auth error:", error);  // network fail ya server doun jaisi case ko handle krne ke liye 
