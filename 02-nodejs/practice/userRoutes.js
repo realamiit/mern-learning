@@ -3,15 +3,23 @@ const router = express.Router();    // routes banane ka framework
 const bcrypt = require("bcrypt");  // For thr security
 const User = require("./user");   // database operations ke liye
 const jwt = require("jsonwebtoken");  // jwt require kr liye 
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;  // email validation le liye 
 
 
 router.post("/signup", (req, res) => {
     const { name, email, password } = req.body;
 
+    // validation
+
 
 if(name.trim() === ""){
     return res.status(400).json({ message: "Enter valid name" })
 }
+
+
+if (!emailRegex.test(email)) {
+        return res.status(400).json({ message: "Enter a valid Email"})
+    }
 
     bcrypt.hash(password, 10)
     .then((hashedPassword) => {
