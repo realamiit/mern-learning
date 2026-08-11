@@ -5,6 +5,7 @@ const AuthForm = ({ setIsLoggedIn, setSuccessMessage }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errorMsg, setErrorMsg] = useState("");
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;  // email validation le liye
 
    
     const handleSubmit = async (e) => {
@@ -18,6 +19,10 @@ const AuthForm = ({ setIsLoggedIn, setSuccessMessage }) => {
             return;   // yha se function turant exit ho jayega  niche code kabhi chlehga hi nhi
         }
 
+        if (!emailRegex.test(email)) {
+            setErrorMsg("Enter your valid email");
+            return;
+}
         const url = isLoginMode 
         ? `${BASE_URL}/users/login` 
         : `${BASE_URL}/users/signup`;
