@@ -9,8 +9,7 @@ const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;  // email validation le liye
 router.post("/signup", (req, res) => {
     const { name, email, password } = req.body;
 
-    // validation
-
+    // validation 
 
 if(name.trim() === ""){
     return res.status(400).json({ message: "Enter valid name" })
@@ -20,6 +19,10 @@ if(name.trim() === ""){
 if (!emailRegex.test(email)) {
         return res.status(400).json({ message: "Enter a valid Email"})
     }
+
+if (password.length < 8) {
+    return res.status(400).json({ message: "Enter  a valid password must be at least 8 characters"})
+}    
 
     bcrypt.hash(password, 10)
     .then((hashedPassword) => {

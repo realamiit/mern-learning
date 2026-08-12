@@ -23,6 +23,11 @@ const AuthForm = ({ setIsLoggedIn, setSuccessMessage }) => {
             setErrorMsg("Enter your valid email");
             return;
 }
+
+      if (!isLoginMode && password.length < 8) {
+        setErrorMsg("Password must be at least 8 characters");
+        return;
+      }
         const url = isLoginMode 
         ? `${BASE_URL}/users/login` 
         : `${BASE_URL}/users/signup`;
