@@ -104,4 +104,4 @@ document.getElementById('prevBtn').addEventListener('click', function() {
 ## 📌 Key Takeaway
 - `data-*` attributes (`dataset`) HTML aur JS ke beech data pass karne ka clean tarika hai — filter aur category dono isi se kaam karte hain
 - `classList.add()` / `classList.remove()` se CSS classes ko dynamically control karna — animation aur UI state (jaise "active" card) dono ke liye same pattern
-- Modulo (`%`) circular indexing ke liye standard trick hai — jahan bhi "end ke baad wapas start" wala loop chahiye
+- Modulo (`%`) circular indexing ke liye standard trick hai — jahan bhi "end ke baad wapas start" wala loop chahiyeee
