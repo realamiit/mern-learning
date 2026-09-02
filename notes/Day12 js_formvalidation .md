@@ -6,7 +6,7 @@
 ---
 
 ## 🎯 Goal of the Day
-Contact form ko validate karna — name, email, message khaali na ho, tabhi "submit" hone de (abhi sirf front-end validation, backend Day 16 mein connect hoga).
+Contact form ko validate karna — name, email, message khaali na ho, tabhi "submit" hone de (abhi sirf front-end validation, backend Day 16 mein connect hoga)..
 
 ---
 
