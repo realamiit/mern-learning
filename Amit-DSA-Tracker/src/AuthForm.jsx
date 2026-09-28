@@ -1,5 +1,5 @@
 import { useState } from "react";
-const AuthForm = ({ setIsLoggedIn, setSuccessMessage }) => {
+const AuthForm = ({ setIsLoggedIn, setSuccessMessage, isLoggedIn }) => {
     const [isLoginMode, setIsLoginMode] = useState(false);
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -80,6 +80,8 @@ const AuthForm = ({ setIsLoggedIn, setSuccessMessage }) => {
             console.log("Auth error:", error);  // network fail ya server doun jaisi case ko handle krne ke liye 
         }
     };
+
+     if (isLoggedIn) return null;
 
     return ( 
         <div>

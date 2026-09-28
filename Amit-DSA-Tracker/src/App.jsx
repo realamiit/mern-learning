@@ -242,14 +242,14 @@ function App() {
   // ===== RETURN — sirf JSX yahan, koi declaration nahi =====
   return ( 
     <div className="container">
-      <h1>DSA Tracker</h1>
+     <h1>DSA <span style={{color:'#6c63ff', fontStyle:'italic'}}>Tracker</span></h1>
       {successMessage && (
-  <p>{successMessage}</p>
+  <p className="success-msg">{successMessage}</p>
 )}
       {isLoggedIn && (
-        <button onClick={logoutHandler}>Logout</button>
+        <button className="logout-btn" onClick={logoutHandler}>Logout</button>
       )}
-      <Authform setIsLoggedIn={ setIsLoggedIn } setSuccessMessage={setSuccessMessage} />
+      <Authform setIsLoggedIn={setIsLoggedIn} setSuccessMessage={setSuccessMessage} isLoggedIn={isLoggedIn} />
       {/* Add Question Form */}
       <div className="card">
       <QuestionForm
@@ -290,31 +290,12 @@ function App() {
 
       {/* Due Questions Dashboard approx 34 line of code convert into 4 line of code */}
 
-      <DueSection
-        questions={dueQuestions.due3}
-        title="Due in 3 days"
-        onDelete={deleteQuestion}
-      />
-      <DueSection
-        questions={dueQuestions.due7}
-        title="Due in 7 days"
-        onDelete={deleteQuestion}
-      />
-      <DueSection
-        questions={dueQuestions.due15}
-        title="Due in 15 days"
-        onDelete={deleteQuestion}
-      />
-      <DueSection
-        questions={dueQuestions.due30}
-        title="Due in 30 days"
-        onDelete={deleteQuestion}
-      />
-      <DueSection
-        questions={dueQuestions.dueCustom}
-        title="Custom Revision Questions"
-        onDelete={deleteQuestion}
-      />
+      <div className="due-grid">
+        <DueSection questions={dueQuestions.due3}   title="Due in 3 days"  onDelete={deleteQuestion} />
+        <DueSection questions={dueQuestions.due7}   title="Due in 7 days"  onDelete={deleteQuestion} />
+        <DueSection questions={dueQuestions.due15}  title="Due in 15 days" onDelete={deleteQuestion} />
+        <DueSection questions={dueQuestions.due30}  title="Due in 30 days" onDelete={deleteQuestion} />
+      </div>
     </div>
   );
 }

@@ -1,111 +1,211 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
 :root {
-  --background-color: #1e1e2e;   /* storage — kuch nahi hota abhi, page ka background */
-  --card-bg-color: #282838;  /* card ka background - SAME NAME! */
-  --text-color: #e4e4e7;
-  --accent-color: #7c9cff;
-  --input-bg-color: #1e1e2e;
-  --easy-color: #4ade80;
-  --medium-color: #fbbf24;
-  --hard-color: #f87171;
-  --accent-hover-color: #5a7de8;
-  --easy-hover-color : #4adf99;
-  --meduam-hover-color: #fbbf40;
-  --hard-hover-color: #f87199;
+  --bg: #0f1117;
+  --card: #1a1d27;
+  --border: #2a2d3e;
+  --accent: #6c63ff;
+  --text: #e2e8f0;
+  --muted: #64748b;
 }
 
 body {
-  background-color: var(--background-color);   /* ab actual apply hua */
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  padding: 2rem 1rem;
 }
 
-.container {
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 20px;
-  font-family: sans-serif;
-}
+.container { max-width: 900px; margin: 0 auto; }
 
 .card {
-  background-color: var(--card-bg-color);
+  background: var(--card);
+  border: 1px solid var(--border);
   border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 20px;
-  border: 1px solid #ddd;
-  color: var(--text-color);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
-.card h2 {
-  color: var(--text-color);
+.badge { padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+.easy  { background: #22c55e20; color: #22c55e; border: 1px solid #22c55e30; }
+.medium{ background: #f59e0b20; color: #f59e0b; border: 1px solid #f59e0b30; }
+.hard  { background: #ef444420; color: #ef4444; border: 1px solid #ef444430; }
+
+/* Input Fields */
+input, select {
+  background: #0f1117;
+  border: 1px solid #2a2d3e;
+  color: #e2e8f0;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: border 0.2s;
 }
 
-
-ul {
-  text-align: left;
-  padding-left: 20px;
+input:focus, select:focus {
+  border-color: #6c63ff;
 }
 
-li {
-  display: flex;
-  flex-wrap:wrap;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 10px;
-  
+input::placeholder {
+  color: #64748b;
 }
 
-.easy{
-  background-color: var(--easy-color);
-  color: #14532d;
-  padding: 4px 10px;
-  border-radius: 4px;
-}
-
-.medium{
-  background-color: var(--medium-color);
-  color: #451a03;
-  padding: 4px 10px;
-  border-radius: 4px;
-}
-
-.hard{
-  background-color: var(--hard-color);
-  color: #9c1801;
-  padding: 4px 10px;
-  border-radius: 4px;
-}
-.hard:hover {
-  background-color: var(--hard-hover-color);
-}
-
-.medium:hover {
-  background-color: var(--meduam-hover-color);
-}
-.easy:hover {
-  background-color: var(--easy-hover-color);
-}
-
+/* Buttons */
 button {
-  background-color: var(--accent-color);
-  color: var(--background-color);
-  padding: 8px 16px;
+  background: #6c63ff;
+  color: white;
   border: none;
-  border-radius: 6px;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.2s ease;
-
+  transition: background 0.2s;
 }
 
 button:hover {
-  background-color: var(--accent-hover-color);
+  background: #5b52e0;
 }
 
+/* Form row spacing */
+.card form, .card div {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+/* Due Sections Grid */
+.due-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 1rem;
+}
 
- /* this is for form and inputs we can make it some special */
-input {
-  background-color: var(--input-bg-color);
-  color: var(--text-color);
-  border: 1px solid var(--accent-color);
-  padding: 8px 12px;
+/* Due card title with colored dot */
+.due-card h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #e2e8f0;
+  margin-bottom: 12px;
+}
+
+/* Header */
+h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  padding-top: 1rem;
+}
+
+/* Auth Section */
+.auth-section {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.auth-section h2 {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: #e2e8f0;
+}
+
+.auth-section form {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.auth-section p {
+  margin-top: 10px;
+  color: #64748b;
+  font-size: 13px;
+}
+
+.auth-section p span {
+  color: #6c63ff;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.auth-section p span:hover {
+  text-decoration: underline;
+}
+
+/* Question list items */
+ul { list-style: none; padding: 0; }
+
+li {
+  background: #1a1d27;
+  border: 1px solid #2a2d3e;
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: border 0.2s;
+}
+
+li:hover { border-color: #6c63ff; }
+
+/* Success/Login message */
+.success-msg {
+  background: #22c55e20;
+  color: #22c55e;
+  border: 1px solid #22c55e40;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Logout button - top right */
+.logout-btn {
+  position: fixed;
+  top: 16px;
+  right: 20px;
+  background: #ef444420;
+  color: #ef4444;
+  border: 1px solid #ef444440;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  background: #ef444435;
+}
+
+/* Delete button - red */
+.delete-btn {
+  background: #ef444420;
+  color: #ef4444;
+  border: 1px solid #ef444440;
+  padding: 6px 12px;
   border-radius: 6px;
+  font-size: 12px;
 }
 
+.delete-btn:hover {
+  background: #ef444435;
+}
 
+h1 {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+h2 {
+  text-align: center;
+  font-size: 1rem;
+  color: #64748b;
+  margin-bottom: 1rem;
+}
