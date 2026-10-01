@@ -244,7 +244,9 @@ function App() {
     <div className="container">
      <h1>DSA <span style={{color:'#6c63ff', fontStyle:'italic'}}>Tracker</span></h1>
       {successMessage && (
-  <p className="success-msg">{successMessage}</p>
+  <div style={{display:'flex', justifyContent:'center'}}>
+    <p className="success-msg">{successMessage}</p>
+  </div>
 )}
       {isLoggedIn && (
         <button className="logout-btn" onClick={logoutHandler}>Logout</button>
