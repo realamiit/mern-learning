@@ -131,6 +131,3 @@ This project is open source and available for learning purposes.
 
 ## 📫 Feedback & Contributions
 We welcome any feedback or contributions to improve this project!
-
-## Documentation & Notes
-- [Day 30 Notes: Responsive Fixes](notes/day30-responsive-fix.md)(https://docs.google.com/document/d/1KnsI3nFaizzRcLBBxC8Dvex_bdhCiR0SxP844g_4BDw/edit?tab=t.0#heading=h.qiof9mmpls8s)
